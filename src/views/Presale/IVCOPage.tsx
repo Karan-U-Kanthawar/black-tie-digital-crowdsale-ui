@@ -665,7 +665,7 @@ function IVCOPage({ id }: IIVCOPage) {
                   >
                     {`${crowdsaleData.token.address.slice(
                       0,
-                      10
+                      4
                     )}...${crowdsaleData.token.address.slice(
                       crowdsaleData.token.address.length - 4
                     )}`}
@@ -860,8 +860,8 @@ function IVCOPage({ id }: IIVCOPage) {
                         }
                         info={
                           isOngoing
-                            ? "Presale is started and will Ends in"
-                            : "Presale will Start in"
+                            ? "Presale has started and will end in"
+                            : "Presale will start in"
                         }
                       />
                     </div>

@@ -60,8 +60,8 @@ const CountdownTimer = ({
             <CountdownCircleTimer
               {...timerProps}
               colors={[
-                ["#2A76EB", 0.5],
-                ["#9702FF", 0.5],
+                ["#EBCC5D", 0.5],
+                ["#EBCC5D", 0.5],
               ]}
               duration={daysDuration}
               initialRemainingTime={remainingTime}
@@ -78,8 +78,8 @@ const CountdownTimer = ({
             <CountdownCircleTimer
               {...timerProps}
               colors={[
-                ["#2A76EB", 0.5],
-                ["#9702FF", 0.5],
+                ["#EBCC5D", 0.5],
+                ["#EBCC5D", 0.5],
               ]}
               duration={daySeconds}
               initialRemainingTime={remainingTime % daySeconds}
@@ -100,8 +100,8 @@ const CountdownTimer = ({
             <CountdownCircleTimer
               {...timerProps}
               colors={[
-                ["#2A76EB", 0.5],
-                ["#9702FF", 0.5],
+                ["#EBCC5D", 0.5],
+                ["#EBCC5D", 0.5],
               ]}
               duration={hourSeconds}
               initialRemainingTime={remainingTime % hourSeconds}
@@ -122,8 +122,8 @@ const CountdownTimer = ({
             <CountdownCircleTimer
               {...timerProps}
               colors={[
-                ["#2A76EB", 0.5],
-                ["#9702FF", 0.5],
+                ["#EBCC5D", 0.5],
+                ["#EBCC5D", 0.5],
               ]}
               duration={minuteSeconds}
               initialRemainingTime={remainingTime % minuteSeconds}

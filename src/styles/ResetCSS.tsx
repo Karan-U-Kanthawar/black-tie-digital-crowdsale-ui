@@ -100,7 +100,6 @@ const ResetCSS = createGlobalStyle`
   *,
   *::before,
   *::after {
-    background-color: #000;
     box-sizing: border-box;
   }
 
