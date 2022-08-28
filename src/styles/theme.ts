@@ -19,6 +19,14 @@ const theme = createTheme({
       default: "#000000",
       paper: "rgba(0,0,0,0.36)",
     },
+    text: {
+      primary: "#EBCC5D",
+      secondary: "#ffffff",
+      disabled: "#9E9E9E",
+    },
+  },
+  shape: {
+    borderRadius: "16px",
   },
 });
 

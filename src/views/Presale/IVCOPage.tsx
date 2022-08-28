@@ -7,6 +7,7 @@ import {
   FormControl,
   Select,
   LinearProgress,
+  Paper,
 } from "@mui/material";
 import Web3 from "web3";
 import { ethers, Contract } from "ethers";
@@ -17,20 +18,50 @@ import { useCrowdsaleContract } from "../../hooks/useContract";
 import CountdownTimer from "../../components/CountdownTimer";
 import {
   allowedInputTokens,
-  BLACK_TIE_DIGITAL_SOCIALS,
   crowdsale,
   setMetamaskGasPrice,
 } from "../../config";
 import useActiveWeb3React from "../../hooks";
 import SocialsContainer from "../../components/SocialsContainer";
+import VestingInfoCard from "../../components/VestingInfoCard";
+import PoolInfoCard from "../../components/PoolInfoCard";
 
-const CustomCard = styled.div`
+const Card = styled(Paper)`
   display: flex;
   flex-direction: column;
-  background-color: black;
-  box-shadow: 1px 1px 2px 1px rgb(0 0 0 / 25%);
-  border-radius: 24px;
   padding: 20px;
+`;
+// const CardBody = styled.div``;
+const Hr = styled.div`
+  background: ${(props) => props.theme.palette.primary.main};
+  border-radius: 1px;
+  transform: matrix(1, 0, 0, -1, 0, 0);
+  width: 100%;
+  height: 2px;
+  margin: 10px 0 20px 0;
+`;
+const CardHeading = styled.h2`
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: left;
+  font-size: 22px;
+`;
+
+const CardRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+`;
+const CardSubHeading = styled.p`
+  font-weight: 600;
+  font-size: 16px;
+  color: ${(props) => props.theme.palette.text.disabled};
+`;
+const CardText = styled.p`
+  font-weight: 600;
+  font-size: 18px;
+  color: ${(props) => props.theme.palette.text.secondary};
 `;
 const Header = styled.div`
   display: flex;
@@ -53,41 +84,12 @@ const Subtitle = styled.p`
   color: #a7a7a7;
   margin-top: 12px;
 `;
-const Infotitle = styled.p`
-  font-weight: 600;
-  font-size: 14px;
-  color: white;
-`;
-const InfotitleRacing = styled.p`
-  font-weight: 600;
-  font-size: 18px;
-  color: white;
-`;
 const TitleText = styled.p`
   font-size: 25px;
   line-height: 28px;
   color: white;
   text-align: left;
   font-weight: 600;
-`;
-const Infosubtitle = styled.p`
-  font-weight: 600;
-  font-size: 16px;
-  color: #a7a7a7;
-`;
-const Hr = styled.div`
-  background: linear-gradient(90.56deg, #2082e9 49.52%, #9900ff 71.78%);
-  border-radius: 1px;
-  transform: matrix(1, 0, 0, -1, 0, 0);
-  width: 100%;
-  height: 2px;
-  margin: 10px 0;
-`;
-const InfoContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
 `;
 const EndContainer = styled.div`
   background-color: black;
@@ -378,7 +380,6 @@ function IVCOPage({ id }: IIVCOPage) {
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [account]);
-  const socialData = BLACK_TIE_DIGITAL_SOCIALS;
   const convertToInternationalCurrencySystem = (labelValue: any) => {
     return Math.abs(Number(labelValue)) >= 1.0e9
       ? `${(Math.abs(Number(labelValue)) / 1.0e9).toFixed(2)} B`
@@ -389,9 +390,6 @@ function IVCOPage({ id }: IIVCOPage) {
       Math.abs(Number(labelValue)) >= 1.0e3
       ? `${(Math.abs(Number(labelValue)) / 1.0e3).toFixed(2)} K`
       : Math.abs(Number(labelValue));
-  };
-  const unixTimeConverter = (unixDate: number) => {
-    return new Date(unixDate * 1000).toLocaleDateString();
   };
   const timeStamp = Math.floor(+new Date() / 1000);
   let isOngoing = false;
@@ -549,34 +547,6 @@ function IVCOPage({ id }: IIVCOPage) {
       setPendingTxForWhiteList(false);
     }
   };
-  const millisecondsToReadable = (secondsData: string) => {
-    let seconds = parseFloat(secondsData);
-    if (seconds > 0) {
-      seconds = Number(seconds);
-      seconds = Math.abs(seconds);
-      const days = Math.floor(seconds / (3600 * 24));
-      const hours = Math.floor((seconds % (3600 * 24)) / 3600);
-      const minutes = Math.floor((seconds % 3600) / 60);
-      const secondDiff = Math.floor(seconds % 60);
-
-      if (days > 0) {
-        return `${days} day${days > 1 ? "s" : ""}`;
-      }
-
-      if (hours > 0) {
-        return `${hours} hr${hours > 1 ? "s" : ""}`;
-      }
-
-      if (minutes > 0) {
-        return `${minutes} min${minutes > 1 ? "s" : ""}`;
-      }
-
-      if (secondDiff > 0) {
-        return `${secondDiff} sec${secondDiff > 1 ? "s" : ""}`;
-      }
-    }
-    return "";
-  };
   return (
     <>
       {crowdsaleData ? (
@@ -630,7 +600,7 @@ function IVCOPage({ id }: IIVCOPage) {
                     width: "100%",
                   }}
                 >
-                  <Infotitle
+                  <CardText
                     style={{
                       display: "flex",
                       alignItems: "center",
@@ -644,96 +614,27 @@ function IVCOPage({ id }: IIVCOPage) {
                       crowdsaleData.token.address.length - 4
                     )}`}
                     <CopyToClipboard toCopy={crowdsaleData.token.address} />
-                  </Infotitle>
-                  <InfoContainer style={{ marginBottom: "0px" }}>
-                    <Infosubtitle style={{ fontSize: "18px" }}>
+                  </CardText>
+                  <CardRow style={{ marginBottom: "0px" }}>
+                    <CardSubHeading style={{ fontSize: "18px" }}>
                       Total Supply:{" "}
-                    </Infosubtitle>
-                    <Infotitle style={{ fontSize: "18px", marginLeft: "5px" }}>
+                    </CardSubHeading>
+                    <CardText style={{ fontSize: "18px", marginLeft: "5px" }}>
                       {" "}
                       {convertToInternationalCurrencySystem(totalSupply)}
-                    </Infotitle>
-                  </InfoContainer>
+                    </CardText>
+                  </CardRow>
                 </div>
                 <SocialsContainer />
               </Header>
               {crowdsaleData && (
-                <CustomCard>
-                  <InfotitleRacing
-                    style={{ textAlign: "left", fontSize: "22px" }}
-                  >
-                    Vesting Info
-                  </InfotitleRacing>
-                  <Hr />
-                  <div>
-                    <InfoContainer>
-                      <Infosubtitle>Vesting Start</Infosubtitle>
-                      <Infotitle style={{ fontSize: "18px" }}>
-                        {parseFloat(crowdsaleData.vestingStart) === 0
-                          ? "End Manually "
-                          : unixTimeConverter(
-                              parseFloat(crowdsaleData.vestingStart)
-                            )}
-                      </Infotitle>
-                    </InfoContainer>
-                    <InfoContainer>
-                      <Infosubtitle>Vesting End</Infosubtitle>
-                      <Infotitle style={{ fontSize: "18px" }}>
-                        {parseFloat(crowdsaleData.vestingEnd) === 0
-                          ? "End Manually "
-                          : unixTimeConverter(
-                              parseFloat(crowdsaleData.vestingEnd)
-                            )}
-                      </Infotitle>
-                    </InfoContainer>
-                    <InfoContainer>
-                      <Infosubtitle>Cliff duration</Infosubtitle>
-                      <Infotitle
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          fontSize: "18px",
-                        }}
-                      >
-                        {Number(crowdsaleData.cliffDuration) === 0
-                          ? "End Manually"
-                          : millisecondsToReadable(
-                              (
-                                parseFloat(
-                                  crowdsaleData.cliffDuration.toString()
-                                ) * 1000
-                              ).toString()
-                            )}
-                      </Infotitle>
-                    </InfoContainer>
-                    <InfoContainer>
-                      <Infosubtitle>Vesting Period</Infosubtitle>
-                      <Infotitle style={{ fontSize: "18px" }}>
-                        {Number(crowdsaleData.vestingEnd) -
-                          Number(crowdsaleData.vestingStart) ===
-                        0
-                          ? "End Manually"
-                          : millisecondsToReadable(
-                              (
-                                Number(crowdsaleData.vestingEnd) -
-                                Number(crowdsaleData.vestingStart)
-                              ).toString()
-                            )}
-                      </Infotitle>
-                    </InfoContainer>
-                  </div>
-                  {socialData && socialData.vestingInfo && (
-                    <div style={{ marginTop: "20px" }}>
-                      <Infotitle>{socialData.vestingInfo}</Infotitle>
-                    </div>
-                  )}
-                </CustomCard>
+                <VestingInfoCard crowdsaleData={crowdsaleData} />
               )}
             </Grid>
             <Grid item sm={12} md={6} lg={6}>
               {isEnded ? (
-                <CustomCard style={{ marginBottom: "20px", height: "100%" }}>
-                  <InfoContainer style={{ height: "100%" }}>
+                <Card style={{ marginBottom: "20px", height: "100%" }}>
+                  <CardRow style={{ height: "100%" }}>
                     {isVestingEnded && isEnded && crowdsaleData && (
                       <div
                         style={{
@@ -745,9 +646,9 @@ function IVCOPage({ id }: IIVCOPage) {
                           alignItems: "center",
                         }}
                       >
-                        <Infosubtitle style={{ textAlign: "center" }}>
+                        <CardSubHeading style={{ textAlign: "center" }}>
                           Presale is Finished
-                        </Infosubtitle>
+                        </CardSubHeading>
                         <TitleText
                           style={{ textAlign: "center", marginTop: "20px" }}
                         >
@@ -757,7 +658,7 @@ function IVCOPage({ id }: IIVCOPage) {
                         </TitleText>
                       </div>
                     )}
-                  </InfoContainer>
+                  </CardRow>
                   {isVestingYetToStart && (
                     <CountdownTimer
                       unixEndTimeInSeconds={
@@ -775,9 +676,9 @@ function IVCOPage({ id }: IIVCOPage) {
                       info="Vesting has been started and will end in"
                     />
                   )}
-                </CustomCard>
+                </Card>
               ) : (
-                <CustomCard>
+                <Card>
                   {!isEnded && crowdsaleData && (
                     <div>
                       <CountdownTimer
@@ -817,7 +718,7 @@ function IVCOPage({ id }: IIVCOPage) {
                       }/${web3.utils.fromWei(crowdsaleData.hardcap, "ether")}`}
                     </ProgressEndLabel>
                   </ProgressContainer>
-                </CustomCard>
+                </Card>
               )}
             </Grid>
           </Grid>
@@ -830,69 +731,17 @@ function IVCOPage({ id }: IIVCOPage) {
             <Grid item sm={12} md={6} lg={6}>
               <Grid container spacing={3} justifyContent="center">
                 <Grid item sm={12} md={12} lg={12}>
-                  <CustomCard>
-                    <InfotitleRacing
-                      style={{ textAlign: "left", fontSize: "22px" }}
-                    >
-                      Pool Info
-                    </InfotitleRacing>
-                    <Hr />
-                    <div>
-                      <InfoContainer>
-                        <Infosubtitle>Starts On</Infosubtitle>
-                        <Infotitle style={{ fontSize: "18px" }}>
-                          {new Date(
-                            parseFloat(crowdsaleData.crowdsaleStart) * 1000
-                          ).toLocaleDateString()}
-                        </Infotitle>
-                      </InfoContainer>
-                      <InfoContainer>
-                        <Infosubtitle>Ends On</Infosubtitle>
-                        <Infotitle
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            fontSize: "18px",
-                          }}
-                        >
-                          {new Date(
-                            parseFloat(crowdsaleData.crowdsaleEnd) * 1000
-                          ).toLocaleDateString()}
-                        </Infotitle>
-                      </InfoContainer>
-                      {/*{crowdsaleData.rate && (*/}
-                      {/*  <InfoContainer>*/}
-                      {/*    <Infosubtitle>Rate</Infosubtitle>*/}
-                      {/*    <Infotitle style={{ fontSize: "18px" }}>*/}
-                      {/*      1 USD:{" "}*/}
-                      {/*      {`${web3.utils.fromWei(*/}
-                      {/*        crowdSaleContractData.rate,*/}
-                      {/*        "ether"*/}
-                      {/*      )} ${crowdsaleData.token.symbol}`}*/}
-                      {/*    </Infotitle>*/}
-                      {/*  </InfoContainer>*/}
-                      {/*)}*/}
-                      <InfoContainer>
-                        <Infosubtitle>HardCap</Infosubtitle>
-                        <Infotitle
-                          style={{ fontSize: "18px" }}
-                        >{`${web3.utils.fromWei(
-                          crowdsaleData.hardcap,
-                          "ether"
-                        )} ${crowdsaleData.token.symbol}`}</Infotitle>
-                      </InfoContainer>
-                    </div>
-                  </CustomCard>
+                  <PoolInfoCard crowdsaleData={crowdsaleData} />
                 </Grid>
               </Grid>
               {crowdSaleContractData.isOwner && (
-                <CustomCard style={{ marginTop: "30px" }}>
+                <Card style={{ marginTop: "30px" }}>
                   <div>
-                    <InfotitleRacing
+                    <CardHeading
                       style={{ textAlign: "left", fontSize: "22px" }}
                     >
                       White List Users
-                    </InfotitleRacing>
+                    </CardHeading>
                     <Hr style={{ width: "160px" }} />
                   </div>
                   <Subtitle style={{ margin: "20px 0px", textAlign: "left" }}>
@@ -911,27 +760,25 @@ function IVCOPage({ id }: IIVCOPage) {
                       ? "Transaction Processing"
                       : "WhiteList Addresses"}
                   </button>
-                </CustomCard>
+                </Card>
               )}
             </Grid>
             {isEnded ? (
               <Grid item sm={12} md={6} lg={6}>
-                <CustomCard style={{ height: "100%" }}>
-                  <InfotitleRacing
-                    style={{ textAlign: "left", fontSize: "22px" }}
-                  >
+                <Card style={{ height: "100%" }}>
+                  <CardHeading style={{ textAlign: "left", fontSize: "22px" }}>
                     Vesting
-                  </InfotitleRacing>
+                  </CardHeading>
                   <Hr />
                   <VestingContainer>
                     <Grid container spacing={4} justifyContent="center">
                       <Grid item sm={12} md={12} lg={12}>
                         <div>
-                          <InfotitleRacing
+                          <CardHeading
                             style={{ textAlign: "center", fontSize: "19px" }}
                           >
                             Total Invested
-                          </InfotitleRacing>
+                          </CardHeading>
                           <Text
                             style={{
                               display: "flex",
@@ -948,11 +795,11 @@ function IVCOPage({ id }: IIVCOPage) {
                       </Grid>
                       <Grid item sm={12} md={6} lg={4}>
                         <div>
-                          <InfotitleRacing
+                          <CardHeading
                             style={{ textAlign: "center", fontSize: "19px" }}
                           >
                             Locked
-                          </InfotitleRacing>
+                          </CardHeading>
                           <Text>
                             {parseFloat(crowdSaleContractData.locked).toFixed(
                               2
@@ -963,11 +810,11 @@ function IVCOPage({ id }: IIVCOPage) {
                       </Grid>
                       <Grid item sm={12} md={6} lg={4}>
                         <div>
-                          <InfotitleRacing
+                          <CardHeading
                             style={{ textAlign: "center", fontSize: "19px" }}
                           >
                             Claimable
-                          </InfotitleRacing>
+                          </CardHeading>
                           <Text>
                             {parseFloat(
                               crowdSaleContractData.claimable
@@ -978,11 +825,11 @@ function IVCOPage({ id }: IIVCOPage) {
                       </Grid>
                       <Grid item sm={12} md={6} lg={4}>
                         <div>
-                          <InfotitleRacing
+                          <CardHeading
                             style={{ textAlign: "center", fontSize: "19px" }}
                           >
                             Claimed
-                          </InfotitleRacing>
+                          </CardHeading>
                           <Text>
                             {parseFloat(crowdSaleContractData.claimed).toFixed(
                               2
@@ -1003,13 +850,13 @@ function IVCOPage({ id }: IIVCOPage) {
                       {pendingTx ? "Claiming..." : "Claim"}
                     </button>
                   </VestingContainer>
-                </CustomCard>
+                </Card>
               </Grid>
             ) : (
               <Grid item sm={12} md={6} lg={6}>
                 <Grid container spacing={2} justifyContent="center">
                   <Grid item sm={12} md={12} lg={12}>
-                    <CustomCard>
+                    <Card>
                       <div
                         style={{
                           display: "flex",
@@ -1018,11 +865,11 @@ function IVCOPage({ id }: IIVCOPage) {
                         }}
                       >
                         <div>
-                          <InfotitleRacing
+                          <CardHeading
                             style={{ textAlign: "left", fontSize: "22px" }}
                           >
                             Invest
-                          </InfotitleRacing>
+                          </CardHeading>
                           <Hr style={{ width: "100px" }} />
                         </div>
                         <ProgressContainer style={{ marginTop: "0px" }}>
@@ -1173,7 +1020,7 @@ function IVCOPage({ id }: IIVCOPage) {
                             : `Invest Into ${crowdsaleData.token.symbol}`}
                         </button>
                       )}
-                    </CustomCard>
+                    </Card>
                   </Grid>
                 </Grid>
               </Grid>
