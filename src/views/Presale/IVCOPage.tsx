@@ -1180,7 +1180,7 @@ function IVCOPage({ id }: IIVCOPage) {
                                 defaultValue={
                                   crowdSaleContractData.inputTokens[0].address
                                 }
-                                onChange={selectToken}
+                                // onChange={selectToken}
                                 label="ETH"
                               >
                                 <MenuItem value="">

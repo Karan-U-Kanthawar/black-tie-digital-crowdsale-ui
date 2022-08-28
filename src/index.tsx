@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import Providers from "./Providers";
+import ResetCSS from "./styles/ResetCSS";
 
 declare const window: any;
 if ("ethereum" in window) {
@@ -11,6 +12,7 @@ if ("ethereum" in window) {
 ReactDOM.render(
   <React.StrictMode>
     <Providers>
+      <ResetCSS />
       <App />
     </Providers>
   </React.StrictMode>,
