@@ -1,5 +1,4 @@
 // @ts-nocheck
-// import { ChainId } from "@cryption-network/polydex-sdk";
 import random from "lodash/random";
 
 declare global {

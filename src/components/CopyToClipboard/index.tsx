@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Text, CopyIcon } from "cryption-uikit-v2";
+import { ContentCopy } from "@mui/icons-material";
 
 interface Props {
   toCopy: string;
 }
+
+const Text = styled.p``;
 
 const StyleButton = styled(Text).attrs({ role: "button" })`
   margin-top: 5px;
@@ -12,7 +14,7 @@ const StyleButton = styled(Text).attrs({ role: "button" })`
   align-items: center;
   position: relative;
   flex-direction: column;
-  color: ${({ theme }) => theme.colors.primary};
+  color: white;
 `;
 
 const Tooltip = styled.div<{ isTooltipDisplayed: boolean }>`
@@ -24,8 +26,8 @@ const Tooltip = styled.div<{ isTooltipDisplayed: boolean }>`
   top: 20px;
   padding: 3px 10px;
   text-align: center;
-  background-color: ${({ theme }) => theme.colors.contrast};
-  color: ${({ theme }) => theme.colors.invertedContrast};
+  background-color: grey;
+  color: white;
   border-radius: 16px;
   opacity: 0.7;
 `;
@@ -35,8 +37,6 @@ const CopyToClipboard: React.FC<Props> = ({ toCopy, children, ...props }) => {
 
   return (
     <StyleButton
-      small
-      bold
       onClick={() => {
         if (navigator.clipboard) {
           navigator.clipboard.writeText(toCopy);
@@ -49,7 +49,7 @@ const CopyToClipboard: React.FC<Props> = ({ toCopy, children, ...props }) => {
       {...props}
     >
       {children}
-      <CopyIcon width="15px" color="primary" ml="4px" />
+      <ContentCopy width="15px" />
       <Tooltip isTooltipDisplayed={isTooltipDisplayed}>Copied</Tooltip>
     </StyleButton>
   );

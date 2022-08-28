@@ -1,9 +1,8 @@
 import { useCallback } from "react";
 import { useWeb3React, UnsupportedChainIdError } from "@web3-react/core";
-import { ConnectorNames } from "cryption-uikit-v2";
-// import { useToast } from "state/hooks";
 import { connectorsByName } from "../utils/web3React";
 import { setupNetwork } from "../utils/wallet";
+import { ConnectorNames } from "../utils/connectorNames";
 
 const useAuth = () => {
   const { activate, deactivate } = useWeb3React();

@@ -1,7 +1,8 @@
-import { useEffect } from "react";
-import { connectorLocalStorageKey, ConnectorNames } from "cryption-uikit-v2";
-// import { useLocation } from "react-router-dom";
+import {useEffect} from "react";
 import useAuth from "./useAuth";
+import {ConnectorNames} from "../utils/connectorNames";
+
+const connectorLocalStorageKey = "connectorId";
 
 const useEagerConnect = () => {
   const { login } = useAuth();

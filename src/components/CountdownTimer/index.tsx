@@ -1,9 +1,12 @@
 /* eslint-disable no-bitwise */
 // @ts-nocheck
 import React from "react";
-import { Heading } from "cryption-uikit-v2";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import styled from "styled-components";
+
+const Heading = styled.h3`
+  color: white;
+`;
 
 const minuteSeconds = 60;
 const hourSeconds = 3600;
@@ -164,11 +167,11 @@ const SingleCountdownContainer = styled.div`
 
 const TimeWrapper = styled.div``;
 const TimeStyles = styled.div`
-  color: ${({ theme }) => theme.colors.textPrimary};
+  color: white;
   font-size: 22px;
 `;
 const TimeDimensionStyles = styled.div`
-  color: ${({ theme }) => theme.colors.textSecondary};
+  color: white;
   font-size: 16px;
 `;
 

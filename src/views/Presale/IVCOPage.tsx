@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Card, Input, Button, Text } from "cryption-uikit-v2";
 import styled from "styled-components";
 import BigNumber from "bignumber.js";
 import {
-  createStyles,
-  withStyles,
-  Theme,
-  makeStyles,
-} from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import TwitterIcon from "@material-ui/icons/Twitter";
-import TelegramIcon from "@material-ui/icons/Telegram";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
+  Grid,
+  MenuItem,
+  FormControl,
+  Select,
+  LinearProgress,
+} from "@mui/material";
+import { Twitter, Telegram } from "@mui/icons-material";
 import Web3 from "web3";
 import { ethers, Contract } from "ethers";
 import tokenAbi from "../../config/constants/abi/token.json";
@@ -30,8 +24,10 @@ import {
 } from "../../config";
 import useActiveWeb3React from "../../hooks";
 
-const CustomCard = styled(Card)`
-  background-color: ${({ theme }) => theme.colors.cardBg};
+const CustomCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: black;
   box-shadow: 1px 1px 2px 1px rgb(0 0 0 / 25%);
   border-radius: 24px;
   padding: 20px;
@@ -49,7 +45,7 @@ const Title = styled.p`
   align-items: center;
   justify-content: center;
   margin-left: 15px;
-  color: ${({ theme }) => theme.colors.text};
+  color: white;
 `;
 const Subtitle = styled.p`
   font-weight: 600;
@@ -60,7 +56,7 @@ const Subtitle = styled.p`
 const Infotitle = styled.p`
   font-weight: 600;
   font-size: 14px;
-  color: ${({ theme }) => theme.colors.text};
+  color: white;
 `;
 const InfotitleLink = styled.a`
   font-weight: 600;
@@ -91,12 +87,12 @@ const InfotitleLinkButton = styled.a`
 const InfotitleRacing = styled.p`
   font-weight: 600;
   font-size: 18px;
-  color: ${({ theme }) => theme.colors.text};
+  color: white;
 `;
 const TitleText = styled.p`
   font-size: 25px;
   line-height: 28px;
-  color: ${({ theme }) => theme.colors.text};
+  color: white;
   text-align: left;
   font-weight: 600;
 `;
@@ -120,11 +116,11 @@ const InfoContainer = styled.div`
   margin-bottom: 10px;
 `;
 const EndContainer = styled.div`
-  background-color: ${({ theme }) => theme.colors.background};
+  background-color: black;
   border: 2px solid #469d69;
   box-sizing: border-box;
   border-radius: 14px;
-  color: ${({ theme }) => theme.colors.text};
+  color: white;
   font-weight: 700;
   display: flex;
   justify-content: center;
@@ -140,7 +136,7 @@ const Dot = styled.div`
   margin-right: 6px;
 `;
 const ProgressContainer = styled.div`
-  background-color: ${({ theme }) => theme.colors.background};
+  background: black;
   border-radius: 23px;
   padding: 20px;
   margin-top: 20px;
@@ -160,8 +156,8 @@ const ProgressEndLabel = styled.p`
   color: #a7a7a7;
 `;
 const InputContainer = styled.div`
-  background-color: ${({ theme }) => theme.colors.input};
-  border: ${({ theme }) => `1px solid ${theme.colors.input}`};
+  background: #000;
+  border: 1px solid white;
   height: fit-content;
   display: flex;
   align-items: center;
@@ -174,9 +170,7 @@ const VestingContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const CustomInput = styled(Input)`
-  box-shadow: none;
-`;
+const Text = styled.p``;
 // const ImageContainer = styled.div`
 //   background: ${({ theme }) => theme.colors.cardBg};
 //   display: flex;
@@ -187,39 +181,6 @@ const CustomInput = styled(Input)`
 //   width: 40px;
 //   height: 40px;
 // `;
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 120,
-      height: "30px",
-      marginTop: "30px",
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
-    icon: {
-      color: "white",
-    },
-  })
-);
-const BorderLinearProgress = withStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      height: 4,
-      borderRadius: 2,
-    },
-    colorPrimary: {
-      backgroundColor:
-        theme.palette.grey[theme.palette.type === "light" ? 200 : 700],
-    },
-    bar: {
-      borderRadius: 2,
-      background: "linear-gradient(90.56deg, #2082E9 49.52%, #9900FF 71.78%);",
-    },
-  })
-)(LinearProgress);
 
 interface IInputTokens {
   name: string;
@@ -303,7 +264,6 @@ function IVCOPage({ id }: IIVCOPage) {
     totalInvest: "0",
   });
   const [totalSupply, setTotalSupply] = React.useState("0");
-  const classes = useStyles();
   const crowdSaleContract = useCrowdsaleContract(id);
   const web3 = new Web3(window.ethereum);
 
@@ -736,7 +696,7 @@ function IVCOPage({ id }: IIVCOPage) {
                         href={socialData?.twitter.link}
                         target="_blank"
                       >
-                        <TwitterIcon />
+                        <Twitter />
                       </InfotitleLink>
                     )}
                     {socialData.telegram && (
@@ -745,7 +705,7 @@ function IVCOPage({ id }: IIVCOPage) {
                         href={socialData?.telegram.link}
                         target="_blank"
                       >
-                        <TelegramIcon />
+                        <Telegram />
                       </InfotitleLink>
                     )}
                     {socialData.whitepaper && (
@@ -918,8 +878,7 @@ function IVCOPage({ id }: IIVCOPage) {
                         {crowdSaleContractData.percentage.toFixed(2)} %
                       </span>
                     </ProgressLabel>
-                    {/* @ts-ignore */}
-                    <BorderLinearProgress
+                    <LinearProgress
                       variant="determinate"
                       value={crowdSaleContractData.percentage}
                     />
@@ -1010,22 +969,19 @@ function IVCOPage({ id }: IIVCOPage) {
                   <Subtitle style={{ margin: "20px 0px", textAlign: "left" }}>
                     Enter Comma separated user addresses
                   </Subtitle>
-                  <Input
+                  <input
                     placeholder="Enter Addresses"
-                    onInputChange={handleAddressChange}
+                    onChange={handleAddressChange}
                     value={addresses !== null ? addresses : undefined}
                   />
-                  <Button
-                    mt="20px"
-                    variant="success"
+                  <button
                     disabled={pendingTxForWhiteList}
-                    isLoading={pendingTxForWhiteList}
                     onClick={whiteListAddresses}
                   >
                     {pendingTxForWhiteList
                       ? "Transaction Processing"
                       : "WhiteList Addresses"}
-                  </Button>
+                  </button>
                 </CustomCard>
               )}
             </Grid>
@@ -1048,9 +1004,6 @@ function IVCOPage({ id }: IIVCOPage) {
                             Total Invested
                           </InfotitleRacing>
                           <Text
-                            fontSize="30px"
-                            color="primary"
-                            fontWeight="800"
                             style={{
                               display: "flex",
                               justifyContent: "center",
@@ -1060,9 +1013,7 @@ function IVCOPage({ id }: IIVCOPage) {
                             {parseFloat(
                               crowdSaleContractData.totalInvest
                             ).toFixed(2)}
-                            <Text fontSize="18px" color="gray" ml="4px">
-                              {crowdsaleData.token.symbol}
-                            </Text>
+                            <Text>{crowdsaleData.token.symbol}</Text>
                           </Text>
                         </div>
                       </Grid>
@@ -1073,22 +1024,11 @@ function IVCOPage({ id }: IIVCOPage) {
                           >
                             Locked
                           </InfotitleRacing>
-                          <Text
-                            fontSize="30px"
-                            color="failure"
-                            fontWeight="800"
-                            style={{
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                            }}
-                          >
+                          <Text>
                             {parseFloat(crowdSaleContractData.locked).toFixed(
                               2
                             )}
-                            <Text fontSize="18px" color="gray" ml="4px">
-                              {crowdsaleData.token.symbol}
-                            </Text>
+                            <Text>{crowdsaleData.token.symbol}</Text>
                           </Text>
                         </div>
                       </Grid>
@@ -1099,22 +1039,11 @@ function IVCOPage({ id }: IIVCOPage) {
                           >
                             Claimable
                           </InfotitleRacing>
-                          <Text
-                            fontSize="30px"
-                            color="success"
-                            fontWeight="800"
-                            style={{
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                            }}
-                          >
+                          <Text>
                             {parseFloat(
                               crowdSaleContractData.claimable
                             ).toFixed(2)}
-                            <Text fontSize="18px" color="gray" ml="4px">
-                              {crowdsaleData.token.symbol}
-                            </Text>
+                            <Text>{crowdsaleData.token.symbol}</Text>
                           </Text>
                         </div>
                       </Grid>
@@ -1125,38 +1054,25 @@ function IVCOPage({ id }: IIVCOPage) {
                           >
                             Claimed
                           </InfotitleRacing>
-                          <Text
-                            fontSize="30px"
-                            color="gray"
-                            fontWeight="800"
-                            style={{
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                            }}
-                          >
+                          <Text>
                             {parseFloat(crowdSaleContractData.claimed).toFixed(
                               2
                             )}
-                            <Text fontSize="18px" color="gray" ml="4px">
-                              {crowdsaleData.token.symbol}
-                            </Text>
+                            <Text>{crowdsaleData.token.symbol}</Text>
                           </Text>
                         </div>
                       </Grid>
                     </Grid>
-                    <Button
-                      mt="20px"
+                    <button
                       style={{ opacity: "1" }}
                       disabled={
                         pendingTx ||
                         parseFloat(crowdSaleContractData.claimable) <= 0
                       }
-                      isLoading={pendingTx}
                       onClick={claimToken}
                     >
                       {pendingTx ? "Claiming..." : "Claim"}
-                    </Button>
+                    </button>
                   </VestingContainer>
                 </CustomCard>
               </Grid>
@@ -1244,31 +1160,21 @@ function IVCOPage({ id }: IIVCOPage) {
                               </div>
                             )}
                           <InputContainer>
-                            <CustomInput
+                            <input
                               placeholder="0.0"
-                              onInputChange={handleInputChange}
+                              onChange={handleInputChange}
                               value={amount}
                             />
-                            <Button
-                              variant="text"
-                              scale="sm"
-                              onClick={handleMaxClick}
-                            >
-                              Max
-                            </Button>
+                            <button onClick={handleMaxClick}>Max</button>
                           </InputContainer>
                         </div>
                         {crowdSaleContractData &&
                           crowdSaleContractData.inputTokens &&
                           crowdSaleContractData.inputTokens.length > 0 && (
-                            <FormControl
-                              variant="filled"
-                              className={classes.formControl}
-                            >
+                            <FormControl variant="filled">
                               <Select
                                 labelId="demo-simple-select-outlined-label"
                                 id="demo-simple-select-outlined"
-                                classes={{ icon: classes.icon }}
                                 value={selectedToken?.address}
                                 style={{ color: "white" }}
                                 defaultValue={
@@ -1321,29 +1227,22 @@ function IVCOPage({ id }: IIVCOPage) {
                         </span>
                       </ProgressLabel>
                       {crowdSaleContractData.isOwner ? (
-                        <Button
-                          mt="20px"
-                          disabled={pendingTx}
-                          isLoading={pendingTx}
-                          onClick={purchaseToken}
-                        >
+                        <button disabled={pendingTx} onClick={purchaseToken}>
                           {pendingTx
                             ? "Transaction Processing"
                             : `Invest Into ${crowdsaleData.token.symbol}`}
-                        </Button>
+                        </button>
                       ) : (
-                        <Button
-                          mt="20px"
+                        <button
                           disabled={
                             !crowdSaleContractData.isWhiteListed || pendingTx
                           }
-                          isLoading={pendingTx}
                           onClick={purchaseToken}
                         >
                           {pendingTx
                             ? "Transaction Processing"
                             : `Invest Into ${crowdsaleData.token.symbol}`}
-                        </Button>
+                        </button>
                       )}
                     </CustomCard>
                   </Grid>
