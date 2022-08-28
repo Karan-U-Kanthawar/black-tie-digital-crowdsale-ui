@@ -115,7 +115,7 @@ const ResetCSS = createGlobalStyle`
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #EBCC5D;
+    background: ${(props) => props.theme.palette.primary.main};
     border-radius: 1px;
   }
 

@@ -8,7 +8,6 @@ import {
   Select,
   LinearProgress,
 } from "@mui/material";
-import { Twitter, Telegram } from "@mui/icons-material";
 import Web3 from "web3";
 import { ethers, Contract } from "ethers";
 import tokenAbi from "../../config/constants/abi/token.json";
@@ -23,6 +22,7 @@ import {
   setMetamaskGasPrice,
 } from "../../config";
 import useActiveWeb3React from "../../hooks";
+import SocialsContainer from "../../components/SocialsContainer";
 
 const CustomCard = styled.div`
   display: flex;
@@ -57,32 +57,6 @@ const Infotitle = styled.p`
   font-weight: 600;
   font-size: 14px;
   color: white;
-`;
-const InfotitleLink = styled.a`
-  font-weight: 600;
-  font-size: 14px;
-  color: #2082e9;
-  background: white;
-  border-radius: 50%;
-  height: 30px;
-  width: 30px;
-  padding: 3px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 10px;
-`;
-const InfotitleLinkButton = styled.a`
-  font-weight: 600;
-  font-size: 14px;
-  color: #2082e9;
-  border: 1px solid white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 10px;
-  border-radius: 14px;
-  padding: 10px 12px;
 `;
 const InfotitleRacing = styled.p`
   font-weight: 600;
@@ -614,7 +588,7 @@ function IVCOPage({ id }: IIVCOPage) {
                   style={{
                     display: "flex",
                     flexDirection: "row",
-                    justifyContent: "space-between",
+                    justifyContent: "flex-start",
                     width: "100%",
                     marginBottom: "20px",
                   }}
@@ -624,7 +598,7 @@ function IVCOPage({ id }: IIVCOPage) {
                     alt={crowdsaleData.token.symbol}
                     width="70px"
                     height="70px"
-                    style={{ marginBottom: "10px" }}
+                    style={{ marginBottom: "10px", marginRight: "20px" }}
                   />
                   <div>
                     <Title style={{ textAlign: "center" }}>
@@ -681,53 +655,7 @@ function IVCOPage({ id }: IIVCOPage) {
                     </Infotitle>
                   </InfoContainer>
                 </div>
-                {socialData && (
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      margin: "20px 0px",
-                    }}
-                  >
-                    {socialData.twitter && (
-                      <InfotitleLink
-                        style={{ display: "flex", alignItems: "center" }}
-                        href={socialData?.twitter.link}
-                        target="_blank"
-                      >
-                        <Twitter />
-                      </InfotitleLink>
-                    )}
-                    {socialData.telegram && (
-                      <InfotitleLink
-                        style={{ display: "flex", alignItems: "center" }}
-                        href={socialData?.telegram.link}
-                        target="_blank"
-                      >
-                        <Telegram />
-                      </InfotitleLink>
-                    )}
-                    {socialData.whitepaper && (
-                      <InfotitleLinkButton
-                        href={socialData?.whitepaper.link}
-                        target="_blank"
-                      >
-                        Whitepaper
-                      </InfotitleLinkButton>
-                    )}
-                    <EndContainer style={{ marginRight: "10px" }}>
-                      <Dot />
-                      Verified
-                    </EndContainer>
-                    {isOngoing && (
-                      <EndContainer>
-                        <Dot />
-                        On Going
-                      </EndContainer>
-                    )}
-                  </div>
-                )}
+                <SocialsContainer />
               </Header>
               {crowdsaleData && (
                 <CustomCard>
@@ -881,6 +809,7 @@ function IVCOPage({ id }: IIVCOPage) {
                     <LinearProgress
                       variant="determinate"
                       value={crowdSaleContractData.percentage}
+                      color={"secondary"}
                     />
                     <ProgressEndLabel>
                       {`${

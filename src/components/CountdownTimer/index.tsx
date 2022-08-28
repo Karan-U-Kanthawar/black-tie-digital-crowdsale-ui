@@ -5,7 +5,7 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import styled from "styled-components";
 
 const Heading = styled.h3`
-  color: white;
+  color: ${(props) => props.theme.palette.secondary.main};
 `;
 
 const minuteSeconds = 60;
@@ -167,11 +167,11 @@ const SingleCountdownContainer = styled.div`
 
 const TimeWrapper = styled.div``;
 const TimeStyles = styled.div`
-  color: white;
+  color: ${(props) => props.theme.palette.secondary.main};
   font-size: 22px;
 `;
 const TimeDimensionStyles = styled.div`
-  color: white;
+  color: ${(props) => props.theme.palette.secondary.main};
   font-size: 16px;
 `;
 

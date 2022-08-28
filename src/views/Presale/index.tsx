@@ -5,15 +5,18 @@ import { BLACK_TIE_DIGITAL_PRESALE_ID } from "../../config";
 import styled from "styled-components";
 
 const BlackContainer = styled.div`
-  background-color: #000;
+  background-color: ${(props) => props.theme.palette.background.default};
+  padding-top: 70px;
 `;
+
+const StyledContainer = styled(Container)``;
 
 const Presale: React.FC = () => {
   return (
     <BlackContainer>
-      <Container>
+      <StyledContainer>
         <IVCOPage id={BLACK_TIE_DIGITAL_PRESALE_ID} />
-      </Container>
+      </StyledContainer>
     </BlackContainer>
   );
 };

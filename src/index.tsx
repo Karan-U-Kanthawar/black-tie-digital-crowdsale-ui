@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import Providers from "./Providers";
 import ResetCSS from "./styles/ResetCSS";
+import { ThemeProvider } from "styled-components";
+import theme from "./styles/theme";
 
 declare const window: any;
 if ("ethereum" in window) {
@@ -12,8 +14,10 @@ if ("ethereum" in window) {
 ReactDOM.render(
   <React.StrictMode>
     <Providers>
-      <ResetCSS />
-      <App />
+      <ThemeProvider theme={theme}>
+        <ResetCSS />
+        <App />
+      </ThemeProvider>
     </Providers>
   </React.StrictMode>,
   document.getElementById("root") as HTMLElement

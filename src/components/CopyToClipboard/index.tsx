@@ -14,7 +14,7 @@ const StyleButton = styled(Text).attrs({ role: "button" })`
   align-items: center;
   position: relative;
   flex-direction: column;
-  color: #fff;
+  color: ${(props) => props.theme.palette.secondary.main};
 `;
 
 const Tooltip = styled.div<{ isTooltipDisplayed: boolean }>`
@@ -26,8 +26,8 @@ const Tooltip = styled.div<{ isTooltipDisplayed: boolean }>`
   top: 20px;
   padding: 3px 10px;
   text-align: center;
-  background-color: #000;
-  color: #fff;
+  background-color: ${(props) => props.theme.palette.background.default};
+  color: ${(props) => props.theme.palette.secondary.main};
   border-radius: 16px;
   opacity: 0.7;
 `;
