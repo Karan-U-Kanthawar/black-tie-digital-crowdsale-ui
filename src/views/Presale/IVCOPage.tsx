@@ -118,7 +118,6 @@ function IVCOPage({ id }: IIVCOPage) {
       vestingTimer: Date.now() / 1000,
       totalInvest: "0",
     });
-  console.log("crowdsale data for input tokens: ", crowdSaleContractData);
   const [totalSupply, setTotalSupply] = React.useState("0");
   const crowdSaleContract = useCrowdsaleContract(id, library);
 
@@ -179,7 +178,7 @@ function IVCOPage({ id }: IIVCOPage) {
         };
         const combinedObj = {
           ...crowdSaleContractData,
-          newCrowdSaleData,
+          ...newCrowdSaleData,
         };
 
         setCrowdSaleContractData(combinedObj);
@@ -188,26 +187,15 @@ function IVCOPage({ id }: IIVCOPage) {
           allowedInputTokensData &&
           allowedInputTokensData?.length > 0
         ) {
-          console.log("deb start");
           await Promise.all(
             allowedInputTokensData.map(async (eachToken: any) => {
-              console.log(`deb ${eachToken.name} token:`, eachToken.address);
               const contractDetails = getERC20Contract(
                 eachToken.address,
                 library
               );
-              console.log(`deb ${eachToken.name} contract: `, contractDetails);
               const userBalance = await contractDetails.balanceOf(account);
-              console.log(
-                `deb ${eachToken.name} balance: `,
-                userBalance.toString()
-              );
               const balanceInEther = new BigNumber(userBalance.toString()).div(
                 10 ** parseFloat(eachToken.decimals)
-              );
-              console.log(
-                `deb ${eachToken.name} formatted balance: `,
-                balanceInEther.toString()
               );
               inputTokens.push({
                 name: eachToken.name,
@@ -220,17 +208,13 @@ function IVCOPage({ id }: IIVCOPage) {
               inputTokens.push();
             })
           );
-          console.log("input tokens: ", inputTokens);
-          console.log("new cs ip before: ", newCrowdSaleData);
           newCrowdSaleData.inputTokens = inputTokens;
-          console.log("new cs ip after: ", newCrowdSaleData);
           toggleTokenSelection(inputTokens[0]);
 
           const newCombinedObj = {
             ...crowdSaleContractData,
-            newCrowdSaleData,
+            ...newCrowdSaleData,
           };
-          console.log("new comb obj : ", newCombinedObj);
 
           setCrowdSaleContractData(newCombinedObj);
         }
