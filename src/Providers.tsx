@@ -1,17 +1,7 @@
 import React from "react";
-import { Web3ReactProvider, createWeb3ReactRoot } from "@web3-react/core";
-import { getLibrary } from "./utils/web3React";
-
-const Web3ProviderNetwork = createWeb3ReactRoot("NETWORK");
 
 const Providers: React.FC = ({ children }) => {
-  return (
-    <Web3ReactProvider getLibrary={getLibrary}>
-      <Web3ProviderNetwork getLibrary={getLibrary}>
-        {children}
-      </Web3ProviderNetwork>
-    </Web3ReactProvider>
-  );
+  return <>{children}</>;
 };
 
 export default Providers;

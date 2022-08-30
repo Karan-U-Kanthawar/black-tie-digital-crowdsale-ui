@@ -9,22 +9,17 @@ import {
   LinearProgress,
   Paper,
 } from "@mui/material";
-import Web3 from "web3";
 import { ethers, Contract } from "ethers";
 import tokenAbi from "../../config/constants/abi/token.json";
 import CopyToClipboard from "../../components/CopyToClipboard";
 import { getERC20Contract } from "../../utils/contractHelpers";
 import { useCrowdsaleContract } from "../../hooks/useContract";
 import CountdownTimer from "../../components/CountdownTimer";
-import {
-  allowedInputTokens,
-  crowdsale,
-  setMetamaskGasPrice,
-} from "../../config";
-import useActiveWeb3React from "../../hooks";
+import { allowedInputTokens, crowdsale } from "../../config";
 import SocialsContainer from "../../components/SocialsContainer";
 import VestingInfoCard from "../../components/VestingInfoCard";
 import PoolInfoCard from "../../components/PoolInfoCard";
+import useWeb3Config from "../../components/Menu/useWeb3Config";
 
 const Card = styled(Paper)`
   display: flex;
@@ -147,16 +142,6 @@ const VestingContainer = styled.div`
   flex-direction: column;
 `;
 const Text = styled.p``;
-// const ImageContainer = styled.div`
-//   background: ${({ theme }) => theme.colors.cardBg};
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   padding: 10px;
-//   border-radius: 50%;
-//   width: 40px;
-//   height: 40px;
-// `;
 
 interface IInputTokens {
   name: string;
@@ -171,40 +156,8 @@ interface IIVCOPage {
   id: string;
 }
 
-// interface ICrowdsaleData {
-//   crowdsaleStart: string;
-//   crowdsaleEnd: string;
-//   cliffDuration: string;
-//   vestingStart: string;
-//   vestingEnd: string;
-//   tokenRemainingForSale: string;
-//   whitelistingEnabled: boolean;
-//   owner: string;
-//   hardcap: string;
-//   token: {
-//     id: string;
-//     address: string;
-//     name: string;
-//     symbol: string;
-//     url: null | string;
-//     decimals: number;
-//   };
-// }
-//
-// interface IAllowedInputTokensData {
-//   id: string;
-//   crowdsaleAddress: {
-//     id: string;
-//   };
-//   name: string;
-//   rate: string;
-//   symbol: string;
-//   decimals: number;
-//   address: string;
-// }
-
 function IVCOPage({ id }: IIVCOPage) {
-  const { account } = useActiveWeb3React();
+  const { account } = useWeb3Config();
   const crowdsaleData = crowdsale;
   const allowedInputTokensData = allowedInputTokens;
   const [amount, setAmount] = useState("0");
@@ -241,47 +194,35 @@ function IVCOPage({ id }: IIVCOPage) {
   });
   const [totalSupply, setTotalSupply] = React.useState("0");
   const crowdSaleContract = useCrowdsaleContract(id);
-  const web3 = new Web3(window.ethereum);
 
   const isDark = true;
 
   useEffect(() => {
-    const getCrowdSaleData = async () => {
+    const getCrowdSaleData = async (account: string) => {
       if (crowdsaleData) {
         const inputTokens: IInputTokens[] = [];
-        const isWhiteListedResp = await crowdSaleContract.methods
-          .whitelistedAddress(account)
-          .call();
-        const remainingInEther = web3.utils.fromWei(
-          crowdsaleData.tokenRemainingForSale,
-          "ether"
+        const isWhiteListedResp = await crowdSaleContract.whitelistedAddress(
+          account
         );
-        const getTotalPurchasedAmount = await crowdSaleContract.methods
-          .vestedAmount(account)
-          .call();
-        const purchasedInEther = web3.utils.fromWei(
-          getTotalPurchasedAmount,
-          "ether"
+        const remainingInEther = ethers.utils.formatEther(
+          crowdsaleData.tokenRemainingForSale
         );
-        const vestingSchedule = await crowdSaleContract.methods
-          .vestingScheduleForBeneficiary(account)
-          .call();
-        const totalInvest = web3.utils.fromWei(
-          vestingSchedule._amount,
-          "ether"
+        const getTotalPurchasedAmount = await crowdSaleContract.vestedAmount(
+          account
         );
-        const locked = web3.utils.fromWei(
-          vestingSchedule._remainingBalance,
-          "ether"
+        const purchasedInEther = ethers.utils.formatEther(
+          getTotalPurchasedAmount
         );
-        const claimable = web3.utils.fromWei(
-          vestingSchedule._availableForDrawDown,
-          "ether"
+        const vestingSchedule =
+          await crowdSaleContract.vestingScheduleForBeneficiary(account);
+        const totalInvest = ethers.utils.formatEther(vestingSchedule._amount);
+        const locked = ethers.utils.formatEther(
+          vestingSchedule._remainingBalance
         );
-        const claimed = web3.utils.fromWei(
-          vestingSchedule._totalDrawn,
-          "ether"
+        const claimable = ethers.utils.formatEther(
+          vestingSchedule._availableForDrawDown
         );
+        const claimed = ethers.utils.formatEther(vestingSchedule._totalDrawn);
         let hardCap = 0;
         let progressAmount = 0;
         let percentage = 0;
@@ -289,9 +230,7 @@ function IVCOPage({ id }: IIVCOPage) {
           parseFloat(crowdsaleData.vestingStart) +
           parseFloat(crowdsaleData.cliffDuration);
         if (crowdsaleData && crowdsaleData.hardcap) {
-          hardCap = parseFloat(
-            web3.utils.fromWei(crowdsaleData.hardcap, "ether").toString()
-          );
+          hardCap = parseFloat(ethers.utils.formatEther(crowdsaleData.hardcap));
           progressAmount = hardCap - parseFloat(remainingInEther.toString());
           percentage = (progressAmount * 100) / hardCap;
         }
@@ -324,11 +263,9 @@ function IVCOPage({ id }: IIVCOPage) {
         ) {
           await Promise.all(
             allowedInputTokensData.map(async (eachToken: any) => {
-              const contractDetails = getERC20Contract(eachToken.address, web3);
-              const userBalance = await contractDetails.methods
-                .balanceOf(account)
-                .call();
-              const balanceInEther = new BigNumber(userBalance).div(
+              const contractDetails = getERC20Contract(eachToken.address);
+              const userBalance = await contractDetails.balanceOf(account);
+              const balanceInEther = new BigNumber(userBalance.toString()).div(
                 10 ** parseFloat(eachToken.decimals)
               );
               inputTokens.push({
@@ -355,7 +292,7 @@ function IVCOPage({ id }: IIVCOPage) {
       }
     };
     if (account) {
-      getCrowdSaleData().catch((e) =>
+      getCrowdSaleData(account).catch((e) =>
         console.error(
           "Error while getting extra crowdsale & input token values: ",
           e
@@ -365,13 +302,11 @@ function IVCOPage({ id }: IIVCOPage) {
     const getTotalSupply = async () => {
       if (crowdsaleData && crowdsaleData.token && crowdsaleData.token.address) {
         const contractDetails = await getERC20Contract(
-          crowdsaleData.token.address,
-          web3
+          crowdsaleData.token.address
         );
-        const totalSupplyResp = await contractDetails.methods
-          .totalSupply()
-          .call();
-        const supplyInEther = web3.utils.fromWei(totalSupplyResp, "ether");
+        const totalSupplyResp = await contractDetails.totalSupply();
+        const supplyInEther = ethers.utils.formatEther(totalSupplyResp);
+        console.log("total supply resp: ", supplyInEther);
         setTotalSupply(supplyInEther);
       }
     };
@@ -463,59 +398,65 @@ function IVCOPage({ id }: IIVCOPage) {
     }
   };
   const purchaseToken = async () => {
-    try {
-      setPendingTx(true);
-      if (selectedToken === undefined) return;
-      const contractDetails = getERC20Contract(selectedToken.address, web3);
-      const allowance = await contractDetails.methods
-        .allowance(account, id)
-        .call();
-      const approvalAmount = ethers.utils.parseUnits(amount.toString(), 18);
-      if (new BigNumber(allowance).isLessThan(approvalAmount.toString())) {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
-        const tokenContract = new Contract(
-          selectedToken.address,
-          tokenAbi.abi,
-          signer
-        );
-        const approvalTx = await tokenContract.approve(id, approvalAmount);
-        await approvalTx.wait();
-        let amountInVei = new BigNumber(amount).multipliedBy(
-          10 ** parseFloat(selectedToken.decimal)
-        );
-        amountInVei = new BigNumber(
-          Number(amountInVei).toLocaleString("fullwide", {
-            useGrouping: false,
-          })
-        );
-        await crowdSaleContract.methods
-          .purchaseToken(selectedToken.address, amountInVei.toString())
-          .send({ from: account, ...setMetamaskGasPrice });
+    if (account) {
+      try {
+        setPendingTx(true);
+        if (selectedToken === undefined) return;
+        const contractDetails = getERC20Contract(selectedToken.address);
+        const allowance = await contractDetails.allowance(account, id);
+        const approvalAmount = ethers.utils.parseUnits(amount.toString(), 18);
+        if (
+          new BigNumber(allowance.toString()).isLessThan(
+            approvalAmount.toString()
+          )
+        ) {
+          const provider = new ethers.providers.Web3Provider(window.ethereum);
+          const signer = provider.getSigner();
+          const tokenContract = new Contract(
+            selectedToken.address,
+            tokenAbi.abi,
+            signer
+          );
+          const approvalTx = await tokenContract.approve(id, approvalAmount);
+          await approvalTx.wait();
+          let amountInVei = new BigNumber(amount).multipliedBy(
+            10 ** parseFloat(selectedToken.decimal)
+          );
+          amountInVei = new BigNumber(
+            Number(amountInVei).toLocaleString("fullwide", {
+              useGrouping: false,
+            })
+          );
+          await crowdSaleContract.purchaseToken(
+            selectedToken.address,
+            amountInVei.toString()
+          );
+          setPendingTx(false);
+        } else {
+          let amountInVei = new BigNumber(amount).multipliedBy(
+            10 ** parseFloat(selectedToken.decimal)
+          );
+          amountInVei = new BigNumber(
+            Number(amountInVei).toLocaleString("fullwide", {
+              useGrouping: false,
+            })
+          );
+          await crowdSaleContract.purchaseToken(
+            selectedToken.address,
+            amountInVei.toString()
+          );
+          setPendingTx(false);
+        }
+      } catch (error) {
         setPendingTx(false);
-      } else {
-        let amountInVei = new BigNumber(amount).multipliedBy(
-          10 ** parseFloat(selectedToken.decimal)
-        );
-        amountInVei = new BigNumber(
-          Number(amountInVei).toLocaleString("fullwide", {
-            useGrouping: false,
-          })
-        );
-        await crowdSaleContract.methods
-          .purchaseToken(selectedToken.address, amountInVei.toString())
-          .send({ from: account, ...setMetamaskGasPrice });
-        setPendingTx(false);
+        console.error(error);
       }
-    } catch (error) {
-      setPendingTx(false);
-      console.error(error);
     }
   };
   const claimToken = async () => {
     try {
       setPendingTx(true);
-      await crowdSaleContract.methods.drawDown().send({ from: account });
+      await crowdSaleContract.drawDown();
       setPendingTx(false);
     } catch (error) {
       setPendingTx(false);
@@ -530,17 +471,11 @@ function IVCOPage({ id }: IIVCOPage) {
       setPendingTxForWhiteList(true);
       if (addresses === null) return;
       const trimmedAddresses = addresses.replace(/ /g, "").split(",");
-      const isWhiteListEnabled = await crowdSaleContract.methods
-        .whitelistingEnabled()
-        .call();
+      const isWhiteListEnabled = await crowdSaleContract.whitelistingEnabled();
       if (!isWhiteListEnabled) {
-        await crowdSaleContract.methods
-          .enableWhitelisting()
-          .send({ from: account, ...setMetamaskGasPrice });
+        await crowdSaleContract.enableWhitelisting();
       }
-      await crowdSaleContract.methods
-        .whitelistUsers(trimmedAddresses)
-        .send({ from: account, ...setMetamaskGasPrice });
+      await crowdSaleContract.whitelistUsers(trimmedAddresses);
       setPendingTxForWhiteList(false);
     } catch (error) {
       console.error(error);
@@ -715,7 +650,7 @@ function IVCOPage({ id }: IIVCOPage) {
                     <ProgressEndLabel>
                       {`${
                         crowdSaleContractData.progressAmount
-                      }/${web3.utils.fromWei(crowdsaleData.hardcap, "ether")}`}
+                      }/${ethers.utils.formatEther(crowdsaleData.hardcap)}`}
                     </ProgressEndLabel>
                   </ProgressContainer>
                 </Card>

@@ -4,37 +4,6 @@ BigNumber.config({
   EXPONENTIAL_AT: 1000,
   DECIMAL_PLACES: 80,
 });
-
-export const SUPPORTED_NETWORK_IDS = [137, 80001, 1, 5, 56, 1287];
-
-export const setMetamaskGasPrice = {
-  maxPriorityFeePerGas: null,
-  maxFeePerGas: null,
-};
-
-export const NATIVE_TOKENS = {
-  80001: {
-    name: "MATIC",
-    symbol: "MATIC",
-    decimals: "18",
-  },
-  137: {
-    name: "MATIC",
-    symbol: "MATIC",
-    decimals: "18",
-  },
-  1: {
-    name: "ETH",
-    symbol: "ETH",
-    decimals: "18",
-  },
-  1287: {
-    name: "Glimmer",
-    symbol: "GLMR",
-    decimals: "18",
-  },
-};
-
 export const BLACK_TIE_DIGITAL_PRESALE_ID =
   "0x3c01c04f9420839e0a0d95aac2e3c2f69004245b";
 

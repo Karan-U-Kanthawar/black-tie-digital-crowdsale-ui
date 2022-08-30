@@ -9,7 +9,7 @@ import {
   CardText,
 } from "../styles/CardStyles";
 import { ICrowdsale } from "../config";
-import web3 from "../utils/web3";
+import { ethers } from "ethers";
 
 const PoolInfoCard = ({ crowdsaleData }: { crowdsaleData: ICrowdsale }) => {
   return (
@@ -35,7 +35,7 @@ const PoolInfoCard = ({ crowdsaleData }: { crowdsaleData: ICrowdsale }) => {
         </CardRow>
         <CardRow>
           <CardSubHeading>HardCap</CardSubHeading>
-          <CardText>{`${web3.utils.fromWei(crowdsaleData.hardcap, "ether")} ${
+          <CardText>{`${ethers.utils.formatEther(crowdsaleData.hardcap)} ${
             crowdsaleData.token.symbol
           }`}</CardText>
         </CardRow>
