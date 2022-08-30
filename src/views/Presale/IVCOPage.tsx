@@ -444,7 +444,7 @@ function IVCOPage({ id }: IIVCOPage) {
                 </Button>
               </Card>
             )}
-            {!isEnded ? (
+            {isEnded ? (
               <Card>
                 <CardHeading>Vesting</CardHeading>
                 <Hr />
@@ -590,7 +590,7 @@ function IVCOPage({ id }: IIVCOPage) {
                   {crowdSaleContractData &&
                     crowdSaleContractData.inputTokens &&
                     crowdSaleContractData.inputTokens.length > 0 && (
-                      <FormControl fullWidth>
+                      <FormControl>
                         <InputLabel id={"select-input-token-label"}>
                           Input token
                         </InputLabel>
