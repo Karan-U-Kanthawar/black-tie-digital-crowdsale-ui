@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import Web3Modal from "web3modal";
 import { ethers } from "ethers";
-import { Web3Provider } from "@ethersproject/providers";
+import { StaticJsonRpcProvider, Web3Provider } from "@ethersproject/providers";
+import simpleRpcProvider from "../../utils/defaultProvider";
 
 export const truncateAddress = (address: string) => {
   if (!address) return "No Account";
@@ -29,11 +30,12 @@ const web3Modal = new Web3Modal({
 
 const useWeb3Config = () => {
   const [provider, setProvider] = useState<null | any>(null);
-  const [library, setLibrary] = useState<null | Web3Provider>(null);
+  const [library, setLibrary] = useState<Web3Provider | StaticJsonRpcProvider>(
+    simpleRpcProvider
+  );
   const [account, setAccount] = useState<null | string>(null);
   const [error, setError] = useState("");
-  const [chainId, setChainId] = useState<null | number>(null);
-  const [network, setNetwork] = useState<null | number>(null);
+  const [chainId, setChainId] = useState<number>(80001);
 
   const connectWallet = async () => {
     try {
@@ -52,8 +54,7 @@ const useWeb3Config = () => {
 
   const refreshState = () => {
     setAccount(null);
-    setChainId(null);
-    setNetwork(null);
+    setChainId(80001);
   };
 
   const disconnect = useCallback(async () => {
@@ -97,7 +98,7 @@ const useWeb3Config = () => {
     }
   }, [disconnect, error, provider]);
 
-  return { account, chainId, library, network, connectWallet };
+  return { account, chainId, library, connectWallet, disconnect };
 };
 
 export default useWeb3Config;

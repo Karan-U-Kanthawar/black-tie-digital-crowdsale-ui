@@ -14,7 +14,7 @@ const StyledContainer = styled(Container)``;
 const LogoContainer = styled.div``;
 
 const Menu: React.FC = () => {
-  const { account, connectWallet } = useWeb3Config();
+  const { account, connectWallet, disconnect } = useWeb3Config();
 
   return (
     <BlackContainer>
@@ -27,7 +27,11 @@ const Menu: React.FC = () => {
           <Stack justifyContent={"center"}>
             {account ? (
               <Stack direction={"row"} spacing={2}>
-                <Chip label={`Account : ${truncateAddress(account)}`}></Chip>
+                <Chip
+                  label={`Account : ${truncateAddress(account)}`}
+                  onClick={disconnect}
+                ></Chip>
+                <Button onClick={disconnect}>Disconnect</Button>
               </Stack>
             ) : (
               <Stack>

@@ -306,7 +306,6 @@ function IVCOPage({ id }: IIVCOPage) {
         );
         const totalSupplyResp = await contractDetails.totalSupply();
         const supplyInEther = ethers.utils.formatEther(totalSupplyResp);
-        console.log("total supply resp: ", supplyInEther);
         setTotalSupply(supplyInEther);
       }
     };
