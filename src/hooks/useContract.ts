@@ -1,10 +1,11 @@
 import { useMemo } from "react";
 import { getCrowdsaleContract } from "../utils/contractHelpers";
-import useWeb3Config from "../components/Menu/useWeb3Config";
+import { StaticJsonRpcProvider, Web3Provider } from "@ethersproject/providers";
 
-export const useCrowdsaleContract = (address: string) => {
-  const { library } = useWeb3Config();
-
+export const useCrowdsaleContract = (
+  address: string,
+  library?: Web3Provider | StaticJsonRpcProvider
+) => {
   return useMemo(
     () => getCrowdsaleContract(address, library?.getSigner()),
     [address, library]

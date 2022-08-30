@@ -26,7 +26,7 @@ export interface ICrowdsale {
     decimals: number;
   };
 }
-export interface IInputToken {
+export interface IAllowedCrowdsaleInputTokens {
   id: string;
   crowdsaleAddress: {
     id: string;
@@ -37,7 +37,7 @@ export interface IInputToken {
   decimals: number;
   address: string;
 }
-interface ICrowdsaleContractDataInputTokens {
+export interface IInputTokens {
   name: string;
   symbol: string;
   address: string;
@@ -51,7 +51,7 @@ export interface ICrowdsaleContractData {
   totalRemaining: number;
   progressAmount: number;
   percentage: number;
-  inputTokens: ICrowdsaleContractDataInputTokens[];
+  inputTokens: IInputTokens[];
   isOwner: boolean;
   claimable: string;
   claimed: string;
@@ -82,7 +82,7 @@ export const crowdsale: ICrowdsale = {
   },
 };
 
-export const allowedInputTokens: IInputToken[] = [
+export const allowedInputTokens: IAllowedCrowdsaleInputTokens[] = [
   {
     // __typename: "AllowedInputToken",
     id: "0x3c01c04f9420839e0a0d95aac2e3c2f69004245b-0x671b68fb02778d37a885699da79c13faf0d3c560",

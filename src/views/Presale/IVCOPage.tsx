@@ -9,6 +9,8 @@ import {
   Button,
   TextField,
   Stack,
+  InputLabel,
+  SelectChangeEvent,
 } from "@mui/material";
 import { ethers, Contract } from "ethers";
 import tokenAbi from "../../config/constants/abi/token.json";
@@ -18,6 +20,7 @@ import {
   allowedInputTokens,
   crowdsale,
   ICrowdsaleContractData,
+  IInputTokens,
 } from "../../config";
 import VestingInfoCard from "../../components/VestingInfoCard";
 import PoolInfoCard from "../../components/PoolInfoCard";
@@ -39,32 +42,36 @@ const Hr = styled.div`
   height: 2px;
   margin: 10px 0 20px 0;
 `;
-const EndContainer = styled.div`
-  background-color: black;
-  border: 2px solid #469d69;
-  box-sizing: border-box;
+interface ColorProps {
+  isWhitelisted?: boolean;
+}
+const ColorContainer = styled.div<ColorProps>`
+  color: ${(props) => props.theme.palette.text.disabled};
   border-radius: 14px;
-  color: white;
   font-weight: 700;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px 12px;
   white-space: nowrap;
+  border: 2px solid
+    ${(props) =>
+      props.isWhitelisted
+        ? props.theme.palette.success.main
+        : props.theme.palette.error.main};
 `;
-const Dot = styled.div`
+
+const Dot = styled.div<{ isWhitelisted: boolean }>`
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #57ca81;
+  background: ${(props) =>
+    props.isWhitelisted
+      ? props.theme.palette.success.main
+      : props.theme.palette.error.main};
   margin-right: 6px;
 `;
-const ProgressContainer = styled.div`
-  background: black;
-  border-radius: 23px;
-  padding: 20px;
-  margin-top: 20px;
-`;
+
 const ProgressLabel = styled.p`
   font-weight: 500;
   font-size: 18px;
@@ -80,21 +87,12 @@ const ProgressEndLabel = styled.p`
   color: #a7a7a7;
 `;
 
-interface IInputTokens {
-  name: string;
-  symbol: string;
-  address: string;
-  decimal: string;
-  rate: string;
-  userBalance: string;
-}
-
 interface IIVCOPage {
   id: string;
 }
 
 function IVCOPage({ id }: IIVCOPage) {
-  const { account } = useWeb3Config();
+  const { account, library } = useWeb3Config();
   const crowdsaleData = crowdsale;
   const allowedInputTokensData = allowedInputTokens;
   const [amount, setAmount] = useState("0");
@@ -102,6 +100,9 @@ function IVCOPage({ id }: IIVCOPage) {
   const [pendingTx, setPendingTx] = useState(false);
   const [pendingTxForWhiteList, setPendingTxForWhiteList] = useState(false);
   const [selectedToken, toggleTokenSelection] = useState<IInputTokens>();
+  const [showSelectedToken, setShowSelectedToken] = useState<string>(
+    allowedInputTokensData[0].symbol
+  );
   const [crowdSaleContractData, setCrowdSaleContractData] =
     useState<ICrowdsaleContractData>({
       isWhiteListed: false,
@@ -117,8 +118,9 @@ function IVCOPage({ id }: IIVCOPage) {
       vestingTimer: Date.now() / 1000,
       totalInvest: "0",
     });
+  console.log("crowdsale data for input tokens: ", crowdSaleContractData);
   const [totalSupply, setTotalSupply] = React.useState("0");
-  const crowdSaleContract = useCrowdsaleContract(id);
+  const crowdSaleContract = useCrowdsaleContract(id, library);
 
   const isDark = true;
 
@@ -186,12 +188,26 @@ function IVCOPage({ id }: IIVCOPage) {
           allowedInputTokensData &&
           allowedInputTokensData?.length > 0
         ) {
+          console.log("deb start");
           await Promise.all(
             allowedInputTokensData.map(async (eachToken: any) => {
-              const contractDetails = getERC20Contract(eachToken.address);
+              console.log(`deb ${eachToken.name} token:`, eachToken.address);
+              const contractDetails = getERC20Contract(
+                eachToken.address,
+                library
+              );
+              console.log(`deb ${eachToken.name} contract: `, contractDetails);
               const userBalance = await contractDetails.balanceOf(account);
+              console.log(
+                `deb ${eachToken.name} balance: `,
+                userBalance.toString()
+              );
               const balanceInEther = new BigNumber(userBalance.toString()).div(
                 10 ** parseFloat(eachToken.decimals)
+              );
+              console.log(
+                `deb ${eachToken.name} formatted balance: `,
+                balanceInEther.toString()
               );
               inputTokens.push({
                 name: eachToken.name,
@@ -204,13 +220,17 @@ function IVCOPage({ id }: IIVCOPage) {
               inputTokens.push();
             })
           );
+          console.log("input tokens: ", inputTokens);
+          console.log("new cs ip before: ", newCrowdSaleData);
           newCrowdSaleData.inputTokens = inputTokens;
+          console.log("new cs ip after: ", newCrowdSaleData);
           toggleTokenSelection(inputTokens[0]);
 
           const newCombinedObj = {
             ...crowdSaleContractData,
             newCrowdSaleData,
           };
+          console.log("new comb obj : ", newCombinedObj);
 
           setCrowdSaleContractData(newCombinedObj);
         }
@@ -387,16 +407,12 @@ function IVCOPage({ id }: IIVCOPage) {
     }
   };
 
-  const selectToken = (
-    event: React.ChangeEvent<{
-      name?: string | undefined;
-      value: unknown;
-    }>
-  ) => {
-    const changedToken = crowdSaleContractData.inputTokens.find(
-      (eachToken) => eachToken.address === event.target.value
+  const handleShowSelectedToken = (event: SelectChangeEvent) => {
+    const selectedInputToken = crowdSaleContractData.inputTokens.filter(
+      (inputTokens) => inputTokens.symbol === event.target.value
     );
-    if (changedToken) toggleTokenSelection(changedToken);
+    setShowSelectedToken(selectedInputToken[0].symbol);
+    toggleTokenSelection(selectedInputToken[0]);
   };
 
   return (
@@ -444,7 +460,7 @@ function IVCOPage({ id }: IIVCOPage) {
                 </Button>
               </Card>
             )}
-            {isEnded ? (
+            {!isEnded ? (
               <Card>
                 <CardHeading>Vesting</CardHeading>
                 <Hr />
@@ -519,185 +535,146 @@ function IVCOPage({ id }: IIVCOPage) {
                 </Stack>
               </Card>
             ) : (
-              <Grid item sm={12} md={6} lg={6}>
-                <Grid container spacing={2} justifyContent="center">
-                  <Grid item sm={12} md={12} lg={12}>
-                    <Card>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                        }}
-                      >
-                        <div>
-                          <CardHeading
-                            style={{ textAlign: "left", fontSize: "22px" }}
-                          >
-                            Invest
-                          </CardHeading>
-                          <Hr style={{ width: "100px" }} />
-                        </div>
-                        <ProgressContainer style={{ marginTop: "0px" }}>
-                          <ProgressEndLabel style={{ fontSize: "15px" }}>
-                            Your Investment
+              <Card>
+                <Stack
+                  direction={"row"}
+                  display={"flex"}
+                  justifyContent={"space-between"}
+                  alignItems="center"
+                >
+                  <Stack>
+                    <CardHeading>Invest</CardHeading>
+                    <Hr />
+                  </Stack>
+                  <Card>
+                    <CardSubHeading style={{ fontSize: "15px" }}>
+                      Your Investment
+                    </CardSubHeading>
+                    <CardText>
+                      {crowdSaleContractData.totalUserPurchased}{" "}
+                      {crowdsaleData.token.symbol}
+                    </CardText>
+                  </Card>
+                </Stack>
+                <ColorContainer
+                  isWhitelisted={crowdSaleContractData.isWhiteListed}
+                >
+                  <Dot isWhitelisted={crowdSaleContractData.isWhiteListed} />
+                  {crowdSaleContractData.isWhiteListed
+                    ? "Your address has been whitelisted"
+                    : "Your address is not whitelisted"}
+                </ColorContainer>
+
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <div>
+                    {selectedToken &&
+                      selectedToken.symbol &&
+                      new BigNumber(selectedToken.userBalance).toNumber() >=
+                        0 && (
+                        <div
+                          style={{
+                            marginTop: "25px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            marginLeft: "10px",
+                            marginRight: "10px",
+                          }}
+                        >
+                          <ProgressEndLabel>Balance</ProgressEndLabel>
+                          <ProgressEndLabel>
+                            {parseFloat(selectedToken.userBalance).toFixed(3)}{" "}
+                            {selectedToken.symbol}
                           </ProgressEndLabel>
-                          <ProgressLabel
-                            style={{
-                              color: isDark ? "white" : "#A7A7A7",
-                              fontWeight: 600,
-                              textAlign: "center",
-                            }}
-                          >
-                            {crowdSaleContractData.totalUserPurchased}{" "}
-                            {crowdsaleData.token.symbol}
-                          </ProgressLabel>
-                        </ProgressContainer>
-                      </div>
-                      <EndContainer
-                        style={{
-                          color: "#99A3BA",
-                          marginTop: "20px",
-                          marginBottom: "20px",
-                          border: crowdSaleContractData.isWhiteListed
-                            ? "2px solid #469D69"
-                            : "1px solid red",
-                        }}
-                      >
-                        <Dot
-                          style={{
-                            background: crowdSaleContractData.isWhiteListed
-                              ? "#57CA81"
-                              : "red",
-                          }}
-                        />
-                        {crowdSaleContractData.isWhiteListed
-                          ? "Your address has been whitelisted"
-                          : "Your address is not whitelisted"}
-                      </EndContainer>
-                      <div style={{ display: "flex", alignItems: "center" }}>
-                        <div>
-                          {selectedToken &&
-                            selectedToken.symbol &&
-                            new BigNumber(
-                              selectedToken.userBalance
-                            ).toNumber() >= 0 && (
-                              <div
-                                style={{
-                                  marginTop: "25px",
-                                  display: "flex",
-                                  alignItems: "center",
-                                  justifyContent: "space-between",
-                                  marginLeft: "10px",
-                                  marginRight: "10px",
-                                }}
-                              >
-                                <ProgressEndLabel>Balance</ProgressEndLabel>
-                                <ProgressEndLabel>
-                                  {parseFloat(
-                                    selectedToken.userBalance
-                                  ).toFixed(3)}{" "}
-                                  {selectedToken.symbol}
-                                </ProgressEndLabel>
-                              </div>
-                            )}
-                          {/*<InputContainer>*/}
-                          {/*  <input*/}
-                          {/*    placeholder="0.0"*/}
-                          {/*    onChange={handleInputChange}*/}
-                          {/*    value={amount}*/}
-                          {/*  />*/}
-                          {/*  <button onClick={handleMaxClick}>Max</button>*/}
-                          {/*</InputContainer>*/}
-                          <TextField
-                            placeholder="0.0"
-                            onChange={handleInputChange}
-                            value={amount}
-                          />
-                          <Button variant={"outlined"} onClick={handleMaxClick}>
-                            Max
-                          </Button>
                         </div>
-                        {crowdSaleContractData &&
-                          crowdSaleContractData.inputTokens &&
-                          crowdSaleContractData.inputTokens.length > 0 && (
-                            <FormControl variant="filled">
-                              <Select
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                value={selectedToken?.address}
-                                style={{ color: "white" }}
-                                defaultValue={
-                                  crowdSaleContractData.inputTokens[0].address
-                                }
-                                // onChange={selectToken}
-                                label="ETH"
-                              >
-                                <MenuItem value="">
-                                  <em>None</em>
-                                </MenuItem>
-                                {crowdSaleContractData.inputTokens.map(
-                                  (eachToken) => (
-                                    <MenuItem
-                                      value={eachToken.address}
-                                      key={eachToken.address}
-                                    >
-                                      {eachToken.symbol}
-                                    </MenuItem>
-                                  )
-                                )}
-                              </Select>
-                            </FormControl>
-                          )}
-                      </div>
-                      <ProgressLabel
-                        style={{
-                          marginTop: "10px",
-                          fontSize: "15px",
-                          textAlign: "center",
-                        }}
-                      >
-                        You will receive about{" "}
-                        <span
-                          style={{
-                            color: isDark ? "white" : "#A7A7A7",
-                            fontWeight: 600,
-                          }}
-                        >
-                          {selectedToken?.rate} {crowdsaleData.token.symbol}
-                        </span>{" "}
-                        for{" "}
-                        <span
-                          style={{
-                            color: isDark ? "white" : "#A7A7A7",
-                            fontWeight: 600,
-                          }}
-                        >
-                          1 {selectedToken?.symbol}{" "}
-                        </span>
-                      </ProgressLabel>
-                      {crowdSaleContractData.isOwner ? (
-                        <Button disabled={pendingTx} onClick={purchaseToken}>
-                          {pendingTx
-                            ? "Transaction Processing"
-                            : `Invest Into ${crowdsaleData.token.symbol}`}
-                        </Button>
-                      ) : (
-                        <Button
-                          disabled={
-                            !crowdSaleContractData.isWhiteListed || pendingTx
-                          }
-                          onClick={purchaseToken}
-                        >
-                          {pendingTx
-                            ? "Transaction Processing"
-                            : `Invest Into ${crowdsaleData.token.symbol}`}
-                        </Button>
                       )}
-                    </Card>
-                  </Grid>
-                </Grid>
-              </Grid>
+                    <div>
+                      <TextField
+                        label={"Amount"}
+                        value={amount}
+                        placeholder={"Amount to enter"}
+                        variant={"outlined"}
+                        onChange={handleInputChange}
+                        size={"medium"}
+                        aria-placeholder={"0.0"}
+                      />
+                      <Button variant="outlined" onClick={handleMaxClick}>
+                        Max
+                      </Button>
+                    </div>
+                  </div>
+                  {crowdSaleContractData &&
+                    crowdSaleContractData.inputTokens &&
+                    crowdSaleContractData.inputTokens.length > 0 && (
+                      <FormControl fullWidth>
+                        <InputLabel id={"select-input-token-label"}>
+                          Input token
+                        </InputLabel>
+                        <Select
+                          labelId="select-input-token-label"
+                          id="select-input-token"
+                          value={showSelectedToken}
+                          onChange={handleShowSelectedToken}
+                          label="Input token"
+                        >
+                          {crowdSaleContractData.inputTokens.map(
+                            (inputToken) => (
+                              <MenuItem
+                                value={inputToken.symbol}
+                                key={inputToken.address}
+                              >
+                                {inputToken.symbol}
+                              </MenuItem>
+                            )
+                          )}
+                        </Select>
+                      </FormControl>
+                    )}
+                </div>
+                <ProgressLabel
+                  style={{
+                    marginTop: "10px",
+                    fontSize: "15px",
+                    textAlign: "center",
+                  }}
+                >
+                  You will receive about{" "}
+                  <span
+                    style={{
+                      color: isDark ? "white" : "#A7A7A7",
+                      fontWeight: 600,
+                    }}
+                  >
+                    {selectedToken?.rate} {crowdsaleData.token.symbol}
+                  </span>{" "}
+                  for{" "}
+                  <span
+                    style={{
+                      color: isDark ? "white" : "#A7A7A7",
+                      fontWeight: 600,
+                    }}
+                  >
+                    1 {selectedToken?.symbol}{" "}
+                  </span>
+                </ProgressLabel>
+
+                {crowdSaleContractData.isOwner ? (
+                  <Button disabled={pendingTx} onClick={purchaseToken}>
+                    {pendingTx
+                      ? "Transaction Processing"
+                      : `Invest Into ${crowdsaleData.token.symbol}`}
+                  </Button>
+                ) : (
+                  <Button
+                    disabled={!crowdSaleContractData.isWhiteListed || pendingTx}
+                    onClick={purchaseToken}
+                  >
+                    {pendingTx
+                      ? "Transaction Processing"
+                      : `Invest Into ${crowdsaleData.token.symbol}`}
+                  </Button>
+                )}
+              </Card>
             )}
           </>
         </Stack>
