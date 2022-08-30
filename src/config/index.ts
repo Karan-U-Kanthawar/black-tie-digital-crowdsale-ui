@@ -37,6 +37,28 @@ export interface IInputToken {
   decimals: number;
   address: string;
 }
+interface ICrowdsaleContractDataInputTokens {
+  name: string;
+  symbol: string;
+  address: string;
+  decimal: string;
+  rate: string;
+  userBalance: string;
+}
+export interface ICrowdsaleContractData {
+  isWhiteListed: boolean;
+  totalUserPurchased: number;
+  totalRemaining: number;
+  progressAmount: number;
+  percentage: number;
+  inputTokens: ICrowdsaleContractDataInputTokens[];
+  isOwner: boolean;
+  claimable: string;
+  claimed: string;
+  locked: string;
+  vestingTimer: number;
+  totalInvest: string;
+}
 
 export const crowdsale: ICrowdsale = {
   // "__typename": "Crowdsale",
@@ -53,7 +75,7 @@ export const crowdsale: ICrowdsale = {
     // "__typename": "Token",
     id: "0x3c01c04f9420839e0a0d95aac2e3c2f69004245b-0xca8fd0eb2975c0d726d8be7ebbe02e72e3b1eb74",
     address: "0xca8fd0eb2975c0d726d8be7ebbe02e72e3b1eb74",
-    name: "CNT",
+    name: "Cryption Network Token",
     symbol: "CNT",
     url: "https://i.ibb.co/8D5r4Hp/CNT.png",
     decimals: 18,
@@ -104,5 +126,5 @@ export const BLACK_TIE_DIGITAL_SOCIALS = {
     link: "https://www.cryption.network/assets/docs/Cryption-Network-Litepaper.pdf",
   },
   vestingInfo:
-    "20% of the token will be given on 31st jan and the remaining will be linearly vested for 6 months.",
+    "20% of the token will be given on 31st Jan & the remaining will be linearly vested for 6 months.",
 };
