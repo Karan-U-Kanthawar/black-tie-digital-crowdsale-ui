@@ -62,18 +62,18 @@ export interface ICrowdsaleContractData {
 
 export const crowdsale: ICrowdsale = {
   // "__typename": "Crowdsale",
-  crowdsaleStart: "1661630400",
-  crowdsaleEnd: "1661689710",
-  cliffDuration: "0",
-  vestingStart: "1661776110",
-  vestingEnd: "1661948910",
+  crowdsaleEnd: "1661914800",
+  crowdsaleStart: "1661911200",
+  cliffDuration: "1800",
+  vestingEnd: "1661922000",
+  vestingStart: "1661918400",
   tokenRemainingForSale: "10000000000000000000000",
   whitelistingEnabled: true,
   owner: "0x4274a49fbeb724d75b8ba7bfc55fc8495a15ad1e",
   hardcap: "10000000000000000000000",
   token: {
     // "__typename": "Token",
-    id: "0x3c01c04f9420839e0a0d95aac2e3c2f69004245b-0xca8fd0eb2975c0d726d8be7ebbe02e72e3b1eb74",
+    id: "0xe0724c30d2b61cf4a23e0aae518e9c95ed8d76d2-0xca8fd0eb2975c0d726d8be7ebbe02e72e3b1eb74",
     address: "0xca8fd0eb2975c0d726d8be7ebbe02e72e3b1eb74",
     name: "Cryption Network Token",
     symbol: "CNT",
@@ -85,7 +85,7 @@ export const crowdsale: ICrowdsale = {
 export const allowedInputTokens: IAllowedCrowdsaleInputTokens[] = [
   {
     // __typename: "AllowedInputToken",
-    id: "0x3c01c04f9420839e0a0d95aac2e3c2f69004245b-0x671b68fb02778d37a885699da79c13faf0d3c560",
+    id: "0xe0724c30d2b61cf4a23e0aae518e9c95ed8d76d2-0x671b68fb02778d37a885699da79c13faf0d3c560",
     crowdsaleAddress: {
       // __typename: "Crowdsale",
       id: "0x3c01c04f9420839e0a0d95aac2e3c2f69004245b",
@@ -98,7 +98,7 @@ export const allowedInputTokens: IAllowedCrowdsaleInputTokens[] = [
   },
   {
     // __typename: "AllowedInputToken",
-    id: "0x3c01c04f9420839e0a0d95aac2e3c2f69004245b-0x6d4063bdc64c1ca2d0e28552f032804b2af117d0",
+    id: "0xe0724c30d2b61cf4a23e0aae518e9c95ed8d76d2-0x6d4063bdc64c1ca2d0e28552f032804b2af117d0",
     crowdsaleAddress: {
       // __typename: "Crowdsale",
       id: "0x3c01c04f9420839e0a0d95aac2e3c2f69004245b",
