@@ -429,9 +429,13 @@ function IVCOPage({ id }: IIVCOPage) {
                 <CardHeading>Vesting</CardHeading>
                 <Hr />
                 <Stack rowGap={3}>
-                  <Stack justifyContent={"center"} alignItems={"center"}>
+                  <Stack
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                    gap={1}
+                  >
                     <CardSubHeading>Total Invested</CardSubHeading>
-                    <Stack direction={"row"}>
+                    <Stack direction={"row"} alignItems={"center"} gap={1}>
                       <CardText>
                         {parseFloat(crowdSaleContractData.totalInvest).toFixed(
                           2
@@ -448,9 +452,13 @@ function IVCOPage({ id }: IIVCOPage) {
                     spacing={2}
                     justifyContent={"space-around"}
                   >
-                    <Stack justifyContent={"center"} alignItems={"center"}>
+                    <Stack
+                      justifyContent={"center"}
+                      alignItems={"center"}
+                      gap={1}
+                    >
                       <CardSubHeading>Locked</CardSubHeading>
-                      <Stack direction={"row"}>
+                      <Stack direction={"row"} alignItems={"center"} gap={1}>
                         <CardText>
                           {parseFloat(crowdSaleContractData.locked).toFixed(2)}
                         </CardText>
@@ -459,9 +467,13 @@ function IVCOPage({ id }: IIVCOPage) {
                         </CardSubHeading>
                       </Stack>
                     </Stack>
-                    <Stack justifyContent={"center"} alignItems={"center"}>
+                    <Stack
+                      justifyContent={"center"}
+                      alignItems={"center"}
+                      gap={1}
+                    >
                       <CardSubHeading>Claimable</CardSubHeading>
-                      <Stack direction={"row"}>
+                      <Stack direction={"row"} alignItems={"center"} gap={1}>
                         <CardText>
                           {parseFloat(crowdSaleContractData.claimable).toFixed(
                             2
@@ -472,9 +484,13 @@ function IVCOPage({ id }: IIVCOPage) {
                         </CardSubHeading>
                       </Stack>
                     </Stack>
-                    <Stack justifyContent={"center"} alignItems={"center"}>
+                    <Stack
+                      justifyContent={"center"}
+                      alignItems={"center"}
+                      gap={1}
+                    >
                       <CardSubHeading>Claimed</CardSubHeading>
-                      <Stack direction={"row"}>
+                      <Stack direction={"row"} alignItems={"center"} gap={1}>
                         <CardText>
                           {parseFloat(crowdSaleContractData.claimed).toFixed(2)}
                         </CardText>
