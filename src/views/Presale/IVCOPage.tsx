@@ -183,7 +183,9 @@ function IVCOPage({ id }: IIVCOPage) {
                 address: eachToken.address,
                 symbol: eachToken.symbol,
                 decimal: eachToken.decimals,
-                rate: new BigNumber(eachToken.rate).div(10 ** 18).toString(),
+                rate: new BigNumber(eachToken.rate)
+                  .div(10 ** eachToken.decimals)
+                  .toString(),
                 userBalance: balanceInEther.toString(),
               });
               inputTokens.push();
