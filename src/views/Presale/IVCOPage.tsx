@@ -72,21 +72,6 @@ const Dot = styled.div<{ isWhitelisted: boolean }>`
   margin-right: 6px;
 `;
 
-const ProgressLabel = styled.p`
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 38px;
-  color: #a7a7a7;
-  text-align: left;
-`;
-const ProgressEndLabel = styled.p`
-  font-weight: 500;
-  font-size: 13px;
-  text-align: end;
-  margin-top: 10px;
-  color: #a7a7a7;
-`;
-
 interface IIVCOPage {
   id: string;
 }
@@ -120,8 +105,6 @@ function IVCOPage({ id }: IIVCOPage) {
     });
   const [totalSupply, setTotalSupply] = React.useState("0");
   const crowdSaleContract = useCrowdsaleContract(id, library);
-
-  const isDark = true;
 
   useEffect(() => {
     const getCrowdSaleData = async (account: string) => {
@@ -444,7 +427,7 @@ function IVCOPage({ id }: IIVCOPage) {
                 </Button>
               </Card>
             )}
-            {isEnded ? (
+            {!isEnded ? (
               <Card>
                 <CardHeading>Vesting</CardHeading>
                 <Hr />
@@ -549,44 +532,39 @@ function IVCOPage({ id }: IIVCOPage) {
                     : "Your address is not whitelisted"}
                 </ColorContainer>
 
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <div>
-                    {selectedToken &&
-                      selectedToken.symbol &&
-                      new BigNumber(selectedToken.userBalance).toNumber() >=
-                        0 && (
-                        <div
-                          style={{
-                            marginTop: "25px",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            marginLeft: "10px",
-                            marginRight: "10px",
-                          }}
-                        >
-                          <ProgressEndLabel>Balance</ProgressEndLabel>
-                          <ProgressEndLabel>
-                            {parseFloat(selectedToken.userBalance).toFixed(3)}{" "}
-                            {selectedToken.symbol}
-                          </ProgressEndLabel>
-                        </div>
-                      )}
-                    <div>
-                      <TextField
-                        label={"Amount"}
-                        value={amount}
-                        placeholder={"Amount to enter"}
-                        variant={"outlined"}
-                        onChange={handleInputChange}
-                        size={"medium"}
-                        aria-placeholder={"0.0"}
-                      />
-                      <Button variant="outlined" onClick={handleMaxClick}>
-                        Max
-                      </Button>
-                    </div>
-                  </div>
+                <Stack>
+                  {selectedToken &&
+                    selectedToken.symbol &&
+                    new BigNumber(selectedToken.userBalance).toNumber() >=
+                      0 && (
+                      <Stack
+                        direction={"row"}
+                        margin={"20px 0"}
+                        display={"flex"}
+                        justifyContent={"space-between"}
+                        alignItems={"center"}
+                      >
+                        <CardSubHeading>Balance</CardSubHeading>
+                        <CardText>
+                          {parseFloat(selectedToken.userBalance).toFixed(3)}{" "}
+                          {selectedToken.symbol}
+                        </CardText>
+                      </Stack>
+                    )}
+                  <TextField
+                    label={"Amount"}
+                    value={amount}
+                    placeholder={"Amount to enter"}
+                    variant={"outlined"}
+                    onChange={handleInputChange}
+                    size={"medium"}
+                    aria-placeholder={"0.0"}
+                  />
+                  <Button variant="outlined" onClick={handleMaxClick}>
+                    Max
+                  </Button>
+                </Stack>
+                <Stack>
                   {crowdSaleContractData &&
                     crowdSaleContractData.inputTokens &&
                     crowdSaleContractData.inputTokens.length > 0 && (
@@ -614,48 +592,33 @@ function IVCOPage({ id }: IIVCOPage) {
                         </Select>
                       </FormControl>
                     )}
-                </div>
-                <ProgressLabel
-                  style={{
-                    marginTop: "10px",
-                    fontSize: "15px",
-                    textAlign: "center",
-                  }}
-                >
-                  You will receive about{" "}
-                  <span
-                    style={{
-                      color: isDark ? "white" : "#A7A7A7",
-                      fontWeight: 600,
-                    }}
-                  >
+                </Stack>
+                <Stack direction={"row"} justifyContent={"center"}>
+                  <CardSubHeading>You will receive about</CardSubHeading>
+                  <CardText style={{ margin: "0 8px" }}>
                     {selectedToken?.rate} {crowdsaleData.token.symbol}
-                  </span>{" "}
-                  for{" "}
-                  <span
-                    style={{
-                      color: isDark ? "white" : "#A7A7A7",
-                      fontWeight: 600,
-                    }}
-                  >
-                    1 {selectedToken?.symbol}{" "}
-                  </span>
-                </ProgressLabel>
+                  </CardText>
+                  <CardSubHeading>for</CardSubHeading>
+                  <CardSubHeading style={{ margin: "0 8px" }}>
+                    1 {selectedToken?.symbol}
+                  </CardSubHeading>
+                </Stack>
 
                 {crowdSaleContractData.isOwner ? (
-                  <Button disabled={pendingTx} onClick={purchaseToken}>
-                    {pendingTx
-                      ? "Transaction Processing"
-                      : `Invest Into ${crowdsaleData.token.symbol}`}
+                  <Button
+                    variant={"contained"}
+                    disabled={pendingTx}
+                    onClick={purchaseToken}
+                  >
+                    Invest into {crowdsaleData.token.symbol}
                   </Button>
                 ) : (
                   <Button
                     disabled={!crowdSaleContractData.isWhiteListed || pendingTx}
                     onClick={purchaseToken}
+                    variant={"contained"}
                   >
-                    {pendingTx
-                      ? "Transaction Processing"
-                      : `Invest Into ${crowdsaleData.token.symbol}`}
+                    Invest into {crowdsaleData.token.symbol}
                   </Button>
                 )}
               </Card>
