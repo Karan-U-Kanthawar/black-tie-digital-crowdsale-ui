@@ -60,7 +60,7 @@ const TimerCard = ({
           )}
         </CardBody>
       ) : (
-        <Card>
+        <Stack gap={1}>
           {!isEnded && crowdsaleData && (
             <CountdownTimer
               unixEndTimeInSeconds={
@@ -75,7 +75,7 @@ const TimerCard = ({
               }
             />
           )}
-          <Card>
+          <Stack gap={1}>
             <CardSubHeading>
               Progress: {crowdsaleContractData.percentage.toFixed(2)} %
             </CardSubHeading>
@@ -87,14 +87,13 @@ const TimerCard = ({
             <CardSubHeading>
               {`${
                 crowdsaleContractData.progressAmount
-              }/${ethers.utils.formatEther(crowdsaleData.hardcap)}`}
+              } / ${ethers.utils.formatEther(crowdsaleData.hardcap)}`}
             </CardSubHeading>
-          </Card>
-        </Card>
+          </Stack>
+        </Stack>
       )}
     </Card>
   );
 };
 
 export default TimerCard;
-// <TimerCard isEnded={isEnded} isVestingEnded={isVestingEnded} isVestingYetToStart={isVestingYetToStart} isVestingStarted={isVestingStarted} isOngoing={isOngoing} crowdsaleData={crowdsaleData} crowdsaleContractData={crowdSaleContractData} />
