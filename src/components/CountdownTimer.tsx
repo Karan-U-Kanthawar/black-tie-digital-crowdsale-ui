@@ -4,10 +4,23 @@ import React from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import styled from "styled-components";
 import { Stack } from "@mui/material";
+import { CardSubHeading, CardText } from "../styles/CardStyles";
 
-const Heading = styled.h3`
-  color: ${(props) => props.theme.palette.secondary.main};
+const Heading = styled(CardSubHeading)`
   text-align: center;
+`;
+const CountdownContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  text-align: center;
+
+  flex-wrap: wrap;
+`;
+const SingleCountdownContainer = styled.div`
+  margin: 10px;
+  @media (max-width: 460px) {
+    margin: 1px;
+  }
 `;
 
 const minuteSeconds = 60;
@@ -22,10 +35,10 @@ const timerProps = {
 
 const renderTime = (dimension: any, time: any) => {
   return (
-    <TimeWrapper>
-      <TimeStyles>{time}</TimeStyles>
-      <TimeDimensionStyles>{dimension}</TimeDimensionStyles>
-    </TimeWrapper>
+    <Stack>
+      <CardText>{time}</CardText>
+      <CardSubHeading>{dimension}</CardSubHeading>
+    </Stack>
   );
 };
 
@@ -144,31 +157,5 @@ const CountdownTimer = ({
   }
   return <></>;
 };
-
-const CountdownContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  text-align: center;
-
-  flex-wrap: wrap;
-`;
-
-const SingleCountdownContainer = styled.div`
-  margin: 10px;
-  @media (max-width: 460px) {
-    margin: 1px;
-  }
-`;
-
-const TimeWrapper = styled.div``;
-
-const TimeStyles = styled.div`
-  color: ${(props) => props.theme.palette.secondary.main};
-  font-size: 22px;
-`;
-const TimeDimensionStyles = styled.div`
-  color: ${(props) => props.theme.palette.secondary.main};
-  font-size: 16px;
-`;
 
 export default CountdownTimer;
