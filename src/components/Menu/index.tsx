@@ -6,7 +6,7 @@ import CompanyLogo from "./companyLogo.svg";
 
 const BlackContainer = styled.div`
   background-color: ${(props) => props.theme.palette.background.default};
-  padding-top: 70px;
+  padding-top: 20px;
 `;
 
 const StyledContainer = styled(Container)``;

@@ -151,7 +151,6 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   text-align: center;
-  margin: 40px 0 0 0;
   flex-direction: column;
 `;
 

@@ -7,7 +7,6 @@ import { Stack } from "@mui/material";
 import styled from "styled-components";
 
 const ImgContainer = styled.div``;
-const HeadingContainer = styled.div``;
 const Title = styled.h1`
   text-align: center;
   font-weight: 600;
@@ -43,8 +42,8 @@ const HeroCard = ({
   totalSupply: string;
 }) => {
   return (
-    <Stack marginBottom={"20px"}>
-      <Stack direction={"row"} marginBottom={"20px"}>
+    <Stack>
+      <Stack direction={"row"}>
         <ImgContainer>
           <img
             src={crowdsaleData.token.url}
@@ -54,12 +53,10 @@ const HeroCard = ({
             style={{ marginBottom: "10px", marginRight: "20px" }}
           />
         </ImgContainer>
-        <HeadingContainer>
-          <Title>
-            {crowdsaleData.token.name}
-            <SubTitle> ( {crowdsaleData.token.symbol} ) </SubTitle>
-          </Title>
-        </HeadingContainer>
+        <Stack alignItems={"center"}>
+          <Title>{crowdsaleData.token.name}</Title>
+          <SubTitle> ( {crowdsaleData.token.symbol} ) </SubTitle>
+        </Stack>
       </Stack>
       <Stack
         direction={"row"}

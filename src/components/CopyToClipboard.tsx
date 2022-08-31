@@ -6,9 +6,7 @@ interface Props {
   toCopy: string;
 }
 
-const Text = styled.p``;
-
-const StyleButton = styled(Text).attrs({ role: "button" })`
+const StyleButton = styled.div.attrs({ role: "button" })`
   margin-top: 5px;
   display: flex;
   align-items: center;
