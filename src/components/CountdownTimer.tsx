@@ -3,9 +3,11 @@
 import React from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import styled from "styled-components";
+import { Stack } from "@mui/material";
 
 const Heading = styled.h3`
   color: ${(props) => props.theme.palette.secondary.main};
+  text-align: center;
 `;
 
 const minuteSeconds = 60;
@@ -49,12 +51,8 @@ const CountdownTimer = ({
     const daysDuration = days * daySeconds;
 
     return (
-      <Container>
-        <div>
-          <Heading marginBottom="5px" color="#99a3ba">
-            {info}
-          </Heading>
-        </div>
+      <Stack gap={2}>
+        <Heading>{info}</Heading>
         <CountdownContainer>
           <SingleCountdownContainer>
             <CountdownCircleTimer
@@ -141,30 +139,29 @@ const CountdownTimer = ({
             </CountdownCircleTimer>
           </SingleCountdownContainer>
         </CountdownContainer>
-      </Container>
+      </Stack>
     );
   }
   return <></>;
 };
 
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  flex-direction: column;
-`;
-
 const CountdownContainer = styled.div`
   display: flex;
   justify-content: center;
   text-align: center;
+
+  flex-wrap: wrap;
 `;
 
 const SingleCountdownContainer = styled.div`
   margin: 10px;
+  @media (max-width: 460px) {
+    margin: 1px;
+  }
 `;
 
 const TimeWrapper = styled.div``;
+
 const TimeStyles = styled.div`
   color: ${(props) => props.theme.palette.secondary.main};
   font-size: 22px;
