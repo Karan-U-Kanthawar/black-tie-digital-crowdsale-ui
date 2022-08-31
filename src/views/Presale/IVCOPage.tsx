@@ -32,19 +32,17 @@ import {
   CardHeading,
   CardSubHeading,
   CardText,
+  Hr,
 } from "../../styles/CardStyles";
 
-const Hr = styled.div`
-  background: ${(props) => props.theme.palette.primary.main};
-  border-radius: 1px;
-  transform: matrix(1, 0, 0, -1, 0, 0);
-  width: 100%;
-  height: 2px;
-  margin: 10px 0 20px 0;
-`;
 interface ColorProps {
   isWhitelisted?: boolean;
 }
+
+const InputContainer = styled.div`
+  position: relative;
+`;
+
 const ColorContainer = styled.div<ColorProps>`
   color: ${(props) => props.theme.palette.text.disabled};
   border-radius: 14px;
@@ -402,7 +400,6 @@ function IVCOPage({ id }: IIVCOPage) {
             crowdsaleData={crowdsaleData}
             crowdsaleContractData={crowdSaleContractData}
           />
-
           <>
             {crowdSaleContractData.isOwner && (
               <Card>
@@ -427,7 +424,7 @@ function IVCOPage({ id }: IIVCOPage) {
                 </Button>
               </Card>
             )}
-            {!isEnded ? (
+            {isEnded ? (
               <Card>
                 <CardHeading>Vesting</CardHeading>
                 <Hr />
@@ -503,68 +500,79 @@ function IVCOPage({ id }: IIVCOPage) {
               </Card>
             ) : (
               <Card>
-                <Stack
-                  direction={"row"}
-                  display={"flex"}
-                  justifyContent={"space-between"}
-                  alignItems="center"
-                >
-                  <Stack>
-                    <CardHeading>Invest</CardHeading>
-                    <Hr />
+                <Stack rowGap={3}>
+                  <Stack
+                    direction={"row"}
+                    display={"flex"}
+                    justifyContent={"space-between"}
+                    alignItems="center"
+                  >
+                    <Stack>
+                      <CardHeading>Invest</CardHeading>
+                      <Hr />
+                    </Stack>
+                    <Card>
+                      <CardSubHeading style={{ fontSize: "15px" }}>
+                        Your Investment
+                      </CardSubHeading>
+                      <CardText>
+                        {crowdSaleContractData.totalUserPurchased}{" "}
+                        {crowdsaleData.token.symbol}
+                      </CardText>
+                    </Card>
                   </Stack>
-                  <Card>
-                    <CardSubHeading style={{ fontSize: "15px" }}>
-                      Your Investment
-                    </CardSubHeading>
-                    <CardText>
-                      {crowdSaleContractData.totalUserPurchased}{" "}
-                      {crowdsaleData.token.symbol}
-                    </CardText>
-                  </Card>
-                </Stack>
-                <ColorContainer
-                  isWhitelisted={crowdSaleContractData.isWhiteListed}
-                >
-                  <Dot isWhitelisted={crowdSaleContractData.isWhiteListed} />
-                  {crowdSaleContractData.isWhiteListed
-                    ? "Your address has been whitelisted"
-                    : "Your address is not whitelisted"}
-                </ColorContainer>
+                  <ColorContainer
+                    isWhitelisted={crowdSaleContractData.isWhiteListed}
+                  >
+                    <Dot isWhitelisted={crowdSaleContractData.isWhiteListed} />
+                    {crowdSaleContractData.isWhiteListed
+                      ? "Your address has been whitelisted"
+                      : "Your address is not whitelisted"}
+                  </ColorContainer>
 
-                <Stack>
-                  {selectedToken &&
-                    selectedToken.symbol &&
-                    new BigNumber(selectedToken.userBalance).toNumber() >=
-                      0 && (
-                      <Stack
-                        direction={"row"}
-                        margin={"20px 0"}
-                        display={"flex"}
-                        justifyContent={"space-between"}
-                        alignItems={"center"}
+                  <Stack>
+                    {selectedToken &&
+                      selectedToken.symbol &&
+                      new BigNumber(selectedToken.userBalance).toNumber() >=
+                        0 && (
+                        <Stack
+                          direction={"row"}
+                          margin={"20px 0"}
+                          display={"flex"}
+                          justifyContent={"space-between"}
+                          alignItems={"center"}
+                        >
+                          <CardSubHeading>Balance</CardSubHeading>
+                          <CardText>
+                            {parseFloat(selectedToken.userBalance).toFixed(3)}{" "}
+                            {selectedToken.symbol}
+                          </CardText>
+                        </Stack>
+                      )}
+                    <InputContainer>
+                      <TextField
+                        label={"Amount"}
+                        value={amount}
+                        placeholder={"Amount to enter"}
+                        variant={"outlined"}
+                        onChange={handleInputChange}
+                        size={"medium"}
+                        aria-placeholder={"0.0"}
+                        fullWidth
+                      />
+                      <Button
+                        variant="outlined"
+                        onClick={handleMaxClick}
+                        style={{
+                          position: "absolute",
+                          right: "10px",
+                          top: "15%",
+                        }}
                       >
-                        <CardSubHeading>Balance</CardSubHeading>
-                        <CardText>
-                          {parseFloat(selectedToken.userBalance).toFixed(3)}{" "}
-                          {selectedToken.symbol}
-                        </CardText>
-                      </Stack>
-                    )}
-                  <TextField
-                    label={"Amount"}
-                    value={amount}
-                    placeholder={"Amount to enter"}
-                    variant={"outlined"}
-                    onChange={handleInputChange}
-                    size={"medium"}
-                    aria-placeholder={"0.0"}
-                  />
-                  <Button variant="outlined" onClick={handleMaxClick}>
-                    Max
-                  </Button>
-                </Stack>
-                <Stack>
+                        Max
+                      </Button>
+                    </InputContainer>
+                  </Stack>
                   {crowdSaleContractData &&
                     crowdSaleContractData.inputTokens &&
                     crowdSaleContractData.inputTokens.length > 0 && (
@@ -592,35 +600,37 @@ function IVCOPage({ id }: IIVCOPage) {
                         </Select>
                       </FormControl>
                     )}
-                </Stack>
-                <Stack direction={"row"} justifyContent={"center"}>
-                  <CardSubHeading>You will receive about</CardSubHeading>
-                  <CardText style={{ margin: "0 8px" }}>
-                    {selectedToken?.rate} {crowdsaleData.token.symbol}
-                  </CardText>
-                  <CardSubHeading>for</CardSubHeading>
-                  <CardSubHeading style={{ margin: "0 8px" }}>
-                    1 {selectedToken?.symbol}
-                  </CardSubHeading>
-                </Stack>
+                  <Stack direction={"row"} justifyContent={"center"}>
+                    <CardSubHeading>You will receive about</CardSubHeading>
+                    <CardText style={{ margin: "0 8px" }}>
+                      {selectedToken?.rate} {crowdsaleData.token.symbol}
+                    </CardText>
+                    <CardSubHeading>for</CardSubHeading>
+                    <CardSubHeading style={{ margin: "0 8px" }}>
+                      1 {selectedToken?.symbol}
+                    </CardSubHeading>
+                  </Stack>
 
-                {crowdSaleContractData.isOwner ? (
-                  <Button
-                    variant={"contained"}
-                    disabled={pendingTx}
-                    onClick={purchaseToken}
-                  >
-                    Invest into {crowdsaleData.token.symbol}
-                  </Button>
-                ) : (
-                  <Button
-                    disabled={!crowdSaleContractData.isWhiteListed || pendingTx}
-                    onClick={purchaseToken}
-                    variant={"contained"}
-                  >
-                    Invest into {crowdsaleData.token.symbol}
-                  </Button>
-                )}
+                  {crowdSaleContractData.isOwner ? (
+                    <Button
+                      variant={"contained"}
+                      disabled={pendingTx}
+                      onClick={purchaseToken}
+                    >
+                      Invest into {crowdsaleData.token.symbol}
+                    </Button>
+                  ) : (
+                    <Button
+                      disabled={
+                        !crowdSaleContractData.isWhiteListed || pendingTx
+                      }
+                      onClick={purchaseToken}
+                      variant={"contained"}
+                    >
+                      Invest into {crowdsaleData.token.symbol}
+                    </Button>
+                  )}
+                </Stack>
               </Card>
             )}
           </>
