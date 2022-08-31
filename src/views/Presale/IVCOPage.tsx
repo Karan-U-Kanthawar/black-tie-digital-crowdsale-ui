@@ -529,12 +529,19 @@ function IVCOPage({ id }: IIVCOPage) {
                       <CardHeading>Invest</CardHeading>
                       <Hr />
                     </Stack>
-                    <Card>
+                    <Card
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
                       <CardSubHeading style={{ fontSize: "15px" }}>
                         Your Investment
                       </CardSubHeading>
-                      <CardText>
-                        {crowdSaleContractData.totalUserPurchased}{" "}
+                      <CardText style={{ marginTop: "5px" }}>
+                        {crowdSaleContractData.totalUserPurchased.toFixed(2)}{" "}
                         {crowdsaleData.token.symbol}
                       </CardText>
                     </Card>
