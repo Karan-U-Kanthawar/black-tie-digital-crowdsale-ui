@@ -10,6 +10,15 @@ const BlackContainer = styled.div`
 `;
 
 const StyledContainer = styled(Container)``;
+const NavigationContainer = styled.nav`
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  @media (max-width: 600px) {
+    justify-content: space-evenly;
+  }
+`;
 
 const LogoContainer = styled.div``;
 
@@ -19,7 +28,7 @@ const Menu: React.FC = () => {
   return (
     <BlackContainer>
       <StyledContainer>
-        <Stack direction={"row"} justifyContent={"space-between"}>
+        <NavigationContainer>
           <LogoContainer>
             <img src={CompanyLogo} width={"250px"} alt={"B4Real"} />
           </LogoContainer>
@@ -38,7 +47,7 @@ const Menu: React.FC = () => {
               </Stack>
             )}
           </Stack>
-        </Stack>
+        </NavigationContainer>
       </StyledContainer>
     </BlackContainer>
   );
