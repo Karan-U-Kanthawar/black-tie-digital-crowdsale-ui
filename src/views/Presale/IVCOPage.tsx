@@ -22,7 +22,6 @@ import {
   ICrowdsaleContractData,
   IInputTokens,
 } from "../../config";
-import VestingInfoCard from "../../components/VestingInfoCard";
 import PoolInfoCard from "../../components/PoolInfoCard";
 import useWeb3Config from "../../components/Menu/useWeb3Config";
 import HeroCard from "../../components/HeroCard";
@@ -387,7 +386,6 @@ function IVCOPage({ id }: IIVCOPage) {
       <Grid item lg={6} md={12} sm={12} xs={12}>
         <Stack rowGap={2}>
           <HeroCard crowdsaleData={crowdsaleData} totalSupply={totalSupply} />
-          <VestingInfoCard crowdsaleData={crowdsaleData} />
           <PoolInfoCard crowdsaleData={crowdsaleData} />
         </Stack>
       </Grid>
