@@ -5,110 +5,31 @@ BigNumber.config({
   DECIMAL_PLACES: 80,
 });
 
-export interface ICrowdsale {
-  crowdsaleStart: string;
-  crowdsaleEnd: string;
-  cliffDuration: string;
-  vestingStart: string;
-  vestingEnd: string;
-  tokenRemainingForSale: string;
-  whitelistingEnabled: boolean;
-  owner: string;
-  hardcap: string;
-  token: {
-    id: string;
-    address: string;
-    name: string;
-    symbol: string;
-    url: string;
-    decimals: number;
-  };
-}
-export interface IAllowedCrowdsaleInputTokens {
-  id: string;
-  crowdsaleAddress: {
-    id: string;
-  };
-  name: string;
-  rate: string;
-  symbol: string;
-  decimals: number;
-  address: string;
-}
-export interface IInputTokens {
-  name: string;
-  symbol: string;
-  address: string;
-  decimal: string;
-  rate: string;
-  userBalance: string;
-}
-export interface ICrowdsaleContractData {
-  isWhiteListed: boolean;
-  totalUserPurchased: number;
-  totalRemaining: number;
-  progressAmount: number;
-  percentage: number;
-  inputTokens: IInputTokens[];
-  isOwner: boolean;
-  claimable: string;
-  claimed: string;
-  locked: string;
-  vestingTimer: number;
-  totalInvest: string;
-}
-
 export const BLACK_TIE_DIGITAL_PRESALE_ID =
-  "0xe0724c30d2b61cf4a23e0aae518e9c95ed8d76d2";
+  "0xC332D369483d1c690b845D1545575A1a402c073E";
 
-export const crowdsale: ICrowdsale = {
-  // "__typename": "Crowdsale",
-  crowdsaleEnd: "1661914800",
-  crowdsaleStart: "1661911200",
-  cliffDuration: "1800",
-  vestingEnd: "1661922000",
-  vestingStart: "1661918400",
-  tokenRemainingForSale: "10000000000000000000000",
-  whitelistingEnabled: true,
-  owner: "0x4274a49fbeb724d75b8ba7bfc55fc8495a15ad1e",
-  hardcap: "10000000000000000000000",
+export const crowdsale = {
+  owner: "0xb60B993862673A87C16E4e6e5F75397131EEBb3e",
+  crowdsaleTokenAllocated: "100000000000000000000",
+  maxUserAllocation: "10000000000000000000000",
   token: {
-    // "__typename": "Token",
-    id: `${BLACK_TIE_DIGITAL_PRESALE_ID}-0xca8fd0eb2975c0d726d8be7ebbe02e72e3b1eb74`,
-    address: "0xca8fd0eb2975c0d726d8be7ebbe02e72e3b1eb74",
-    name: "Cryption Network Token",
-    symbol: "CNT",
+    address: "0x286881d76b77617e5F5C6Bc5a4c0A373ba9d297d",
+    name: "Apple",
+    symbol: "Apple",
     url: "https://i.ibb.co/8D5r4Hp/CNT.png",
     decimals: 18,
   },
 };
 
-export const allowedInputTokens: IAllowedCrowdsaleInputTokens[] = [
+export const allowedInputTokens = [
   {
-    // __typename: "AllowedInputToken",
-    id: `${BLACK_TIE_DIGITAL_PRESALE_ID}-0x671b68fb02778d37a885699da79c13faf0d3c560`,
-    crowdsaleAddress: {
-      // __typename: "Crowdsale",
-      id: `${BLACK_TIE_DIGITAL_PRESALE_ID}`,
-    },
-    name: "USD Coin",
-    rate: "25000000",
-    symbol: "USDC",
-    decimals: 6,
-    address: "0x671b68fb02778d37a885699da79c13faf0d3c560",
-  },
-  {
-    // __typename: "AllowedInputToken",
-    id: `${BLACK_TIE_DIGITAL_PRESALE_ID}-0x6d4063bdc64c1ca2d0e28552f032804b2af117d0`,
-    crowdsaleAddress: {
-      // __typename: "Crowdsale",
-      id: `${BLACK_TIE_DIGITAL_PRESALE_ID}`,
-    },
-    name: "HONOR",
-    rate: "12000000000000000000",
-    symbol: "HONOR",
+    name: "Mango",
+    symbol: "Mango",
     decimals: 18,
-    address: "0x6d4063bdc64c1ca2d0e28552f032804b2af117d0",
+    address: "0xA62EAD46A8AB6cce617fA3748869dBbde5756587",
+    // Get from contract dynamically
+    tokenRate: "0",
+    userBalance: "0",
   },
 ];
 

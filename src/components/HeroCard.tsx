@@ -2,9 +2,9 @@ import CopyToClipboard from "./CopyToClipboard";
 import convertToInternationalCurrencySystem from "../utils/displayCurrency";
 import SocialsContainer from "./SocialsContainer";
 import React from "react";
-import { ICrowdsale } from "../config";
 import { Stack } from "@mui/material";
 import styled from "styled-components";
+import { crowdsale } from "../config";
 
 const ImgContainer = styled.div``;
 const Title = styled.h1`
@@ -38,7 +38,7 @@ const HeroCard = ({
   crowdsaleData,
   totalSupply,
 }: {
-  crowdsaleData: ICrowdsale;
+  crowdsaleData: typeof crowdsale;
   totalSupply: string;
 }) => {
   return (
