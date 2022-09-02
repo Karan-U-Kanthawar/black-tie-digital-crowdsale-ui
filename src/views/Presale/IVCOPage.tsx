@@ -18,13 +18,7 @@ import { useCrowdsaleContract } from "../../hooks/useContract";
 import { allowedInputTokens, crowdsale } from "../../config";
 import useWeb3Config from "../../components/Menu/useWeb3Config";
 import HeroCard from "../../components/HeroCard";
-import {
-  Card,
-  CardHeading,
-  CardSubHeading,
-  CardText,
-  Hr,
-} from "../../styles/CardStyles";
+import { Card, CardSubHeading, CardText } from "../../styles/CardStyles";
 
 const InputContainer = styled.div`
   position: relative;
@@ -212,12 +206,24 @@ function IVCOPage({ id }: IIVCOPage) {
 
   return (
     <Grid container spacing={2} paddingBottom={"100px"}>
+      <Grid item lg={3} md={0}></Grid>
       <Grid item lg={6} md={12} sm={12} xs={12}>
         <Stack rowGap={2}>
           <HeroCard
             crowdsaleData={crowdsaleData}
             totalSupply={tokensRemainingForSale}
           />
+          {crowdsaleData.owner === account && (
+            <Card>
+              <Button
+                variant={"contained"}
+                disabled={pendingTxn}
+                onClick={handleEndCrowdsale}
+              >
+                End Crowdsale
+              </Button>
+            </Card>
+          )}
           <Card>
             <Stack rowGap={3}>
               <Stack>
@@ -311,46 +317,24 @@ function IVCOPage({ id }: IIVCOPage) {
               )}
             </Stack>
           </Card>
-        </Stack>
-      </Grid>
-      <Grid item lg={6} md={12} sm={12} xs={12}>
-        <Stack rowGap={2}>
-          <>
-            {crowdsaleData.owner === account && (
-              <Card>
-                <Button
-                  variant={"contained"}
-                  disabled={pendingTxn}
-                  onClick={handleEndCrowdsale}
-                >
-                  End Crowdsale
-                </Button>
-              </Card>
-            )}
-            {account && (
-              <Card>
-                <CardHeading>Vesting</CardHeading>
-                <Hr />
-                <Stack rowGap={3}>
-                  <Stack
-                    justifyContent={"center"}
-                    alignItems={"center"}
-                    gap={1}
-                  >
-                    <CardSubHeading>Total Invested</CardSubHeading>
-                    <Stack direction={"row"} alignItems={"center"} gap={1}>
-                      <CardText>{Number(userVestedAmount).toFixed(3)}</CardText>
-                      <CardSubHeading>
-                        {crowdsaleData.token.symbol}
-                      </CardSubHeading>
-                    </Stack>
+          {account && (
+            <Card>
+              <Stack rowGap={3}>
+                <Stack justifyContent={"center"} alignItems={"center"} gap={1}>
+                  <CardSubHeading>Total Invested</CardSubHeading>
+                  <Stack direction={"row"} alignItems={"center"} gap={1}>
+                    <CardText>{Number(userVestedAmount).toFixed(3)}</CardText>
+                    <CardSubHeading>
+                      {crowdsaleData.token.symbol}
+                    </CardSubHeading>
                   </Stack>
                 </Stack>
-              </Card>
-            )}
-          </>
+              </Stack>
+            </Card>
+          )}
         </Stack>
       </Grid>
+      <Grid item lg={3} md={0}></Grid>
     </Grid>
   );
 }
