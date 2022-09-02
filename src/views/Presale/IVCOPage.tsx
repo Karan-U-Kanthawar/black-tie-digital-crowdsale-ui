@@ -64,8 +64,7 @@ function IVCOPage({ id }: IIVCOPage) {
     );
 
     setTokensRemainingForSale(tokensRemainingForSaleInEth);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [crowdSaleContract]);
   const getInputTokenValues = useCallback(async () => {
     Promise.all(
       allowedInputTokensData.map(async (inputToken) => {
@@ -86,36 +85,39 @@ function IVCOPage({ id }: IIVCOPage) {
       .catch((err) =>
         console.error("Error in Promise.all of rate data: ", err)
       );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  const getAllUserValues = useCallback(async (user: string) => {
-    const vestedAmountInWei = await crowdSaleContract.vestedAmount(user);
-    const vestedAmountInEth = ethers.utils.formatEther(vestedAmountInWei);
+  }, [allowedInputTokensWithRateAndBalance, crowdSaleContract]);
+  const getAllUserValues = useCallback(
+    async (user: string) => {
+      const vestedAmountInWei = await crowdSaleContract.vestedAmount(user);
+      const vestedAmountInEth = ethers.utils.formatEther(vestedAmountInWei);
 
-    setUserVestedAmount(() => vestedAmountInEth);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  const getUserInputTokenValues = useCallback(async (user: string) => {
-    Promise.all(
-      allowedInputTokensData.map(async (inputToken) => {
-        const erc20Contract = getERC20Contract(inputToken.address);
-        const balanceInWei = await erc20Contract.balanceOf(user);
-        return ethers.utils.formatEther(balanceInWei);
-      })
-    )
-      .then((balanceOfInputTokens) => {
-        const prevData = allowedInputTokensWithRateAndBalance;
-        prevData.forEach((element, index) => {
-          element.userBalance = balanceOfInputTokens[index];
-        });
+      setUserVestedAmount(() => vestedAmountInEth);
+    },
+    [crowdSaleContract]
+  );
+  const getUserInputTokenValues = useCallback(
+    async (user: string) => {
+      Promise.all(
+        allowedInputTokensData.map(async (inputToken) => {
+          const erc20Contract = getERC20Contract(inputToken.address);
+          const balanceInWei = await erc20Contract.balanceOf(user);
+          return balanceInWei.toString();
+        })
+      )
+        .then((balanceOfInputTokens) => {
+          const prevData = allowedInputTokensWithRateAndBalance;
+          prevData.forEach((element, index) => {
+            element.userBalance = balanceOfInputTokens[index];
+          });
 
-        setAllowedInputTokensWithRateAndBalance(prevData);
-      })
-      .catch((err) =>
-        console.error("Error in Promise.all of user balance data: ", err)
-      );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+          setAllowedInputTokensWithRateAndBalance(prevData);
+        })
+        .catch((err) =>
+          console.error("Error in Promise.all of user balance data: ", err)
+        );
+    },
+    [allowedInputTokensWithRateAndBalance]
+  );
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(event.target.value);
