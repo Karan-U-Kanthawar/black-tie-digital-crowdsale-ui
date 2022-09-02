@@ -1,4 +1,12 @@
-import { useCallback, useEffect, useState } from "react";
+import {
+  createContext,
+  FC,
+  PropsWithChildren,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import Web3Modal from "web3modal";
 import { ethers } from "ethers";
 import { StaticJsonRpcProvider, Web3Provider } from "@ethersproject/providers";
@@ -28,7 +36,17 @@ const web3Modal = new Web3Modal({
   providerOptions,
 });
 
-const useWeb3Config = () => {
+interface ICustomWeb3Context {
+  account: null | string;
+  chainId: number;
+  library: Web3Provider | StaticJsonRpcProvider;
+  connectWallet: () => Promise<void>;
+  disconnect: () => Promise<void>;
+}
+
+const CustomWeb3Context = createContext<ICustomWeb3Context | null>(null);
+
+export const CustomWeb3Provider: FC<PropsWithChildren<{}>> = ({ children }) => {
   const [provider, setProvider] = useState<null | any>(null);
   const [library, setLibrary] = useState<Web3Provider | StaticJsonRpcProvider>(
     simpleRpcProvider
@@ -98,7 +116,25 @@ const useWeb3Config = () => {
     }
   }, [disconnect, error, provider]);
 
-  return { account, chainId, library, connectWallet, disconnect };
+  // return { account, chainId, library, connectWallet, disconnect };
+
+  return (
+    <CustomWeb3Context.Provider
+      value={{ account, chainId, library, connectWallet, disconnect }}
+    >
+      {children}
+    </CustomWeb3Context.Provider>
+  );
+};
+
+const useWeb3Config = () => {
+  const customContext = useContext(CustomWeb3Context);
+
+  if (customContext === null) {
+    throw new Error("window.ethereum not injected");
+  }
+
+  return customContext;
 };
 
 export default useWeb3Config;

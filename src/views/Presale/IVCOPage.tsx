@@ -74,14 +74,18 @@ function IVCOPage({ id }: IIVCOPage) {
         );
         return inputTokenRate.toString();
       })
-    ).then((inputTokenRate) => {
-      const prevData = allowedInputTokensWithRateAndBalance;
-      prevData.forEach((element, index) => {
-        element.tokenRate = inputTokenRate[index];
-      });
+    )
+      .then((inputTokenRate) => {
+        const prevData = allowedInputTokensWithRateAndBalance;
+        prevData.forEach((element, index) => {
+          element.tokenRate = inputTokenRate[index];
+        });
 
-      setAllowedInputTokensWithRateAndBalance(prevData);
-    });
+        setAllowedInputTokensWithRateAndBalance(prevData);
+      })
+      .catch((err) =>
+        console.error("Error in Promise.all of rate data: ", err)
+      );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const getAllUserValues = useCallback(async (user: string) => {
@@ -98,14 +102,18 @@ function IVCOPage({ id }: IIVCOPage) {
         const balanceInWei = await erc20Contract.balanceOf(user);
         return ethers.utils.formatEther(balanceInWei);
       })
-    ).then((balanceOfInputTokens) => {
-      const prevData = allowedInputTokensWithRateAndBalance;
-      prevData.forEach((element, index) => {
-        element.userBalance = balanceOfInputTokens[index];
-      });
+    )
+      .then((balanceOfInputTokens) => {
+        const prevData = allowedInputTokensWithRateAndBalance;
+        prevData.forEach((element, index) => {
+          element.userBalance = balanceOfInputTokens[index];
+        });
 
-      setAllowedInputTokensWithRateAndBalance(prevData);
-    });
+        setAllowedInputTokensWithRateAndBalance(prevData);
+      })
+      .catch((err) =>
+        console.error("Error in Promise.all of user balance data: ", err)
+      );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
