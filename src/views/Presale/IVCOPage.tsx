@@ -16,7 +16,7 @@ import { ethers } from "ethers";
 import { getERC20Contract } from "../../utils/contractHelpers";
 import { useCrowdsaleContract } from "../../hooks/useContract";
 import { allowedInputTokens, crowdsale } from "../../config";
-import useWeb3Config from "../../components/Menu/useWeb3Config";
+import useWeb3Config from "../../hooks/useWeb3Config";
 import HeroCard from "../../components/HeroCard";
 import { Card, CardSubHeading, CardText } from "../../styles/CardStyles";
 

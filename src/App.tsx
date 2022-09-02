@@ -2,7 +2,7 @@ import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import history from "./routerHistory";
 import Presale from "./views/Presale";
-import useWeb3Config from "./components/Menu/useWeb3Config";
+import useWeb3Config from "./hooks/useWeb3Config";
 import Menu from "./components/Menu";
 
 function App() {

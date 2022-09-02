@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Chip, Container, Stack } from "@mui/material";
 import styled from "styled-components";
-import useWeb3Config, { truncateAddress } from "./useWeb3Config";
+import useWeb3Config, { truncateAddress } from "../../hooks/useWeb3Config";
 import CompanyLogo from "./companyLogo.svg";
 
 const BlackContainer = styled.div`

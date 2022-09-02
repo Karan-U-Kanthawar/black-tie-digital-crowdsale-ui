@@ -10,7 +10,7 @@ import {
 import Web3Modal from "web3modal";
 import { ethers } from "ethers";
 import { StaticJsonRpcProvider, Web3Provider } from "@ethersproject/providers";
-import simpleRpcProvider from "../../utils/defaultProvider";
+import simpleRpcProvider from "../utils/defaultProvider";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 
 export const truncateAddress = (address: string) => {
