@@ -10,7 +10,6 @@ export const BLACK_TIE_DIGITAL_PRESALE_ID =
 
 export const crowdsale = {
   owner: "0x4274A49FBeB724D75b8ba7bfC55FC8495A15AD1E",
-  crowdsaleTokenAllocated: "100000000000000000000",
   maxUserAllocation: "10000",
   token: {
     address: "0x286881d76b77617e5F5C6Bc5a4c0A373ba9d297d",
