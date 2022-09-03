@@ -194,7 +194,6 @@ function IVCOPage({ id }: IIVCOPage) {
 
   useEffect(() => {
     if (account) {
-      console.log("acc: ", account);
       getAllUserValues(account).catch((error) =>
         console.error(
           "Error while getting user values from crowdsale contract: ",
@@ -235,7 +234,10 @@ function IVCOPage({ id }: IIVCOPage) {
               <Stack>
                 {selectedToken &&
                   selectedToken.symbol &&
-                  new BigNumber(selectedToken.userBalance).toNumber() >= 0 && (
+                  account &&
+                  new BigNumber(
+                    selectedToken.userBalance
+                  ).isGreaterThanOrEqualTo(0) && (
                     <Stack
                       direction={"row"}
                       margin={"20px 0"}
@@ -297,16 +299,18 @@ function IVCOPage({ id }: IIVCOPage) {
                   </Select>
                 </FormControl>
               }
-              <Stack direction={"row"} justifyContent={"center"}>
-                <CardSubHeading>You will receive about</CardSubHeading>
-                <CardText style={{ margin: "0 8px" }}>
-                  {selectedToken.tokenRate} {crowdsaleData.token.symbol}
-                </CardText>
-                <CardSubHeading>for</CardSubHeading>
-                <CardSubHeading style={{ margin: "0 8px" }}>
-                  1 {selectedToken.symbol}
-                </CardSubHeading>
-              </Stack>
+              {account && (
+                <Stack direction={"row"} justifyContent={"center"}>
+                  <CardSubHeading>You will receive about</CardSubHeading>
+                  <CardText style={{ margin: "0 8px" }}>
+                    {selectedToken.tokenRate} {crowdsaleData.token.symbol}
+                  </CardText>
+                  <CardSubHeading>for</CardSubHeading>
+                  <CardSubHeading style={{ margin: "0 8px" }}>
+                    1 {selectedToken.symbol}
+                  </CardSubHeading>
+                </Stack>
+              )}
 
               {account ? (
                 <Button
