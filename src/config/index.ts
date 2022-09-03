@@ -28,7 +28,7 @@ export const allowedInputTokens = [
     decimals: 18,
     address: "0xA62EAD46A8AB6cce617fA3748869dBbde5756587",
     // Get from contract dynamically
-    tokenRate: "9999999999",
+    tokenRate: "0",
     userBalance: "0",
   },
 ];
