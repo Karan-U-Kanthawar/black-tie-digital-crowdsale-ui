@@ -368,7 +368,7 @@ function IVCOPage({ id }: IIVCOPage) {
             <Card>
               <Stack rowGap={3}>
                 <Stack justifyContent={"center"} alignItems={"center"} gap={1}>
-                  <CardSubHeading>Total Invested</CardSubHeading>
+                  <CardSubHeading>Total tokens bought</CardSubHeading>
                   <Stack direction={"row"} alignItems={"center"} gap={1}>
                     <CardText>{Number(userVestedAmount).toFixed(3)}</CardText>
                     <CardSubHeading>
