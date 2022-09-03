@@ -44,6 +44,7 @@ function IVCOPage({ id }: IIVCOPage) {
   ] = useState(allowedInputTokensData);
   const [tokensRemainingForSale, setTokensRemainingForSale] = useState("0");
   const [userVestedAmount, setUserVestedAmount] = useState("0");
+  const [crowdsaleEndTime, setCrowdsaleEndTime] = useState(Date.now() / 1000);
   const [amount, setAmount] = useState("0");
   const [pendingTxn, setPendingTxn] = useState(false);
   const [selectedToken, toggleTokenSelection] = useState(
@@ -86,6 +87,12 @@ function IVCOPage({ id }: IIVCOPage) {
         console.error("Error in Promise.all of rate data: ", err)
       );
   }, [allowedInputTokensWithRateAndBalance, id]);
+  const getCrowdsaleEndTime = useCallback(async () => {
+    const crowdSaleContract = getCrowdsaleContract(id, library);
+    const endTimeEthersBg = await crowdSaleContract.crowdsaleEndTime();
+    const endTimeNumber = endTimeEthersBg.toNumber();
+    setCrowdsaleEndTime(() => endTimeNumber);
+  }, [id, library]);
   const getAllUserValues = useCallback(
     async (user: string) => {
       const crowdSaleContract = getCrowdsaleContract(id, library);
@@ -200,7 +207,10 @@ function IVCOPage({ id }: IIVCOPage) {
     getInputTokenValues().catch((error) =>
       console.error("Error while setting input token rates: ", error)
     );
-  }, [getInputTokenValues, getTokensRemainingForSale]);
+    getCrowdsaleEndTime().catch((error) =>
+      console.error("Error while getting crowdsale end time: ", error)
+    );
+  }, [getCrowdsaleEndTime, getInputTokenValues, getTokensRemainingForSale]);
 
   useEffect(() => {
     if (account) {
@@ -228,115 +238,132 @@ function IVCOPage({ id }: IIVCOPage) {
             crowdsaleData={crowdsaleData}
             totalSupply={tokensRemainingForSale}
           />
-          {crowdsaleData.owner === account && (
-            <Card>
-              <Button
-                variant={"contained"}
-                disabled={pendingTxn}
-                onClick={handleEndCrowdsale}
-              >
-                End Crowdsale
-              </Button>
-            </Card>
-          )}
-          <Card>
-            <Stack rowGap={3}>
-              <Stack>
-                {selectedToken &&
-                  selectedToken.symbol &&
-                  account &&
-                  new BigNumber(
-                    selectedToken.userBalance
-                  ).isGreaterThanOrEqualTo(0) && (
-                    <Stack
-                      direction={"row"}
-                      margin={"20px 0"}
-                      display={"flex"}
-                      justifyContent={"space-between"}
-                      alignItems={"center"}
-                    >
-                      <CardSubHeading>Balance</CardSubHeading>
-                      <CardText>
-                        {parseFloat(selectedToken.userBalance).toFixed(3)}{" "}
-                        {selectedToken.symbol}
+          {new BigNumber(crowdsaleEndTime).isGreaterThanOrEqualTo(
+            Date.now() / 1000
+          ) ? (
+            <>
+              {crowdsaleData.owner === account && (
+                <Card>
+                  <Button
+                    variant={"contained"}
+                    disabled={pendingTxn}
+                    onClick={handleEndCrowdsale}
+                  >
+                    End Crowdsale
+                  </Button>
+                </Card>
+              )}
+              <Card>
+                <Stack rowGap={3}>
+                  <Stack>
+                    {selectedToken &&
+                      selectedToken.symbol &&
+                      account &&
+                      new BigNumber(
+                        selectedToken.userBalance
+                      ).isGreaterThanOrEqualTo(0) && (
+                        <Stack
+                          direction={"row"}
+                          margin={"20px 0"}
+                          display={"flex"}
+                          justifyContent={"space-between"}
+                          alignItems={"center"}
+                        >
+                          <CardSubHeading>Balance</CardSubHeading>
+                          <CardText>
+                            {parseFloat(selectedToken.userBalance).toFixed(3)}{" "}
+                            {selectedToken.symbol}
+                          </CardText>
+                        </Stack>
+                      )}
+                    <InputContainer>
+                      <TextField
+                        label={"Amount"}
+                        value={amount}
+                        placeholder={"Amount to enter"}
+                        variant={"outlined"}
+                        onChange={handleInputChange}
+                        size={"medium"}
+                        aria-placeholder={"0.0"}
+                        fullWidth
+                      />
+                      <Button
+                        variant="outlined"
+                        onClick={handleMaxClick}
+                        style={{
+                          position: "absolute",
+                          right: "10px",
+                          top: "15%",
+                        }}
+                      >
+                        Max
+                      </Button>
+                    </InputContainer>
+                  </Stack>
+                  {
+                    <FormControl>
+                      <InputLabel id={"select-input-token-label"}>
+                        Input token
+                      </InputLabel>
+                      <Select
+                        labelId="select-input-token-label"
+                        id="select-input-token"
+                        value={showSelectedToken}
+                        onChange={handleShowSelectedToken}
+                        label="Input token"
+                      >
+                        {allowedInputTokensWithRateAndBalance.map(
+                          (inputToken) => (
+                            <MenuItem
+                              value={inputToken.symbol}
+                              key={inputToken.address}
+                            >
+                              {inputToken.symbol}
+                            </MenuItem>
+                          )
+                        )}
+                      </Select>
+                    </FormControl>
+                  }
+                  {account && (
+                    <Stack direction={"row"} justifyContent={"center"}>
+                      <CardSubHeading>You will receive about</CardSubHeading>
+                      <CardText style={{ margin: "0 8px" }}>
+                        {selectedToken.tokenRate} {crowdsaleData.token.symbol}
                       </CardText>
+                      <CardSubHeading>for</CardSubHeading>
+                      <CardSubHeading style={{ margin: "0 8px" }}>
+                        1 {selectedToken.symbol}
+                      </CardSubHeading>
                     </Stack>
                   )}
-                <InputContainer>
-                  <TextField
-                    label={"Amount"}
-                    value={amount}
-                    placeholder={"Amount to enter"}
-                    variant={"outlined"}
-                    onChange={handleInputChange}
-                    size={"medium"}
-                    aria-placeholder={"0.0"}
-                    fullWidth
-                  />
-                  <Button
-                    variant="outlined"
-                    onClick={handleMaxClick}
-                    style={{
-                      position: "absolute",
-                      right: "10px",
-                      top: "15%",
-                    }}
-                  >
-                    Max
-                  </Button>
-                </InputContainer>
-              </Stack>
-              {
-                <FormControl>
-                  <InputLabel id={"select-input-token-label"}>
-                    Input token
-                  </InputLabel>
-                  <Select
-                    labelId="select-input-token-label"
-                    id="select-input-token"
-                    value={showSelectedToken}
-                    onChange={handleShowSelectedToken}
-                    label="Input token"
-                  >
-                    {allowedInputTokensWithRateAndBalance.map((inputToken) => (
-                      <MenuItem
-                        value={inputToken.symbol}
-                        key={inputToken.address}
-                      >
-                        {inputToken.symbol}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              }
-              {account && (
-                <Stack direction={"row"} justifyContent={"center"}>
-                  <CardSubHeading>You will receive about</CardSubHeading>
-                  <CardText style={{ margin: "0 8px" }}>
-                    {selectedToken.tokenRate} {crowdsaleData.token.symbol}
-                  </CardText>
-                  <CardSubHeading>for</CardSubHeading>
-                  <CardSubHeading style={{ margin: "0 8px" }}>
-                    1 {selectedToken.symbol}
-                  </CardSubHeading>
-                </Stack>
-              )}
 
-              {account ? (
-                <Button
-                  variant={"contained"}
-                  disabled={pendingTxn}
-                  onClick={purchaseToken}
-                >
-                  Invest into {crowdsaleData.token.symbol}
-                </Button>
-              ) : (
-                <Button variant={"outlined"} onClick={connectWallet}>
-                  Connect to Wallet
-                </Button>
-              )}
-            </Stack>
-          </Card>
+                  {account ? (
+                    <Button
+                      variant={"contained"}
+                      disabled={pendingTxn}
+                      onClick={purchaseToken}
+                    >
+                      Invest into {crowdsaleData.token.symbol}
+                    </Button>
+                  ) : (
+                    <Button variant={"outlined"} onClick={connectWallet}>
+                      Connect to Wallet
+                    </Button>
+                  )}
+                </Stack>
+              </Card>
+            </>
+          ) : (
+            <Card>
+              <Stack>
+                <Stack justifyContent={"center"} alignItems={"center"} gap={1}>
+                  <CardSubHeading>Crowdsale has ended</CardSubHeading>
+                </Stack>
+              </Stack>
+            </Card>
+          )}
+
           {account && (
             <Card>
               <Stack rowGap={3}>
