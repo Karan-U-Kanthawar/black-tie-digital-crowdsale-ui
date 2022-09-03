@@ -13,8 +13,10 @@ import {
   TextField,
 } from "@mui/material";
 import { ethers } from "ethers";
-import { getERC20Contract } from "../../utils/contractHelpers";
-import { useCrowdsaleContract } from "../../hooks/useContract";
+import {
+  getCrowdsaleContract,
+  getERC20Contract,
+} from "../../utils/contractHelpers";
 import { allowedInputTokens, crowdsale } from "../../config";
 import useWeb3Config from "../../hooks/useWeb3Config";
 import HeroCard from "../../components/HeroCard";
@@ -47,10 +49,10 @@ function IVCOPage({ id }: IIVCOPage) {
   const [showSelectedToken, setShowSelectedToken] = useState<string>(
     allowedInputTokensWithRateAndBalance[0].symbol
   );
-  const crowdSaleContract = useCrowdsaleContract(id, library);
 
   // functions querying the contract
   const getTokensRemainingForSale = useCallback(async () => {
+    const crowdSaleContract = getCrowdsaleContract(id);
     const tokensRemainingForSaleInWei =
       await crowdSaleContract.tokenRemainingForSale();
     const tokensRemainingForSaleInEth = ethers.utils.formatEther(
@@ -58,8 +60,9 @@ function IVCOPage({ id }: IIVCOPage) {
     );
 
     setTokensRemainingForSale(tokensRemainingForSaleInEth);
-  }, [crowdSaleContract]);
+  }, [id]);
   const getInputTokenValues = useCallback(async () => {
+    const crowdSaleContract = getCrowdsaleContract(id);
     Promise.all(
       allowedInputTokensData.map(async (inputToken) => {
         const inputTokenRate = await crowdSaleContract.inputTokenRate(
@@ -74,20 +77,21 @@ function IVCOPage({ id }: IIVCOPage) {
           element.tokenRate = inputTokenRate[index];
         });
 
-        setAllowedInputTokensWithRateAndBalance(prevData);
+        setAllowedInputTokensWithRateAndBalance(() => prevData);
       })
       .catch((err) =>
         console.error("Error in Promise.all of rate data: ", err)
       );
-  }, [allowedInputTokensWithRateAndBalance, crowdSaleContract]);
+  }, [allowedInputTokensWithRateAndBalance, id]);
   const getAllUserValues = useCallback(
     async (user: string) => {
+      const crowdSaleContract = getCrowdsaleContract(id, library);
       const vestedAmountInWei = await crowdSaleContract.vestedAmount(user);
       const vestedAmountInEth = ethers.utils.formatEther(vestedAmountInWei);
 
       setUserVestedAmount(() => vestedAmountInEth);
     },
-    [crowdSaleContract]
+    [id, library]
   );
   const getUserInputTokenValues = useCallback(
     async (user: string) => {
@@ -104,7 +108,7 @@ function IVCOPage({ id }: IIVCOPage) {
             element.userBalance = balanceOfInputTokens[index];
           });
 
-          setAllowedInputTokensWithRateAndBalance(prevData);
+          setAllowedInputTokensWithRateAndBalance(() => prevData);
         })
         .catch((err) =>
           console.error("Error in Promise.all of user balance data: ", err)
@@ -123,6 +127,7 @@ function IVCOPage({ id }: IIVCOPage) {
     try {
       if (!account) return;
       setPendingTxn(() => true);
+      const crowdSaleContract = getCrowdsaleContract(id, library);
       const endingCrowdsale = await crowdSaleContract.endCrowdsale();
       await endingCrowdsale.wait();
       setPendingTxn(() => false);
@@ -165,7 +170,7 @@ function IVCOPage({ id }: IIVCOPage) {
           );
           await approvalTx.wait();
         }
-
+        const crowdSaleContract = getCrowdsaleContract(id, library);
         await crowdSaleContract.purchaseToken(
           selectedToken.address,
           inputTokenAmountInWei
@@ -189,6 +194,7 @@ function IVCOPage({ id }: IIVCOPage) {
 
   useEffect(() => {
     if (account) {
+      console.log("acc: ", account);
       getAllUserValues(account).catch((error) =>
         console.error(
           "Error while getting user values from crowdsale contract: ",
