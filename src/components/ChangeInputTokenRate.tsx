@@ -65,7 +65,7 @@ const ChangeInputTokenRate = ({
       setPendingTxn(false);
     } catch (err) {
       setPendingTxn(false);
-      console.error("Error while update the input token rate: ", err);
+      console.error("Error while updating the input token rate: ", err);
     }
   };
 
