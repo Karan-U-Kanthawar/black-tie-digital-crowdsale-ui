@@ -21,6 +21,9 @@ import { allowedInputTokens, crowdsale } from "../../config";
 import useWeb3Config from "../../hooks/useWeb3Config";
 import HeroCard from "../../components/HeroCard";
 import { Card, CardSubHeading, CardText } from "../../styles/CardStyles";
+import { Contract } from "@ethersproject/contracts";
+import erc20Abi from "../../config/constants/abi/erc20.json";
+import crowdsaleAbi from "../../config/constants/abi/crowdsale.json";
 
 const InputContainer = styled.div`
   position: relative;
@@ -127,7 +130,9 @@ function IVCOPage({ id }: IIVCOPage) {
     try {
       if (!account) return;
       setPendingTxn(() => true);
-      const crowdSaleContract = getCrowdsaleContract(id, library);
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const crowdSaleContract = await new Contract(id, crowdsaleAbi, signer);
       const endingCrowdsale = await crowdSaleContract.endCrowdsale();
       await endingCrowdsale.wait();
       setPendingTxn(() => false);
@@ -147,11 +152,17 @@ function IVCOPage({ id }: IIVCOPage) {
     if (account) {
       try {
         setPendingTxn(true);
-        const erc20Contract = getERC20Contract(selectedToken.address, library);
-        const inputTokenAllowanceInWei = await erc20Contract.allowance(
-          account,
-          id
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const erc20ContractWithSigner = await new Contract(
+          selectedToken.address,
+          erc20Abi,
+          signer
         );
+        const crowdSaleContract = await new Contract(id, crowdsaleAbi, signer);
+
+        const inputTokenAllowanceInWei =
+          await erc20ContractWithSigner.allowance(account, id);
         const inputTokenAmountInWei = ethers.utils.parseUnits(
           amount.toString(),
           selectedToken.decimals
@@ -164,13 +175,12 @@ function IVCOPage({ id }: IIVCOPage) {
             inputTokenAmountInWei.toString()
           )
         ) {
-          const approvalTx = await erc20Contract.approve(
+          const approvalTx = await erc20ContractWithSigner.approve(
             id,
             maxUserAllocationInWei
           );
           await approvalTx.wait();
         }
-        const crowdSaleContract = getCrowdsaleContract(id, library);
         await crowdSaleContract.purchaseToken(
           selectedToken.address,
           inputTokenAmountInWei

@@ -11,7 +11,7 @@ import Web3Modal from "web3modal";
 import { ethers } from "ethers";
 import { StaticJsonRpcProvider, Web3Provider } from "@ethersproject/providers";
 import simpleRpcProvider from "../utils/defaultProvider";
-import WalletConnectProvider from "@walletconnect/web3-provider";
+// import WalletConnectProvider from "@walletconnect/web3-provider";
 
 export const truncateAddress = (address: string) => {
   if (!address) return "No Account";
@@ -30,12 +30,12 @@ const providerOptions = {
     },
     package: null,
   },
-  walletconnect: {
-    package: WalletConnectProvider, // required
-    options: {
-      infuraId: "https://rpc.ankr.com/polygon_mumbai",
-    },
-  },
+  // walletconnect: {
+  //   package: WalletConnectProvider, // required
+  //   options: {
+  //     infuraId: "https://rpc.ankr.com/polygon_mumbai",
+  //   },
+  // },
 };
 
 const web3Modal = new Web3Modal({
