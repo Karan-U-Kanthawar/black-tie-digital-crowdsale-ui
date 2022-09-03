@@ -180,7 +180,6 @@ function IVCOPage({ id }: IIVCOPage) {
           amount.toString(),
           selectedToken.decimals
         );
-        const maxUserAllocationInWei = crowdsaleData.maxUserAllocation;
 
         // Approval logic
         if (
@@ -190,7 +189,7 @@ function IVCOPage({ id }: IIVCOPage) {
         ) {
           const approvalTx = await erc20ContractWithSigner.approve(
             id,
-            maxUserAllocationInWei
+            inputTokenAmountInWei
           );
           await approvalTx.wait();
         }
