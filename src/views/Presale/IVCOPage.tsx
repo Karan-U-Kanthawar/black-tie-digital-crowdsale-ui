@@ -25,6 +25,7 @@ import { Contract } from "@ethersproject/contracts";
 import erc20Abi from "../../config/constants/abi/erc20.json";
 import crowdsaleAbi from "../../config/constants/abi/crowdsale.json";
 import ChangeInputTokenRate from "../../components/ChangeInputTokenRate";
+import ChangeMaxCrowdsaleAllocation from "../../components/ChangeMaxCrowdsaleAllocation";
 
 export const InputContainer = styled.div`
   position: relative;
@@ -247,6 +248,14 @@ function IVCOPage({ id }: IIVCOPage) {
             <>
               {crowdsaleData.owner === account && (
                 <>
+                  <ChangeMaxCrowdsaleAllocation
+                    id={id}
+                    account={account}
+                    crowdsaleData={crowdsaleData}
+                    pendingTxn={pendingTxn}
+                    setPendingTxn={setPendingTxn}
+                    tokensRemaining={tokensRemainingForSale}
+                  />
                   <ChangeInputTokenRate
                     id={id}
                     account={account}
