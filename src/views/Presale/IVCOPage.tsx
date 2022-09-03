@@ -74,7 +74,9 @@ function IVCOPage({ id }: IIVCOPage) {
         const inputTokenRate = await crowdSaleContract.inputTokenRate(
           inputToken.address
         );
-        return ethers.utils.formatEther(inputTokenRate);
+        return new BigNumber(inputTokenRate.toString())
+          .dividedBy(new BigNumber(10).pow(inputToken.decimals))
+          .toFixed();
       })
     )
       .then((inputTokenRate) => {
