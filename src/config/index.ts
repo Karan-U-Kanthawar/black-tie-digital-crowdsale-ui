@@ -6,12 +6,12 @@ BigNumber.config({
 });
 
 export const BLACK_TIE_DIGITAL_PRESALE_ID =
-  "0xC332D369483d1c690b845D1545575A1a402c073E";
+  "0x1e423849191539E08988094b2a2D68ee878d332F";
 
 export const crowdsale = {
   owner: "0x4274A49FBeB724D75b8ba7bfC55FC8495A15AD1E",
   crowdsaleTokenAllocated: "100000000000000000000",
-  maxUserAllocation: "10000000000000000000",
+  maxUserAllocation: "10000",
   token: {
     address: "0x286881d76b77617e5F5C6Bc5a4c0A373ba9d297d",
     name: "Apple",
@@ -27,6 +27,15 @@ export const allowedInputTokens = [
     symbol: "Mango",
     decimals: 18,
     address: "0xA62EAD46A8AB6cce617fA3748869dBbde5756587",
+    // Get from contract dynamically
+    tokenRate: "0",
+    userBalance: "0",
+  },
+  {
+    name: "USDC",
+    symbol: "USDC",
+    decimals: 6,
+    address: "0x671b68fb02778D37a885699dA79c13Faf0d3C560",
     // Get from contract dynamically
     tokenRate: "0",
     userBalance: "0",

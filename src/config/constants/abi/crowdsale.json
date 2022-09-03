@@ -17,6 +17,19 @@
     "inputs": [
       {
         "indexed": true,
+        "internalType": "uint256",
+        "name": "crowdsaleTokenAllocated",
+        "type": "uint256"
+      }
+    ],
+    "name": "CrowdsaleTokensAllocationUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
         "internalType": "address",
         "name": "_investor",
         "type": "address"
@@ -380,19 +393,6 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "tokenRemainingForSale",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "address",
@@ -419,6 +419,19 @@
       }
     ],
     "name": "updateInputTokenRate",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_crowdsaleTokenAllocated",
+        "type": "uint256"
+      }
+    ],
+    "name": "updateMaxCrowdsaleAllocation",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

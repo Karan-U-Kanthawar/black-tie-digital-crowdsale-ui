@@ -24,8 +24,9 @@ import { Card, CardSubHeading, CardText } from "../../styles/CardStyles";
 import { Contract } from "@ethersproject/contracts";
 import erc20Abi from "../../config/constants/abi/erc20.json";
 import crowdsaleAbi from "../../config/constants/abi/crowdsale.json";
+import ChangeInputTokenRate from "../../components/ChangeInputTokenRate";
 
-const InputContainer = styled.div`
+export const InputContainer = styled.div`
   position: relative;
 `;
 
@@ -58,7 +59,7 @@ function IVCOPage({ id }: IIVCOPage) {
   const getTokensRemainingForSale = useCallback(async () => {
     const crowdSaleContract = getCrowdsaleContract(id);
     const tokensRemainingForSaleInWei =
-      await crowdSaleContract.tokenRemainingForSale();
+      await crowdSaleContract.crowdsaleTokenAllocated();
     const tokensRemainingForSaleInEth = ethers.utils.formatEther(
       tokensRemainingForSaleInWei
     );
@@ -72,7 +73,7 @@ function IVCOPage({ id }: IIVCOPage) {
         const inputTokenRate = await crowdSaleContract.inputTokenRate(
           inputToken.address
         );
-        return inputTokenRate.toString();
+        return ethers.utils.formatEther(inputTokenRate);
       })
     )
       .then((inputTokenRate) => {
@@ -109,10 +110,17 @@ function IVCOPage({ id }: IIVCOPage) {
         allowedInputTokensData.map(async (inputToken) => {
           const erc20Contract = getERC20Contract(inputToken.address);
           const balanceInWei = await erc20Contract.balanceOf(user);
-          return balanceInWei.toString();
+          console.log(
+            `balance of ${inputToken.symbol} in wei: `,
+            balanceInWei.toString()
+          );
+          return new BigNumber(balanceInWei.toString())
+            .div(new BigNumber(10).pow(inputToken.decimals))
+            .toString();
         })
       )
         .then((balanceOfInputTokens) => {
+          console.log("balance of input tokens: ", balanceOfInputTokens);
           const prevData = allowedInputTokensWithRateAndBalance;
           prevData.forEach((element, index) => {
             element.userBalance = balanceOfInputTokens[index];
@@ -240,18 +248,33 @@ function IVCOPage({ id }: IIVCOPage) {
           />
           {new BigNumber(crowdsaleEndTime).isGreaterThanOrEqualTo(
             Date.now() / 1000
-          ) ? (
+          ) || new BigNumber(crowdsaleEndTime).isEqualTo(0) ? (
             <>
               {crowdsaleData.owner === account && (
-                <Card>
-                  <Button
-                    variant={"contained"}
-                    disabled={pendingTxn}
-                    onClick={handleEndCrowdsale}
-                  >
-                    End Crowdsale
-                  </Button>
-                </Card>
+                <>
+                  <ChangeInputTokenRate
+                    id={id}
+                    account={account}
+                    crowdsaleData={crowdsaleData}
+                    selectedToken={selectedToken}
+                    showSelectedToken={showSelectedToken}
+                    handleShowSelectedToken={handleShowSelectedToken}
+                    allowedInputTokensWithRateAndBalance={
+                      allowedInputTokensWithRateAndBalance
+                    }
+                    pendingTxn={pendingTxn}
+                    setPendingTxn={setPendingTxn}
+                  />
+                  <Card>
+                    <Button
+                      variant={"contained"}
+                      disabled={pendingTxn}
+                      onClick={handleEndCrowdsale}
+                    >
+                      End Crowdsale
+                    </Button>
+                  </Card>
+                </>
               )}
               <Card>
                 <Stack rowGap={3}>
