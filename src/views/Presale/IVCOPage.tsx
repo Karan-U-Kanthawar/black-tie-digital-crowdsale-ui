@@ -110,17 +110,12 @@ function IVCOPage({ id }: IIVCOPage) {
         allowedInputTokensData.map(async (inputToken) => {
           const erc20Contract = getERC20Contract(inputToken.address);
           const balanceInWei = await erc20Contract.balanceOf(user);
-          console.log(
-            `balance of ${inputToken.symbol} in wei: `,
-            balanceInWei.toString()
-          );
           return new BigNumber(balanceInWei.toString())
             .div(new BigNumber(10).pow(inputToken.decimals))
             .toString();
         })
       )
         .then((balanceOfInputTokens) => {
-          console.log("balance of input tokens: ", balanceOfInputTokens);
           const prevData = allowedInputTokensWithRateAndBalance;
           prevData.forEach((element, index) => {
             element.userBalance = balanceOfInputTokens[index];
