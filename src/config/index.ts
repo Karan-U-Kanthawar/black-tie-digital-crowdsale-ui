@@ -6,7 +6,7 @@ BigNumber.config({
 });
 
 export const BLACK_TIE_DIGITAL_PRESALE_ID =
-  "0x1e423849191539E08988094b2a2D68ee878d332F";
+  "0x7dB02aF911B26d3a47dDA3103482b41487d16efE";
 
 export const crowdsale = {
   owner: "0x4274A49FBeB724D75b8ba7bfC55FC8495A15AD1E",
@@ -29,15 +29,15 @@ export const allowedInputTokens = [
     tokenRate: "0",
     userBalance: "0",
   },
-  {
-    name: "USDC",
-    symbol: "USDC",
-    decimals: 6,
-    address: "0x671b68fb02778D37a885699dA79c13Faf0d3C560",
-    // Get from contract dynamically
-    tokenRate: "0",
-    userBalance: "0",
-  },
+  // {
+  //   name: "USDC",
+  //   symbol: "USDC",
+  //   decimals: 6,
+  //   address: "0x671b68fb02778D37a885699dA79c13Faf0d3C560",
+  //   // Get from contract dynamically
+  //   tokenRate: "0",
+  //   userBalance: "0",
+  // },
 ];
 
 export const BLACK_TIE_DIGITAL_SOCIALS = {
