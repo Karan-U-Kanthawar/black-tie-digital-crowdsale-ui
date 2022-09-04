@@ -6,7 +6,7 @@ BigNumber.config({
 });
 
 export const BLACK_TIE_DIGITAL_PRESALE_ID =
-  "0x7dB02aF911B26d3a47dDA3103482b41487d16efE";
+  "0xcc224F61FEEb83F95910DBa512291C2645325E62";
 
 export const crowdsale = {
   owner: "0x4274A49FBeB724D75b8ba7bfC55FC8495A15AD1E",
