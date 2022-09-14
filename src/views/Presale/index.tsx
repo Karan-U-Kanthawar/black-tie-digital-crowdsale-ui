@@ -6,8 +6,7 @@ import styled from "styled-components";
 
 const BlackContainer = styled.div`
   background-color: ${(props) => props.theme.palette.background.default};
-  padding-top: 70px;
-  min-height: 100vh;
+  padding-bottom: 20px;
 `;
 
 const StyledContainer = styled(Container)``;

@@ -256,7 +256,7 @@ function IVCOPage({ id }: IIVCOPage) {
   }, [account, getAllUserValues, getUserInputTokenValues]);
 
   return (
-    <Grid container spacing={2} paddingBottom={"100px"}>
+    <Grid container spacing={2}>
       <Grid item lg={3} md={0}></Grid>
       <Grid item lg={6} md={12} sm={12} xs={12}>
         <Stack rowGap={2}>
