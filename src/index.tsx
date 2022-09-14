@@ -20,5 +20,17 @@ ReactDOM.render(
       </ThemeProvider>
     </Providers>
   </React.StrictMode>,
-  document.getElementById("root") as HTMLElement
+  document.getElementById("root1") as HTMLElement
+);
+
+ReactDOM.render(
+  <React.StrictMode>
+    <Providers>
+      <ThemeProvider theme={theme}>
+        <ResetCSS />
+        <App />
+      </ThemeProvider>
+    </Providers>
+  </React.StrictMode>,
+  document.getElementById("root2") as HTMLElement
 );
