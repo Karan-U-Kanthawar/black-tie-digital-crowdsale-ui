@@ -1,46 +1,1200 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+<head>
+    <meta charset="UTF-8">
+    <title>B4Real Staking System</title>
+    <meta name="description" content="The B4Real staking system is a world-first that allows you to generate tokens for real estate purchases. Check it out here!">
+	<meta name="keywords" content="real estate crypto, blockchain real estate australia, bitcoin property, B4REAL, blockchain companies australia, Buy a house with crypto, B4Real Staking System,  Staking, DeFi, Real Estate Industry, Real Estate Market, Real Estate Investing">
+    <meta name="robots" content="index, follow">
+    <link rel="shortcut icon" href="//d2uolguxr56s4e.cloudfront.net/img/shared/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <meta name="author" content="B4Real">
+    <meta property="og:title" content="B4Real Staking System">
+    <meta property="og:description" content="The B4Real staking system is a world-first that allows you to generate tokens for real estate purchases. Check it out here!">
+    <meta property="og:image" content="https://d1aettbyeyfilo.cloudfront.net/aoperformance/29956163_1660258298GaEB4real_mock_NEW.png">
+
+    <!-- Font icons preconnect -->
+    <link rel="preconnect" href="//fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="//fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="//kartra.s3.amazonaws.com" crossorigin>
+    <link rel="preconnect" href="https://kartrausers.s3.amazonaws.com">
+
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//kartra.s3.amazonaws.com">
+    <link rel="dns-prefetch" href="https://kartrausers.s3.amazonaws.com">
+
     <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
+        Google fonts are computed and loaded on page build via save.js
+        Individual stylesheets required are listed in /css/pages/skeleton.css
     -->
-  </body>
+
+    <!--<link href="cssskeleton.min.css" rel="stylesheet">-->
+    <link type="text/css" rel="preload" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,600,600i,700,700i,900,900i|Lato:300,300i,400,400i,600,600i,700,700i,900,900i|Raleway:300,300i,400,400i,600,600i,700,700i,900,900i|Dancing+Script:300,300i,400,400i,600,600i,700,700i,900,900i|Anton:300,300i,400,400i,600,600i,700,700i,900,900i|Roboto+Condensed:300,300i,400,400i,600,600i,700,700i,900,900i|Bree+Serif:300,300i,400,400i,600,600i,700,700i,900,900i|Anton:300,300i,400,400i,600,600i,700,700i,900,900i|Montserrat:300,300i,400,400i,600,600i,700,700i,900,900i&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="css/new_bootstrap.css">
+
+    <link rel="preload" href="css/kartra_components.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="css/font-awesome.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+    <noscript>
+        <link rel="stylesheet" href="css/kartra_components.css">
+        <link rel="stylesheet" href="css/font-awesome.css">
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,600,600i,700,700i,900,900i|Lato:300,300i,400,400i,600,600i,700,700i,900,900i|Raleway:300,300i,400,400i,600,600i,700,700i,900,900i|Dancing+Script:300,300i,400,400i,600,600i,700,700i,900,900i|Anton:300,300i,400,400i,600,600i,700,700i,900,900i|Roboto+Condensed:300,300i,400,400i,600,600i,700,700i,900,900i|Bree+Serif:300,300i,400,400i,600,600i,700,700i,900,900i|Anton:300,300i,400,400i,600,600i,700,700i,900,900i|Montserrat:300,300i,400,400i,600,600i,700,700i,900,900i&display=swap">
+</noscript>
+
+    <script>
+        /*! loadCSS rel=preload polyfill. [c]2017 Filament Group, Inc. MIT License */
+        (function(w){"use strict";if(!w.loadCSS){w.loadCSS=function(){}}var rp=loadCSS.relpreload={};rp.support=function(){var ret;try{ret=w.document.createElement("link").relList.supports("preload")}catch(e){ret=false}return function(){return ret}}();rp.bindMediaToggle=function(link){var finalMedia=link.media||"all";function enableStylesheet(){link.media=finalMedia}if(link.addEventListener){link.addEventListener("load",enableStylesheet)}else if(link.attachEvent){link.attachEvent("onload",enableStylesheet)}setTimeout(function(){link.rel="stylesheet";link.media="only x"});setTimeout(enableStylesheet,3e3)};rp.poly=function(){if(rp.support()){return}var links=w.document.getElementsByTagName("link");for(var i=0;i<links.length;i++){var link=links[i];if(link.rel==="preload"&&link.getAttribute("as")==="style"&&!link.getAttribute("data-loadcss")){link.setAttribute("data-loadcss",true);rp.bindMediaToggle(link)}}};if(!rp.support()){rp.poly();var run=w.setInterval(rp.poly,500);if(w.addEventListener){w.addEventListener("load",function(){rp.poly();w.clearInterval(run)})}else if(w.attachEvent){w.attachEvent("onload",function(){rp.poly();w.clearInterval(run)})}}if(typeof exports!=="undefined"){exports.loadCSS=loadCSS}else{w.loadCSS=loadCSS}})(typeof global!=="undefined"?global:this);
+
+        window.global_id = 'VO09zs7KpgCp';
+        window.secure_base_url = '//app.kartra.com/';
+    </script>
+
+    <!--headerIncludes-->
+    <style>
+
+    .overlay_builder {
+        position: relative;
+    }
+
+    .kartra_optin_footer-poweredby > p {
+        font-size: 12px;
+        line-height: 130%;
+        font-weight: 300;
+        color: #333;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    
+	body.modal-open{
+		overflow:hidden;
+		overflow-x:;
+	}
+    
+	#page_background_color
+	{
+		background-color:#ffffff;
+	}
+	body
+	{
+		background-color:#ffffff;
+		
+	}
+	
+    
+    [data-effect] {
+        visibility: hidden;
+    }
+    
+    </style> 
+    <script>
+        var google_analytics = null;
+        <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XHWVWCYWML"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XHWVWCYWML');
+</script>
+
+
+    </script>
+
+    <script src="js/build/front/pages/skeleton-above.js"></script>
+</head>
+<body>
+    <div style="height:0px;width:0px;opacity:0;position:fixed" class="js_kartra_trackable_object" data-kt-type="kartra_page_tracking" data-kt-value="VO09zs7KpgCp" data-kt-owner="7kz1W0g0">
+    </div>
+    <div id="page" class="page container-fluid">
+        <div id="page_background_color" class="row">
+<div class="content content--popup-overflow-visible kartra-sticking-topmenu light" style="background-color: rgb(0, 0, 0); padding: 0px;" id="_kuk9r54z1">
+        <div class="overflow_background_wrapper">
+            <div class="background_changer background_changer--blur0" alt="" style="background-image: none; opacity: 1;"></div>
+            <div class="background_changer_overlay" style="background-image: none;"></div>
+        </div>
+        <nav class="navbar navbar-inverse">
+            <div class="container">
+                <div class="row row--equal row--sm-equal" data-component="grid">
+                    <div class="column--vertical-center col-sm-6 column--padding-top-bottom-extra-small column--xs-padding-top-bottom-none">
+                        <div class="navbar-header navbar-header--xs-padding-left-right-none nav-elem-col">
+                            <div data-component="image" href="javascript: void(0);">
+                                <picture><source type="image/webp" data-srcset="//d1aettbyeyfilo.cloudfront.net/aoperformance/29956699_1660259813zL4B4REAL-Logo-Horizontal-_white.webp"></source><source type="image/png" data-srcset="//d1aettbyeyfilo.cloudfront.net/aoperformance/29956699_1660259813zL4B4REAL-Logo-Horizontal-_white.png"></source><img class="kartra_image kartra_image--logo kartra_image--margin-bottom-none pull-left background_changer--blur0" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="" style="border-color: rgb(51, 122, 183); border-style: none; border-width: 0px; margin: 0px; opacity: 1;" data-original="//d1aettbyeyfilo.cloudfront.net/aoperformance/29956699_1660259813zL4B4REAL-Logo-Horizontal-_white.png"></picture>
+                            </div>
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar_Pey7mTVEG1" aria-expanded="false" aria-controls="navbar">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="column--vertical-center col-sm-6 column--padding-bottom-extra-small column--padding-top-tiny column--xs-padding-top-none column--xs-padding-bottom-big-tiny">
+                        <div class="js_kartra_component_holder js_kartra_component_holder--min-height-auto"><div data-component="button"><a href="javascript: void(0);" class="kartra_button1 kartra_button1--default kartra_button1--hollow kartra_button1--small kartra_button1--squared pull-right" style="background-color: transparent; color: rgb(255, 255, 255); margin: 20px 0px; font-weight: 400; font-family: Roboto; border-color: rgb(236, 204, 93);" onmouseover="this.style.color='#fff';this.style.backgroundColor='rgb(236, 204, 93)';this.style.borderColor='rgb(236, 204, 93)';if (this.querySelector('.fa')) this.querySelector('.fa').style.color='#fff'" onmouseout="this.style.color='rgb(255, 255, 255)';this.style.borderColor='rgb(236, 204, 93)';this.style.backgroundColor='transparent';if (this.querySelector('.fa')) this.querySelector('.fa').style.color='rgb(255, 255, 255)'" data-frame-id="_kuk9r54z1" target="_parent"><span class="kartra_icon__icon fa fa-first-order" data-color="rgb(255, 255, 255)" style="font-weight: 400; color: rgb(255, 255, 255);"></span>CONNECT WALLET</a></div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="container nav-elem-wrapper">
+                <div id="navbar_Pey7mTVEG1" class="navbar-collapse collapse nav-elem-col navbar-collapse--md-sm-padding-left-right-none js_kartra_component_holder">
+                    <div class="navbar-collapse__inner navbar-collapse__inner--border-top-light-grey navbar-collapse__inner--sm-padding-top-big-tiny navbar-collapse__inner--sm-padding-bottom-tiny navbar-collapse__inner--md-sm-vertical-center navbar-collapse__inner--md-sm-space-around js_kartra_component_holder">
+                        <ul class="nav navbar-nav navbar-right nav--md-single-col navbar-nav-xs-margin-bottom-small navbar-nav--md-first-item-margin-left-none navbar-nav--bottom-border-menu">
+                            
+                            
+                            
+                            
+                            
+                            
+                        </ul>
+                        <div class="inline_elements_wrapper inline_elements_wrapper--md-single-col pull-right xs-pull-center inline_elements_wrapper--last-child-margin-bottom-none inline_elements_wrapper--md-sm-margin-left-small">
+                            
+                            
+                        </div>
+
+                    </div>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+        </nav>
+    </div>
+<div class="content content--padding-medium content--padding-bottom-none light" style="background-color: rgb(0, 0, 0); padding: 20px 0px 0px;" id="_aj0vctmid">
+        <style id="pagesInternalCSS">
+	.content--kp-section-transparent-bg-gradient-one{
+	    background-image: -moz-linear-gradient(45deg,  rgba(0,0,0,0.3) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 100%);
+		background-image: -webkit-linear-gradient(45deg,  rgba(0,0,0,0.3) 0%,rgba(255,255,255,0.1) 50%,rgba(255,255,255,0.05) 100%);
+		background-image: linear-gradient(45deg,  rgba(0,0,0,0.3) 0%,rgba(255,255,255,0.1) 50%,rgba(255,255,255,0.05) 100%);
+	}
+	.content--kp-section-transparent-bg-gradient-two{
+	    background-image: -moz-linear-gradient(45deg, rgba(0,0,0,0.00) 0%, rgba(0,0,0,0.25) 100%);
+		background-image: -webkit-linear-gradient(45deg, rgba(0,0,0,0.00) 0%, rgba(0,0,0,0.25) 100%);
+		background-image: linear-gradient(45deg, rgba(0,0,0,0.00) 0%, rgba(0,0,0,0.25) 100%);
+	}
+	.navbar-nav--md-padding-top-bottom-medium{
+		padding-top:20px;
+		padding-bottom: 20px;
+	}
+	.kartra_progress--components-one .kartra_progress_bar {
+	     border-radius: 4px;
+	}
+	.kartra_progress--components-one .kartra_progress_inner{
+	    border-radius: 3px;
+	}
+	.kartra_progress--sp-rating{
+	    justify-content: left;
+	}
+	.kartra_progress--sp-rating .kartra_progress_bar--sp-rating{
+	    width: 70% !important;
+	}
+	.ratings_icons_wrapper > div{
+	    margin-right:-20px;
+	}
+	.background-item.background-item--polaroid-frame{
+	    z-index: 10 !important;
+	    width: 67.8%;
+	    background-repeat: no-repeat;
+	    height: 63%;
+	    left: 16.2%;
+	    top: 14.2%;
+	    background-position: top;
+	    box-shadow: inset 0px 0px 4px rgba(000,000,000,0.3);
+	    border-radius: 3px;
+	}
+	.background-item.background-item--polaroid-horizontal-frame-01{
+	    z-index: 10 !important;
+	    width: 90%;
+	    background-repeat: no-repeat;
+	    height: 85%;
+	    left: 5.2%;
+	    top: 6.1%;
+	    background-position: top;
+	    box-shadow: inset 0px 0px 4px rgba(000,000,000,0.3);
+	}
+	.background-item.background-item--polaroid-vertical-frame-01{
+	    z-index: 10 !important;
+	    width: 86%;
+	    background-repeat: no-repeat;
+	    height: 90%;
+	    left: 7%;
+	    top: 4%;
+	    background-position: top;
+	    box-shadow: inset 0px 0px 4px rgba(000,000,000,0.3);
+	}
+	.kartra_text--bg-full-transparent-black{
+	    background-color: rgba(000,000,000,0.6);
+	}
+	.kartra_link_wrapper .kartra_list__link{
+	    padding-top: 6px;
+	    padding-bottom: 6px;
+	}
+	.custom-page-content--border-bottom{
+	    box-shadow: inset 0px -3px 0px rgba(000,000,000,0.1);
+	}
+
+	.custom-page-content--shadow-top-light:before{
+	    content: "";
+	    position: absolute;
+	    top: -20px;
+	    left: 0px;
+	    width: 100%;
+	    z-index: 1;
+	    height: 20px;
+	    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+	}
+	.custom-page-content--shadow-bottom-light:after{
+	    content: "";
+	    position: absolute;
+	    bottom: -20px;
+	    left: 0px;
+	    width: 100%;
+	    z-index: 1;
+	    height: 20px;
+	    box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.4);
+	}
+	.kartra_element_bg--table {
+	    display: table;
+	    margin-left: auto !important;
+	    margin-right: auto !important;
+	}
+	.background-item--border-left-extra-tiny-important{
+		border-width: 0px 0px 0px 5px !important
+	}
+	.kartra_progress--components-ten .kartra_progress_bar_progression {
+	    text-align: left;
+	    padding-left: 0px;
+	}
+	.kartra_timeline .kartra_timeline__item .line {
+	    border-color: rgba(0, 0, 0, 0.3);
+	}
+	.kartra_text--quotes-medium-right:after {
+	    color: rgba(000,000,000,0.5);
+	}
+
+	.background-item.background-item--border-style-double{
+	    border-style: double !important;
+	}
+	#map{
+	    height: 400px !important;
+	}
+	.faq-accordion-8 .panel .panel-heading.accordion-panel-heading .panel-title .panel-title-container,
+	.faq-accordion-8 .panel .panel-body p{
+	    font-weight: 300;
+	}
+	.faq-accordion-8 .panel.active-panel .panel-heading.accordion-panel-heading .panel-title .accordion-indicator .accordion-indicator-icon .accordion-indicator-icon-element,
+	.faq-accordion-8 .panel .panel-heading.accordion-panel-heading:hover .panel-title .accordion-indicator .accordion-indicator-icon .accordion-indicator-icon-element{
+	        background-color: rgb(252, 53, 69);
+	}	
+
+	.kartra_element_bg--margin-left-30p{
+	    margin-left: 30% !important;
+	}
+	.kartra_element_bg--margin-right-30p{
+	    margin-right: 30% !important;
+	}
+	.kartra_image--padding-left-extra-small{
+	    padding-left: 20px;
+	}
+	.kartra_image--padding-right-extra-small{
+	    padding-right: 20px;
+	}
+	@media (max-width: 991px){
+	    .column--pbp-mobile-left-right-padding-normal{
+	         padding-left: 15px !important;
+	         padding-right: 15px !important;
+	    }
+	}
+	@media (max-width: 1240px){
+		.ratings_icons_wrapper > div{
+		    margin-right:-30px;
+		}
+		.kartra_progress--sp-rating .kartra_progress_bar--sp-rating{
+		    width: 65% !important;
+		}
+	}
+	@media (max-width: 991px){
+		.kartra_progress--sp-rating .kartra_progress_bar--sp-rating{
+		    width: 90% !important;
+		}
+		.column--sp64-padding-left-responsive-normal{
+		    padding-left: 15px !important;
+		}
+	}
+	@media (min-width: 992px){
+		.column--sqp-74-md-padding-right-small{
+		    padding-right: 25px;
+		}
+		.column--sqp-74-md-padding-left-small{
+		    padding-left: 25px;
+		}
+	}
+	@media(max-width: 991px){
+	    .kartra_element_bg--sm-inline-block-center{
+	        margin-left: auto !important;
+	        margin-right: auto !important;
+	    }
+	    .column--sm-padding-bottom-none-important{
+	        padding-bottom: 0px !important;
+	    }
+	}
+</style>
+<div class="background_changer background_changer--blur0 js-bg-next-gen" style="opacity: 0.2;" alt="" data-bg='url("//d1aettbyeyfilo.cloudfront.net/Kartra/14963557_1606482153427bg1.png")'></div>
+        <div class="background_changer_overlay" style="background-image: none;"></div>
+        <div>
+                
+                <div>
+                    <div class="container">
+                        <div class="row row--equal background_changer--blur0" data-component="grid" id="sT47PclQbu" style="background-color: rgba(0, 0, 0, 0); border-radius: 0px; border-style: none; border-width: 0px; margin-top: 0px; margin-bottom: 20px; background-image: none; opacity: 1;" alt="">
+                <div class="column--md-padding-bottom-medium col-md-6 background_changer--blur0" style="background-color: rgba(0, 0, 0, 0); border-radius: 0px; border-style: none; border-width: 0px; padding: 0px 15px; background-image: none; opacity: 1;" alt="">
+                    <div class="js_kartra_component_holder">
+                        
+                        <div data-component="headline" id="2VzfkzONXd">
+                                        <div class="kartra_headline kartra_headline--size-giant kartra_headline--font-weight-medium kartra_headline--zilla-slab-font kartra_headline--sm-text-center" style="position: relative; margin-top: 0px; margin-bottom: 30px;" aria-controls="cke_33058" aria-activedescendant="" aria-autocomplete="list" aria-expanded="false">
+<p style="line-height: 1.2em; font-size: 1.4rem;"><span style='line-height: 1.2em; font-size: 1.4rem; font-family: "dancing script"; color: rgb(236, 204, 93);'>Real-World Staking System</span></p>
+</div>
+                                    </div>
+<div data-component="headline" id="AmrssUIf1H">
+                            <div class="kartra_headline kartra_headline--text-left kartra_headline--sm-text-center kartra_headline--h1 kartra_headline--size-very-extra-large-giant kartra_headline--roboto-condensed-font" style="position: relative;" aria-controls="cke_32606" aria-activedescendant="" aria-autocomplete="list" aria-expanded="false">
+<p style="font-size: 1.6rem; line-height: 1.2em;"><span style="font-family: Anton; line-height: 1.2em; color: rgb(255, 255, 255); font-size: 1.6rem;">THE B4REAL PROPRIETARY</span><span style="font-family: Anton; line-height: 1.2em; color: rgb(236, 204, 93); font-size: 1.6rem;"> STAKING SYSTEM</span><span style="font-family: Anton; line-height: 1.2em; color: rgb(255, 255, 255); font-size: 1.6rem;"> IS HERE</span></p>
+</div>
+                        </div>
+                        
+                        
+
+                        <div data-component="text" id="CYS1V7Qb06">
+                                        <div class="kartra_text kartra_text--sm-text-center kartra_text--text-medium kartra_text--light-grey kartra_text--margin-bottom-medium" style="position: relative; margin-top: 0px; margin-bottom: 20px;" aria-controls="cke_40901" aria-activedescendant="" aria-autocomplete="list" aria-expanded="false">
+<p><font color="#f0f8ff">We are excited to present you with our <strong>world-first staking system</strong> that allows you to generate tokens that can be used to directly purchase real-world properties!</font></p>
+
+<p> </p>
+
+<p><font color="#f0f8ff">Put your money to work and generate up to a 30% yield that can be spent directly on <strong>real-world property</strong> or <strong>sold to home-buyers for a profit</strong> via our secondary market!</font></p>
+</div>
+                                    </div>
+
+                        
+
+                    </div>
+                </div>
+<div class="col-md-6 column--vertical-center background_changer--blur0" style="background-color: rgba(0, 0, 0, 0); border-radius: 0px; border-style: none; border-width: 0px; padding: 0px 15px; background-image: none; opacity: 1;" alt="">
+                        <div class="js_kartra_component_holder">
+                            
+                        <div data-component="video" id="TbwMVfZCcv">
+                                <div class="kartra_video" style="margin-top: 0px; margin-bottom: 20px; padding-bottom: 56.25%;">
+                                    <iframe width="100%" src="https://app.kartra.com/external_video/youtube/wqv7L-6G2-g" frameborder="0" scrolling="no" allowfullscreen="true" data-video-type="youtube" data-video="wqv7L-6G2-g"></iframe>
+                                    
+                                <div class="kartra_video_player_shadow"></div>
+</div>
+                            </div>
+</div>
+                    </div>
+                
+            </div>
+                    </div>
+                </div>
+
+<div class="kartra_element_bg kartra_element_bg--padding-top-special-medium kartra_element_bg--padding-bottom-tiny" data-component="bundle" style="margin-top: 0px; margin-bottom: 0px; padding: 30px 0px 10px;" id="ljHX1j4WTj">
+                <div style="background-color: rgb(255, 255, 255); border-radius: 0px; border-color: rgb(51, 51, 51); border-style: none; border-width: 0px; background-image: none; opacity: 1;" class="background-item background_changer--blur0" alt=""></div>
+                <div class="container">
+                    <div class="row background_changer--blur0" data-component="grid" id="F1Ku4VwVSx" alt="" style="background-color: rgba(0, 0, 0, 0); border-radius: 0px; border-style: none; border-width: 0px; margin-top: 0px; margin-bottom: 0px; background-image: none; opacity: 1;"><div class="col-md-12"><div class="js_kartra_component_holder">
+<div class="kartra_element_bg kartra_element_bg--padding-small kartra_element_bg--padding-bottom-tiny kartra_element_bg--margin-bottom-extra-small" data-component="bundle" id="uSz5twe00b_TkWTcDfg4p" style="margin-top: 0px; margin-bottom: 50px; padding: 25px 25px 10px;">
+                            <div style="background-color: rgba(109, 108, 110, 0); border-radius: 10px; border-color: rgb(51, 51, 51); border-style: none; border-width: 0px; background-image: none; opacity: 1; box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 10px;" class="background-item background_changer--blur0" alt=""></div>
+                            <div class="row" data-component="grid" id="gjA3ymAP1r">
+                                
+                                
+                                <div class="col-md-12">
+                                    <div class="js_kartra_component_holder">
+<div data-component="image" href="javascript: void(0);"><picture><source type="image/webp" data-srcset="//d1aettbyeyfilo.cloudfront.net/aoperformance/29960112_1660276404ksjB4Real_Icon_black.webp"></source><source type="image/png" data-srcset="//d1aettbyeyfilo.cloudfront.net/aoperformance/29960112_1660276404ksjB4Real_Icon_black.png"></source><img class="kartra_image kartra_image--full pull-center background_changer--blur0" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" onerror="this.onerror=null;this.src='//d2uolguxr56s4e.cloudfront.net/img/kartrapages/placeholder.jpg';" style="border-color: rgb(51, 51, 51); border-style: none; border-width: 0px; margin: 0px auto 20px; opacity: 1; width: 76px; max-width: 100%; height: auto;" alt="" data-original="//d1aettbyeyfilo.cloudfront.net/aoperformance/29960112_1660276404ksjB4Real_Icon_black.png"></picture></div>
+<div data-component="headline" id="vaikaekJcz">
+                            <div class="kartra_headline kartra_headline--h2 kartra_headline--font-weight-medium kartra_headline--text-center kartra_headline--dim-black kartra_headline--margin-bottom-none" style="position: relative; margin-top: -10px; margin-bottom: 15px;" aria-controls="cke_41768" aria-activedescendant="" aria-autocomplete="list" aria-expanded="false">
+<p style="font-size: 1.6rem; line-height: 1.2em;"><strong><span style="color: rgb(0, 0, 0); font-size: 1.6rem; line-height: 1.2em;"><span style='font-family: "roboto condensed"; line-height: 1.2em; font-size: 1.6rem; color: rgb(0, 0, 0);'>TOKENOMICS</span></span></strong></p>
+</div>
+                        </div>
+<div class="kartra_element_bg kartra_element_bg--padding-small kartra_element_bg--padding-bottom-tiny kartra_element_bg--margin-bottom-extra-small" data-component="bundle" id="FnTDSs98Bn" style="margin-top: 0px; margin-bottom: 20px; padding: 25px 25px 10px;">
+                            <div style="background-color: rgb(238, 238, 238); border-radius: 5px; border-color: rgb(230, 230, 230); border-style: solid; border-width: 1px; background-image: none; opacity: 1;" class="background-item background_changer--blur0" alt=""></div>
+                            <div class="row" data-component="grid">
+                                <div class="col-md-6">
+                                    <div class="js_kartra_component_holder"><div data-component="text" id="fBAhsgtWwD">
+                            <div class="kartra_text kartra_text--font-weight-regular kartra_text--dim-black kartra_text--text-center kartra_text--extra-small" style="position: relative;" aria-controls="cke_17727" aria-activedescendant="" aria-autocomplete="list" aria-expanded="false">
+<p style="text-align: left;"><b>Token Name: </b>B4REAL</p>
+
+<p style="text-align: left;"><b>Ticker: </b>B4RE<br>
+<b>Max Supply: </b>50M tokens</p>
+
+<p style="text-align: left;"><b>Max Circulating At Launch: </b>21.5M tokens (41%)</p>
+
+<p style="text-align: left;"><b>Vesting: </b>all seed round sales vested until 90 days after token listing</p>
+
+<p style="text-align: left;"><b>Blockchain: </b>Polygon</p>
+
+<p style="text-align: left;"><b>Mechanisms: </b>10% assignment to liquidity provisions from any fee-paying transaction received by designated B4REAL wallets</p>
+
+<p style="text-align: left;"><strong>Target Listing Price:</strong> 0.50 AUD / 0.35 USD</p>
+</div>
+                        </div></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="js_kartra_component_holder"><div data-component="text" id="JJDX612ktl">
+                            <div class="kartra_text kartra_text--font-weight-regular kartra_text--dim-black kartra_text--text-center kartra_text--extra-small" style="position: relative;" aria-controls="cke_17208" aria-activedescendant="" aria-autocomplete="list" aria-expanded="false">
+<p style="text-align: left;"><b>10M</b> seed rounds</p>
+
+<p style="text-align: left;"><b>10M</b> launchpads</p>
+
+<p style="text-align: left;"><b>6.5M</b> marketing</p>
+
+<p style="text-align: left;"><b>5M</b> vested bonding curve</p>
+
+<p style="text-align: left;"><b>5M</b> development</p>
+
+<p style="text-align: left;"><b>5M</b> team</p>
+
+<p style="text-align: left;"><b>2.5M</b> community rewards</p>
+
+<p style="text-align: left;"><b>2.5M</b> partnerships and advisors</p>
+
+<p style="text-align: left;"><b>2.5M</b> liquidity</p>
+
+<p style="text-align: left;"><b>1M</b> bug hunt</p>
+</div>
+                        </div></div>
+                                </div>
+                            </div>
+                        </div>
+</div>
+                                </div>
+
+                            </div>
+                        </div>
+<div class="kartra_element_bg kartra_element_bg--padding-small kartra_element_bg--padding-bottom-tiny kartra_element_bg--margin-bottom-extra-small js_kartra_component_holder" data-component="bundle" id="F6KU6UoKzs" style="margin-top: 0px; margin-bottom: 20px; padding: 25px 25px 10px;">
+                            <div style="background-color: rgb(109, 108, 110); border-radius: 10px; border-color: rgb(51, 51, 51); border-style: none; border-width: 0px; background-image: none; opacity: 1;" class="background-item background_changer--blur0" alt=""></div>
+<div data-component="headline" id="28F8PQt9r7">
+                            <div class="kartra_headline kartra_headline--h2 kartra_headline--font-weight-medium kartra_headline--text-center kartra_headline--dim-black kartra_headline--margin-bottom-none" style="position: relative; margin-top: 20px; margin-bottom: 0px;" aria-controls="cke_42193" aria-activedescendant="" aria-autocomplete="list" aria-expanded="false">
+<p style="font-size: 1.6rem; line-height: 1.2em;"><strong><span style="font-size: 1.6rem; line-height: 1.2em;"><font face="roboto condensed"><span style="line-height: 1.2em; font-size: 1.6rem;"><span style="color: rgb(255, 255, 255); line-height: 1.2em; font-size: 1.6rem;">BUY</span></span></font></span></strong></p>
+
+<p style="font-size: 0.8rem; line-height: 1.2em; text-align: left;"> </p>
+</div>
+                        </div>
+<div class="kartra_element_bg kartra_element_bg--padding-small kartra_element_bg--padding-bottom-tiny kartra_element_bg--margin-bottom-extra-small" data-component="bundle" id="5wzZNs8zs4_eLZ6fY3yvj" style="margin-top: 0px; margin-bottom: 20px; padding: 10px 25px;">
+                            <div style="background-color: rgb(230, 230, 230); border-radius: 10px; border-color: rgb(51, 51, 51); border-style: none; border-width: 0px; background-image: none; opacity: 1;" class="background-item background_changer--blur0" alt=""></div>
+                            <div class="row row--equal" data-component="grid">
+                                <div class="col-md-3">
+                                    <div class="js_kartra_component_holder"><div data-component="image" href="javascript: void(0);"><picture><source type="image/webp" data-srcset="//d1aettbyeyfilo.cloudfront.net/aoperformance/30616936_1663034980NpIusdc-coin-icon.webp"></source><source type="image/png" data-srcset="//d1aettbyeyfilo.cloudfront.net/aoperformance/30616936_1663034980NpIusdc-coin-icon.png"></source><img class="kartra_image kartra_image--full pull-center background_changer--blur0" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" onerror="this.onerror=null;this.src='//d2uolguxr56s4e.cloudfront.net/img/kartrapages/placeholder.jpg';" style="border-color: rgb(51, 51, 51); border-style: none; border-width: 0px; margin: 0px auto; opacity: 1; width: 55px; max-width: 100%; height: auto;" alt="" data-original="//d1aettbyeyfilo.cloudfront.net/aoperformance/30616936_1663034980NpIusdc-coin-icon.png"></picture></div></div>
+                                </div>
+                                <div class="column--vertical-center background_changer--blur0 col-md-8 col-md-offset-1" style="background-color: rgb(255, 255, 255); border-radius: 10px; border-style: none; border-width: 0px; padding: 0px 15px; background-image: none; opacity: 1;" alt="">
+                                    <div class="js_kartra_component_holder"><div data-component="headline" id="QfdLNT2m6G">
+                            <div class="kartra_headline kartra_headline--h2 kartra_headline--font-weight-medium kartra_headline--text-center kartra_headline--dim-black kartra_headline--margin-bottom-none" style="position: relative; margin-top: 0px; margin-bottom: 0px;" aria-controls="cke_30177" aria-activedescendant="" aria-autocomplete="list" aria-expanded="false">
+<p style="font-size: 0.8rem; line-height: 1.2em;"><em><span style="font-size: 0.8rem; line-height: 1.2em;"><font face="roboto condensed"><span style="font-size: 0.8rem; line-height: 1.2em;"><span style="font-size: 0.8rem; line-height: 1.2em;">Input amount</span></span></font></span></em></p>
+</div>
+                        </div></div>
+                                </div>
+                            </div>
+                        </div>
+<div class="kartra_element_bg kartra_element_bg--padding-small kartra_element_bg--padding-bottom-tiny kartra_element_bg--margin-bottom-extra-small" data-component="bundle" id="8afOZpVRKM_yb53t0weU1" style="margin-top: 0px; margin-bottom: 20px; padding: 10px 25px;">
+                            <div style="background-color: rgb(230, 230, 230); border-radius: 10px; border-color: rgb(51, 51, 51); border-style: none; border-width: 0px; background-image: none; opacity: 1;" class="background-item background_changer--blur0" alt=""></div>
+                            <div class="row row--equal" data-component="grid">
+                                <div class="col-md-3">
+                                    <div class="js_kartra_component_holder"><div data-component="image" href="javascript: void(0);"><picture><source type="image/webp" data-srcset="//d1aettbyeyfilo.cloudfront.net/aoperformance/29960112_1660276404ksjB4Real_Icon_black.webp"></source><source type="image/png" data-srcset="//d1aettbyeyfilo.cloudfront.net/aoperformance/29960112_1660276404ksjB4Real_Icon_black.png"></source><img class="kartra_image kartra_image--full pull-center background_changer--blur0" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" onerror="this.onerror=null;this.src='//d2uolguxr56s4e.cloudfront.net/img/kartrapages/placeholder.jpg';" style="border-color: rgb(51, 51, 51); border-style: none; border-width: 0px; margin: 0px auto; opacity: 1; width: 60px; max-width: 100%; height: auto;" alt="" data-original="//d1aettbyeyfilo.cloudfront.net/aoperformance/29960112_1660276404ksjB4Real_Icon_black.png"></picture></div></div>
+                                </div>
+                                <div class="column--vertical-center background_changer--blur0 col-md-8 col-md-offset-1" style="background-color: rgb(255, 255, 255); border-radius: 10px; border-style: none; border-width: 0px; padding: 0px 15px; background-image: none; opacity: 1;" alt="">
+                                    <div class="js_kartra_component_holder"><div data-component="headline" id="QfdLNT2m6G">
+                            <div class="kartra_headline kartra_headline--h2 kartra_headline--font-weight-medium kartra_headline--text-center kartra_headline--dim-black kartra_headline--margin-bottom-none" style="position: relative; margin-top: 0px; margin-bottom: 0px;" aria-controls="cke_30561" aria-activedescendant="" aria-autocomplete="list" aria-expanded="false">
+<p style="font-size: 0.8rem; line-height: 1.2em;"><em><span style="font-size: 0.8rem; line-height: 1.2em;"><font face="roboto condensed"><span style="font-size: 0.8rem; line-height: 1.2em;"><span style="font-size: 0.8rem; line-height: 1.2em;">Output amount</span></span></font></span></em></p>
+</div>
+                        </div></div>
+                                </div>
+                            </div>
+                        </div>
+<div data-component="button" id="bxLfCl7Kio"><a href="javascript: void(0);" class="kartra_button1 kartra_button1--default kartra_button1--hollow kartra_button1--large kartra_button1--squared pull-center" style="background-color: transparent; color: rgb(255, 255, 255); margin: 20px auto; font-weight: 400; font-family: Roboto; border-color: rgb(236, 204, 93);" onmouseover="this.style.color='#fff';this.style.backgroundColor='rgb(236, 204, 93)';this.style.borderColor='rgb(236, 204, 93)';if (this.querySelector('.fa')) this.querySelector('.fa').style.color='#fff'" onmouseout="this.style.color='rgb(255, 255, 255)';this.style.borderColor='rgb(236, 204, 93)';this.style.backgroundColor='transparent';if (this.querySelector('.fa')) this.querySelector('.fa').style.color='rgb(255, 255, 255)'" data-frame-id="_aj0vctmid" target="_parent"><span class="kartra_icon__icon fa fa-first-order" data-color="rgb(255, 255, 255)" style="font-weight: 400; color: rgb(255, 255, 255);"></span>CONNECT WALLET</a></div>
+
+                        </div>
+<div data-component="divider" id="gzDgVK0pcm">                            
+    <hr class="kartra_divider kartra_divider--border-tiny kartra_divider--dashed kartra_divider--border-dim-black-opaque-20 kartra_divider--full">
+</div>
+<div data-component="image" href="javascript: void(0);"><picture><source type="image/webp" data-srcset="//d1aettbyeyfilo.cloudfront.net/aoperformance/29960112_1660276404ksjB4Real_Icon_black.webp"></source><source type="image/png" data-srcset="//d1aettbyeyfilo.cloudfront.net/aoperformance/29960112_1660276404ksjB4Real_Icon_black.png"></source><img class="kartra_image kartra_image--full pull-center background_changer--blur0" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" onerror="this.onerror=null;this.src='//d2uolguxr56s4e.cloudfront.net/img/kartrapages/placeholder.jpg';" alt="B4REAL Real Estate Crypto in the form of land, houses, commercial real estate, property development leveraging distributed le" style="border-color: rgb(51, 51, 51); border-style: none; border-width: 0px; margin: 0px auto 20px; opacity: 1; width: 175px; max-width: 100%; height: auto;" data-original="//d1aettbyeyfilo.cloudfront.net/aoperformance/29960112_1660276404ksjB4Real_Icon_black.png"></picture></div>
+<div data-component="headline" id="2JcS7R8vNq">
+                            <div class="kartra_headline kartra_headline--text-left kartra_headline--text-center kartra_headline--h1 kartra_headline--size-very-extra-large-giant kartra_headline--roboto-condensed-font" style="position: relative;" aria-controls="cke_34702" aria-activedescendant="" aria-autocomplete="list" aria-expanded="false">
+<h1 style="font-size: 1.6rem; line-height: 1.2em; text-align: center;"><font color="#000000" face="anton">INTRODUCING THE B4REAL STAKING SYSTEM</font></h1>
+</div>
+                        </div>
+<div data-component="text"><div class="kartra_text" style="position: relative;" aria-controls="cke_36055" aria-activedescendant="" aria-autocomplete="list" aria-expanded="false">
+<p data-pm-slice="1 3 []" style="font-size: 0.8rem;"><span style="color: rgb(0, 0, 0); font-size: 0.8rem;">Our proprietary staking system uses blockchain technology to allow buyers interested in purchasing physical real estate to send our B4RE tokens to a staking contract which then produces a 20% yield in the form of B4RC tokens.</span></p>
+
+<p style="font-size: 0.8rem;"> </p>
+
+<p style="font-size: 0.8rem;"><strong><span style="font-size: 0.8rem;"><span style="color: rgb(0, 0, 0); font-size: 0.8rem;">The B4RC tokens earned from staking can be used directly with our leading real estate developers.</span></span></strong></p>
+
+<ul>
+	<li>
+	<p style="font-size: 0.8rem;"><span style="color: rgb(0, 0, 0); font-size: 0.8rem;">Earned B4RC tokens are always worth $1 AUD with our developers;</span></p>
+	</li>
+	<li>
+	<p style="font-size: 0.8rem;"><span style="color: rgb(0, 0, 0); font-size: 0.8rem;">Yields generated far exceed any high-interest savings account with fiat;</span></p>
+	</li>
+	<li>
+	<p style="font-size: 0.8rem;"><span style="color: rgb(0, 0, 0); font-size: 0.8rem;">This reduces the amount of time it takes to enter the real estate market by getting you deposit ready faster;</span></p>
+	</li>
+	<li>
+	<p style="font-size: 0.8rem;"><span style="color: rgb(0, 0, 0); font-size: 0.8rem;">Outside of using your yields on real estate transactions, you can also utilise our secondary market to sell discounted B4RC tokens for AUD or other cryptocurrencies to people ready to become property owners now.</span></p>
+	</li>
+</ul>
+
+<p style="font-size: 0.8rem;"><strong><span style="font-size: 0.8rem;"><span style="color: rgb(0, 0, 0); font-size: 0.8rem;">Who is the B4REAL Staking System for?</span></span></strong></p>
+
+<ul>
+	<li><span style="color: rgb(0, 0, 0); font-size: 0.8rem;">For <strong><span style="color: rgb(0, 0, 0); font-size: 0.8rem;">Australians</span></strong> wanting to buy real estate in Australia who would like to be purchase-ready faster<strong><span style="color: rgb(0, 0, 0); font-size: 0.8rem;"> </span></strong>from staking;</span></li>
+	<li><span style="color: rgb(0, 0, 0); font-size: 0.8rem;">For <strong><span style="color: rgb(0, 0, 0); font-size: 0.8rem;">Australian</span></strong> crypto-enthusiasts who'd like to profit from <strong><span style="color: rgb(0, 0, 0); font-size: 0.8rem;">passively earning B4RC tokens</span></strong> to sell on the secondary market to people wanting to buy real estate now but not participate in staking;</span></li>
+	<li><span style="color: rgb(0, 0, 0); font-size: 0.8rem;">For <strong><span style="color: rgb(0, 0, 0); font-size: 0.8rem;">international</span></strong> crypto-enthusiasts who would like to purchase real estate in Australia; and</span></li>
+	<li><span style="color: rgb(0, 0, 0); font-size: 0.8rem;">For <strong><span style="color: rgb(0, 0, 0); font-size: 0.8rem;">international</span></strong> crypto-enthusiasts who would like to profit from <strong><span style="color: rgb(0, 0, 0); font-size: 0.8rem;">passively earning B4RC tokens</span></strong> to sell on the secondary market to people wanting to buy real estate now but not participate in staking.</span></li>
+</ul>
+
+<p> </p>
+
+<h3 data-pm-slice="1 1 []"><span><strong><span><span style="font-size: 0.8rem; color: rgb(0, 0, 0);">Watch the video below to get the full picture of how the first layer of our staking system works for real estate transactions!</span></span></strong></span></h3>
+</div></div>
+<div data-component="divider" id="FgODwmmq9r">                            
+    <hr class="kartra_divider kartra_divider--border-tiny kartra_divider--dashed kartra_divider--border-dim-black-opaque-20 kartra_divider--full">
+</div>
+<div data-component="headline" id="2JcS7R8vNq">
+                            <div class="kartra_headline kartra_headline--text-left kartra_headline--text-center kartra_headline--h1 kartra_headline--size-very-extra-large-giant kartra_headline--roboto-condensed-font" style="position: relative;" aria-controls="cke_9519" aria-activedescendant="" aria-autocomplete="list" aria-expanded="false">
+<p style="font-size: 1.6rem; line-height: 1.2em; text-align: center;"><font color="#000000" face="anton"><span style="font-size: 1.6rem; line-height: 1.2em;"><span style="font-size: 1.6rem; line-height: 1.2em;">B4REAL STAKING SYSTEM - </span></span></font><font face="anton"><span style="font-size: 1.6rem; line-height: 1.2em;"><span style="font-size: 1.6rem; line-height: 1.2em; color: rgb(236, 204, 93);">LAYER 1 EXPLAINER</span></span></font></p>
+
+<p style="font-size: 0.8rem; line-height: 1.2em; text-align: center;"><font color="#000000" face="anton"><span style="font-size: 0.8rem; line-height: 1.2em;"><span style="line-height: 1.2em; font-family: Roboto; font-size: 0.8rem;">(ADVANCED DEFI LAYER EXPLAINER VIDEO AT THE BOTTOM OF THE PAGE)</span></span></font></p>
+</div>
+                        </div>
+<div data-component="video" data-thumbnail="https://d2uolguxr56s4e.cloudfront.net/img/shared/icon_huge_exclamation_white.png" data-screenshot="false">
+                                <div class="kartra_video kartra_video_containerNiGhlFSgpWXc js_kartra_trackable_object" style="margin-top: 0px; margin-bottom: 20px; padding-bottom: 56.25%;" data-kt-type="video" data-kt-value="NiGhlFSgpWXc" data-kt-owner="7kz1W0g0" id="NiGhlFSgpWXc/zaaee/?autoplay=false&amp;mute_on_start=false&amp;show_controls=true&amp;skin=11&amp;sticky=false&amp;resume_playback=false" data-random_str="zaaee"><script src="https://app.kartra.com/video/NiGhlFSgpWXc/zaaee/?autoplay=false&amp;mute_on_start=false&amp;show_controls=true&amp;skin=11&amp;sticky=false&amp;resume_playback=false"></script></div>
+                            </div>
+<div data-component="image" href="javascript: void(0);"><picture><source type="image/webp" data-srcset="//d1aettbyeyfilo.cloudfront.net/aoperformance/29960112_1660276404ksjB4Real_Icon_black.webp"></source><source type="image/png" data-srcset="//d1aettbyeyfilo.cloudfront.net/aoperformance/29960112_1660276404ksjB4Real_Icon_black.png"></source><img class="kartra_image kartra_image--full pull-center background_changer--blur0" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" onerror="this.onerror=null;this.src='//d2uolguxr56s4e.cloudfront.net/img/kartrapages/placeholder.jpg';" alt="B4REAL uses blockchain technology for real estate investing and property ownership" style="border-color: rgb(51, 51, 51); border-style: none; border-width: 0px; margin: 0px auto 20px; opacity: 1; width: 175px; max-width: 100%; height: auto;" data-original="//d1aettbyeyfilo.cloudfront.net/aoperformance/29960112_1660276404ksjB4Real_Icon_black.png"></picture></div>
+<div data-component="headline" id="G9wDaQGORe">
+                            <div class="kartra_headline kartra_headline--text-left kartra_headline--text-center kartra_headline--h1 kartra_headline--size-very-extra-large-giant kartra_headline--roboto-condensed-font" style="position: relative;" aria-controls="cke_40393" aria-activedescendant="" aria-autocomplete="list" aria-expanded="false">
+<h1 style="font-size: 1.6rem; line-height: 1.2em; text-align: center;"><span style="font-family: Anton; font-size: 1.6rem; line-height: 1.2em; color: rgb(0, 0, 0);">Already have B4RE? Click the button below to stake them!</span></h1>
+</div>
+                        </div>
+<div data-component="button"><a href="javascript: void(0);" class="kartra_button1 kartra_button1--default kartra_button1--solid kartra_button1--full-width kartra_button1--squared pull-center" style="background-color: rgb(236, 204, 93); color: rgb(255, 255, 255); margin: 0px auto 20px; font-weight: 700; font-family: Roboto;" data-frame-id="_aj0vctmid" target="_parent"><span class="kartra_icon__icon fa fa-arrow-circle-right" style="color: rgb(255, 255, 255); border-color: rgb(255, 255, 255); font-weight: 700;"></span>Start Staking!</a></div>
+<div data-component="divider" id="LJXmMtlppK">                            
+    <hr class="kartra_divider kartra_divider--border-tiny kartra_divider--dashed kartra_divider--border-dim-black-opaque-20 kartra_divider--full">
+</div>
+</div></div></div>
+                </div>
+            </div>
+            </div>
+
+
+
+    </div>
+<div class="content content--padding-extra-large dark" style="background-color: rgb(255, 255, 255); padding: 50px 0px;" id="_2hgg1bxg9">
+            <style id="pagesInternalCSS">
+	.content--kp-section-transparent-bg-gradient-one{
+	    background-image: -moz-linear-gradient(45deg,  rgba(0,0,0,0.3) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 100%);
+		background-image: -webkit-linear-gradient(45deg,  rgba(0,0,0,0.3) 0%,rgba(255,255,255,0.1) 50%,rgba(255,255,255,0.05) 100%);
+		background-image: linear-gradient(45deg,  rgba(0,0,0,0.3) 0%,rgba(255,255,255,0.1) 50%,rgba(255,255,255,0.05) 100%);
+	}
+	.content--kp-section-transparent-bg-gradient-two{
+	    background-image: -moz-linear-gradient(45deg, rgba(0,0,0,0.00) 0%, rgba(0,0,0,0.25) 100%);
+		background-image: -webkit-linear-gradient(45deg, rgba(0,0,0,0.00) 0%, rgba(0,0,0,0.25) 100%);
+		background-image: linear-gradient(45deg, rgba(0,0,0,0.00) 0%, rgba(0,0,0,0.25) 100%);
+	}
+	.navbar-nav--md-padding-top-bottom-medium{
+		padding-top:20px;
+		padding-bottom: 20px;
+	}
+	.kartra_progress--components-one .kartra_progress_bar {
+	     border-radius: 4px;
+	}
+	.kartra_progress--components-one .kartra_progress_inner{
+	    border-radius: 3px;
+	}
+	.kartra_progress--sp-rating{
+	    justify-content: left;
+	}
+	.kartra_progress--sp-rating .kartra_progress_bar--sp-rating{
+	    width: 70% !important;
+	}
+	.ratings_icons_wrapper > div{
+	    margin-right:-20px;
+	}
+	.background-item.background-item--polaroid-frame{
+	    z-index: 10 !important;
+	    width: 67.8%;
+	    background-repeat: no-repeat;
+	    height: 63%;
+	    left: 16.2%;
+	    top: 14.2%;
+	    background-position: top;
+	    box-shadow: inset 0px 0px 4px rgba(000,000,000,0.3);
+	    border-radius: 3px;
+	}
+	.background-item.background-item--polaroid-horizontal-frame-01{
+	    z-index: 10 !important;
+	    width: 90%;
+	    background-repeat: no-repeat;
+	    height: 85%;
+	    left: 5.2%;
+	    top: 6.1%;
+	    background-position: top;
+	    box-shadow: inset 0px 0px 4px rgba(000,000,000,0.3);
+	}
+	.background-item.background-item--polaroid-vertical-frame-01{
+	    z-index: 10 !important;
+	    width: 86%;
+	    background-repeat: no-repeat;
+	    height: 90%;
+	    left: 7%;
+	    top: 4%;
+	    background-position: top;
+	    box-shadow: inset 0px 0px 4px rgba(000,000,000,0.3);
+	}
+	.kartra_text--bg-full-transparent-black{
+	    background-color: rgba(000,000,000,0.6);
+	}
+	.kartra_link_wrapper .kartra_list__link{
+	    padding-top: 6px;
+	    padding-bottom: 6px;
+	}
+	.custom-page-content--border-bottom{
+	    box-shadow: inset 0px -3px 0px rgba(000,000,000,0.1);
+	}
+
+	.custom-page-content--shadow-top-light:before{
+	    content: "";
+	    position: absolute;
+	    top: -20px;
+	    left: 0px;
+	    width: 100%;
+	    z-index: 1;
+	    height: 20px;
+	    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+	}
+	.custom-page-content--shadow-bottom-light:after{
+	    content: "";
+	    position: absolute;
+	    bottom: -20px;
+	    left: 0px;
+	    width: 100%;
+	    z-index: 1;
+	    height: 20px;
+	    box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.4);
+	}
+	.kartra_element_bg--table {
+	    display: table;
+	    margin-left: auto !important;
+	    margin-right: auto !important;
+	}
+	.background-item--border-left-extra-tiny-important{
+		border-width: 0px 0px 0px 5px !important
+	}
+	.kartra_progress--components-ten .kartra_progress_bar_progression {
+	    text-align: left;
+	    padding-left: 0px;
+	}
+	.kartra_timeline .kartra_timeline__item .line {
+	    border-color: rgba(0, 0, 0, 0.3);
+	}
+	.kartra_text--quotes-medium-right:after {
+	    color: rgba(000,000,000,0.5);
+	}
+
+	.background-item.background-item--border-style-double{
+	    border-style: double !important;
+	}
+	#map{
+	    height: 400px !important;
+	}
+	.faq-accordion-8 .panel .panel-heading.accordion-panel-heading .panel-title .panel-title-container,
+	.faq-accordion-8 .panel .panel-body p{
+	    font-weight: 300;
+	}
+	.faq-accordion-8 .panel.active-panel .panel-heading.accordion-panel-heading .panel-title .accordion-indicator .accordion-indicator-icon .accordion-indicator-icon-element,
+	.faq-accordion-8 .panel .panel-heading.accordion-panel-heading:hover .panel-title .accordion-indicator .accordion-indicator-icon .accordion-indicator-icon-element{
+	        background-color: rgb(252, 53, 69);
+	}	
+
+	.kartra_element_bg--margin-left-30p{
+	    margin-left: 30% !important;
+	}
+	.kartra_element_bg--margin-right-30p{
+	    margin-right: 30% !important;
+	}
+	.kartra_image--padding-left-extra-small{
+	    padding-left: 20px;
+	}
+	.kartra_image--padding-right-extra-small{
+	    padding-right: 20px;
+	}
+	@media (max-width: 991px){
+	    .column--pbp-mobile-left-right-padding-normal{
+	         padding-left: 15px !important;
+	         padding-right: 15px !important;
+	    }
+	}
+	@media (max-width: 1240px){
+		.ratings_icons_wrapper > div{
+		    margin-right:-30px;
+		}
+		.kartra_progress--sp-rating .kartra_progress_bar--sp-rating{
+		    width: 65% !important;
+		}
+	}
+	@media (max-width: 991px){
+		.kartra_progress--sp-rating .kartra_progress_bar--sp-rating{
+		    width: 90% !important;
+		}
+		.column--sp64-padding-left-responsive-normal{
+		    padding-left: 15px !important;
+		}
+	}
+	@media (min-width: 992px){
+		.column--sqp-74-md-padding-right-small{
+		    padding-right: 25px;
+		}
+		.column--sqp-74-md-padding-left-small{
+		    padding-left: 25px;
+		}
+	}
+	@media(max-width: 991px){
+	    .kartra_element_bg--sm-inline-block-center{
+	        margin-left: auto !important;
+	        margin-right: auto !important;
+	    }
+	    .column--sm-padding-bottom-none-important{
+	        padding-bottom: 0px !important;
+	    }
+	}
+</style>
+<div class="background_changer background_changer--blur0" alt="" style="background-image: none; opacity: 1;"></div>
+            <div class="background_changer_overlay" style="background-image: none;"></div>
+            <div class="container">
+                <div class="row row--equal" data-component="grid" id="KxEd2reTHq">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="js_kartra_component_holder">
+                            <div data-component="headline" id="AnzMjtTeeN">
+                            <div class="kartra_headline kartra_headline--text-left kartra_headline--text-center kartra_headline--h1 kartra_headline--size-very-extra-large-giant kartra_headline--roboto-condensed-font" style="position: relative; margin-top: 0px; margin-bottom: 40px;" aria-controls="cke_395" aria-activedescendant="" aria-autocomplete="list" aria-expanded="false">
+<p style="font-size: 1.6rem; line-height: 1.2em; text-align: center;"><font face="anton"><span style="font-size: 1.6rem; line-height: 1.2em;"><span style="color: rgb(0, 0, 0); font-size: 1.6rem; line-height: 1.2em;">SOME OF OUR </span><span style="font-size: 1.6rem; line-height: 1.2em; color: rgb(0, 0, 0);">DEVELOPER</span><span style="font-size: 1.6rem; line-height: 1.2em; color: rgb(241, 196, 15);"> </span><span style="font-size: 1.6rem; line-height: 1.2em; color: rgb(236, 204, 93);">PARTNERS &amp; PROPERTIES</span></span></font></p>
+</div>
+                        </div> 
+                            
+                                                                                                               
+                        </div>
+                    </div>
+                </div>
+<div class="row background_changer--blur0 row--equal" data-component="grid" id="VCReHD3WAW" alt="" style="background-color: rgba(0, 0, 0, 0); border-radius: 0px; border-style: none; border-width: 0px; margin-top: 0px; margin-bottom: 15px; background-image: none; opacity: 1;">
+<div class="col-md-3 column--vertical-center background_changer--blur0" alt="" style="background-color: rgba(0, 0, 0, 0); border-radius: 0px; border-style: none; border-width: 0px; padding: 0px 15px; background-image: none; opacity: 1;"><div class="js_kartra_component_holder"><div data-component="image" href="javascript: void(0);"><a href="https://www.bathla.com.au/our-projects" class="toggle_pagelink" target="_blank" data-frame-id="_2hgg1bxg9"><picture><source type="image/webp" data-srcset="//d1aettbyeyfilo.cloudfront.net/aoperformance/29693900_1659128158oq1Bathla.webp"></source><source type="image/png" data-srcset="//d1aettbyeyfilo.cloudfront.net/aoperformance/29693900_1659128158oq1Bathla.png"></source><img class="kartra_image kartra_image--full pull-center background_changer--blur0" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" onerror="this.onerror=null;this.src='//d2uolguxr56s4e.cloudfront.net/img/kartrapages/placeholder.jpg';" alt="" style="border-color: rgb(51, 51, 51); border-style: none; border-width: 0px; margin: 0px auto 20px; opacity: 1; width: 206px; max-width: 100%; height: auto;" data-original="//d1aettbyeyfilo.cloudfront.net/aoperformance/29693900_1659128158oq1Bathla.png"></picture></a></div></div></div>
+<div class="col-md-3 column--vertical-center background_changer--blur0" alt="" style="background-color: rgba(0, 0, 0, 0); border-radius: 0px; border-style: none; border-width: 0px; padding: 0px 15px; background-image: none; opacity: 1;"><div class="js_kartra_component_holder"><div data-component="image" href="javascript: void(0);"><a href="https://www.centurionpg.com.au/projects.cfm?filter=current" class="toggle_pagelink" target="_blank" data-frame-id="_2hgg1bxg9"><picture><source type="image/webp" data-srcset="//d1aettbyeyfilo.cloudfront.net/aoperformance/29693931_1659128225diBCenturion.webp"></source><source type="image/png" data-srcset="//d1aettbyeyfilo.cloudfront.net/aoperformance/29693931_1659128225diBCenturion.png"></source><img class="kartra_image kartra_image--full pull-center background_changer--blur0" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" onerror="this.onerror=null;this.src='//d2uolguxr56s4e.cloudfront.net/img/kartrapages/placeholder.jpg';" alt="" style="border-color: rgb(51, 51, 51); border-style: none; border-width: 0px; margin: 0px auto 20px; opacity: 1;" data-original="//d1aettbyeyfilo.cloudfront.net/aoperformance/29693931_1659128225diBCenturion.png"></picture></a></div></div></div>
+<div class="col-md-3 column--vertical-center background_changer--blur0" alt="" style="background-color: rgba(0, 0, 0, 0); border-radius: 0px; border-style: none; border-width: 0px; padding: 0px 15px; background-image: none; opacity: 1;"><div class="js_kartra_component_holder"><div data-component="image" href="javascript: void(0);"><a href="https://karambr.com.au/our-projects/" class="toggle_pagelink" target="_blank" data-frame-id="_2hgg1bxg9"><picture><source type="image/webp" data-srcset="//d1aettbyeyfilo.cloudfront.net/aoperformance/29693945_1659128260IxnKaram.webp"></source><source type="image/png" data-srcset="//d1aettbyeyfilo.cloudfront.net/aoperformance/29693945_1659128260IxnKaram.png"></source><img class="kartra_image kartra_image--full pull-center background_changer--blur0" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" onerror="this.onerror=null;this.src='//d2uolguxr56s4e.cloudfront.net/img/kartrapages/placeholder.jpg';" alt="" style="border-color: rgb(51, 51, 51); border-style: none; border-width: 0px; margin: 0px auto 20px; opacity: 1;" data-original="//d1aettbyeyfilo.cloudfront.net/aoperformance/29693945_1659128260IxnKaram.png"></picture></a></div></div></div>
+<div class="col-md-3 column--vertical-center background_changer--blur0" alt="" style="background-color: rgba(0, 0, 0, 0); border-radius: 0px; border-style: none; border-width: 0px; padding: 0px 15px; background-image: none; opacity: 1;"><div class="js_kartra_component_holder"><div data-component="image" href="javascript: void(0);"><a href="https://www.toplace.com.au/projects/" class="toggle_pagelink" target="_blank" data-frame-id="_2hgg1bxg9"><picture><source type="image/webp" data-srcset="//d1aettbyeyfilo.cloudfront.net/aoperformance/29694000_165912843290vToplace.webp"></source><source type="image/png" data-srcset="//d1aettbyeyfilo.cloudfront.net/aoperformance/29694000_165912843290vToplace.png"></source><img class="kartra_image kartra_image--full pull-center background_changer--blur0" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" onerror="this.onerror=null;this.src='//d2uolguxr56s4e.cloudfront.net/img/kartrapages/placeholder.jpg';" alt="" style="border-color: rgb(51, 51, 51); border-style: none; border-width: 0px; margin: 0px auto 20px; opacity: 1; width: 157px; max-width: 100%; height: auto;" data-original="//d1aettbyeyfilo.cloudfront.net/aoperformance/29694000_165912843290vToplace.png"></picture></a></div></div></div>
+</div>
+<div class="row" data-component="grid"><div class="col-md-12"><div class="js_kartra_component_holder"><div data-component="carousel"> <div class="carousel-wrapper" style="margin: 0px auto 20px;"> <div class="carousel slide kartra_carousel" data-selector="kartra_carousel" data-ride="carousel" data-interval="0" style="margin-left:auto;margin-right:auto;" id="RDswRZyIVK"> <ol class="carousel-indicators">
+<li data-target="#RDswRZyIVK" data-slide-to="0" class="" style="margin-right:4px">
+</li>
+<li data-target="#RDswRZyIVK" data-slide-to="1" class="" style="margin-right:4px">
+</li>
+<li data-target="#RDswRZyIVK" data-slide-to="2" class="" style="margin-right:4px">
+</li>
+<li data-target="#RDswRZyIVK" data-slide-to="3" class="" style="margin-right:4px">
+</li>
+<li data-target="#RDswRZyIVK" data-slide-to="4" class="" style="margin-right:4px">
+</li>
+<li data-target="#RDswRZyIVK" data-slide-to="5" class="active" style="margin-right:4px">
+</li>
+<li data-target="#RDswRZyIVK" data-slide-to="6" class="" style="margin-right:4px">
+</li>
+<li data-target="#RDswRZyIVK" data-slide-to="7" class="" style="margin-right:4px">
+</li>
+<li data-target="#RDswRZyIVK" data-slide-to="8" class="" style="margin-right:4px">
+</li>
+<li data-target="#RDswRZyIVK" data-slide-to="9" class="" style="margin-right:4px">
+</li>
+<li data-target="#RDswRZyIVK" data-slide-to="10" class="" style="margin-right:4px">
+</li>
+<li data-target="#RDswRZyIVK" data-slide-to="11" class="" style="margin-right:4px">
+</li>
+</ol> <div class="carousel-inner">
+<div class="item js-bg-next-gen" style="" data-bg="url('//d1aettbyeyfilo.cloudfront.net/aoperformance/30617218_1663036361WbhPTW_888BourkeSt_ThroughSiteLinkViewLookingNorthEast-Large.jpg')">
+                                <div class="carousel-caption">
+                                    <h3>888 Bourke St, Zetland NSW</h3>
+                                    <p></p>
+                                </div>
+                            </div>
+<div class="item js-bg-next-gen" style="" data-bg="url('//d1aettbyeyfilo.cloudfront.net/aoperformance/30625170_16630659719E1PTW_888BourkeSt_BuildingEntry-pf2fd2c8a5vficlg59s0u9dfiakpbufe964u49wby4.jpeg')">
+                                <div class="carousel-caption">
+                                    <h3>888 Bourke St, Zetland NSW</h3>
+                                    <p></p>
+                                </div>
+                            </div>
+<div class="item js-bg-next-gen" style="" data-bg="url('//d1aettbyeyfilo.cloudfront.net/aoperformance/30625201_1663066122cdUuploads_1604468112819-ar2anws0pv-eb65de60214b8e6ae5abe3f02e9b15fc_8.jpg')">
+                                <div class="carousel-caption">
+                                    <h3>Broadleaves Estate, The Ponds, NSW</h3>
+                                    <p></p>
+                                </div>
+                            </div>
+<div class="item js-bg-next-gen" style="" data-bg="url('//d1aettbyeyfilo.cloudfront.net/aoperformance/30621755_1663054974diHuploads_1636519872546-xk0f3tr4udj-5db8e815382de8b1871c50167046faf4_12elevationcopy.jpg')">
+                                <div class="carousel-caption">
+                                    <h3>Broadleaves Estate, The Ponds, NSW</h3>
+                                    <p></p>
+                                </div>
+                            </div>
+<div class="item js-bg-next-gen" style="" data-bg="url('//d1aettbyeyfilo.cloudfront.net/aoperformance/30621784_1663055146vRBDarlingPoint2.jpg')">
+                                <div class="carousel-caption">
+                                    <h3>Darling Point Apartment, Sydney, NSW</h3>
+                                    <p></p>
+                                </div>
+                            </div>
+<div class="item active js-bg-next-gen" style="" data-bg="url('//d1aettbyeyfilo.cloudfront.net/aoperformance/30625274_1663066427rytDarlingPoint3.jpg')">
+                                <div class="carousel-caption">
+                                    <h3>Darling Point Apartment, Sydney, NSW</h3>
+                                    <p></p>
+                                </div>
+                            </div>
+<div class="item js-bg-next-gen" style="" data-bg="url('//d1aettbyeyfilo.cloudfront.net/aoperformance/30621815_16630553508F1189-Macquarie-St-View2_R4-Large.jpg')">
+                                <div class="carousel-caption">
+                                    <h3>Macquarie Towers, Parramatta, NSW</h3>
+                                    <p></p>
+                                </div>
+                            </div>
+<div class="item js-bg-next-gen" style="" data-bg="url('//d1aettbyeyfilo.cloudfront.net/aoperformance/30621844_1663055529adS49.jpg')">
+                                <div class="carousel-caption">
+                                    <h3>NV Apartments, Perth</h3>
+                                    <p></p>
+                                </div>
+                            </div>
+<div class="item js-bg-next-gen" style="" data-bg="url('//d1aettbyeyfilo.cloudfront.net/aoperformance/30621915_16630558784pkINT_3BedKitchen_Dark.jpg')">
+                                <div class="carousel-caption">
+                                    <h3>Queens Wharf Apartment, Brisbane, QLD</h3>
+                                    <p></p>
+                                </div>
+                            </div>
+<div class="item js-bg-next-gen" style="" data-bg="url('//d1aettbyeyfilo.cloudfront.net/aoperformance/30625327_1663066583XaKEXT_IRD_SkyDeck2.jpg')">
+                                <div class="carousel-caption">
+                                    <h3>Queens Wharf Apartment, Brisbane, QLD</h3>
+                                    <p></p>
+                                </div>
+                            </div>
+<div class="item js-bg-next-gen" style="" data-bg="url('//d1aettbyeyfilo.cloudfront.net/aoperformance/30625352_1663066675gqluploads_1606279173983-i660een2d59-093e8af5452cbd60218d2ad596336c42_2.jpg')">
+                                <div class="carousel-caption">
+                                    <h3>Riviera Residences, Riverstone, NSW</h3>
+                                    <p></p>
+                                </div>
+                            </div>
+<div class="item js-bg-next-gen" style="" data-bg="url('//d1aettbyeyfilo.cloudfront.net/aoperformance/30625437_1663066734YzFuploads_1603237943084-qksc0a7sqh-6b9368fe8d3f235baac4e866d3bb5bfa_03.jpg')">
+                                <div class="carousel-caption">
+                                    <h3>Riviera Residences, Riverstone, NSW</h3>
+                                    <p></p>
+                                </div>
+                            </div>
+</div> <a class="left carousel-control" href="#RDswRZyIVK" role="button" data-slide="prev" data-frame-id="_2hgg1bxg9" target="_parent"> <span class="glyphicon-chevron-left fa fa-arrow-left" aria-hidden="true"></span> <span class="sr-only">Previous</span></a> <a class="right carousel-control" href="#RDswRZyIVK" role="button" data-slide="next" data-frame-id="_2hgg1bxg9" target="_parent">  <span class="glyphicon-chevron-right fa fa-arrow-right" aria-hidden="true"></span> <span class="sr-only">Next</span> </a>
+</div> </div>
+</div></div></div></div>
+<div class="row" data-component="grid" id="tfu35wDKgn"><div class="col-md-12"><div class="js_kartra_component_holder"><div data-component="divider" id="edhuBoLIiJ">                            
+    <hr class="kartra_divider kartra_divider--border-tiny kartra_divider--dashed kartra_divider--border-dim-black-opaque-20 pull-center kartra_divider--full" style="border-color: rgba(33, 33, 33, 0.2); border-top-style: dashed; border-top-width: 2px; margin: 25px 0px 0px;">
+</div></div></div></div>
+<div class="row row--equal" data-component="grid" id="zdzO1zfwXI">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="js_kartra_component_holder">
+                            <div data-component="headline" id="AnzMjtTeeN">
+                            <div class="kartra_headline kartra_headline--text-left kartra_headline--text-center kartra_headline--h1 kartra_headline--size-very-extra-large-giant kartra_headline--roboto-condensed-font" style="position: relative;" aria-controls="cke_3917" aria-activedescendant="" aria-autocomplete="list" aria-expanded="false">
+<p style="font-size: 1.6rem; line-height: 1.2em; text-align: center;"><font face="anton"><span style="font-size: 1.6rem; line-height: 1.2em;"><span style="color: rgb(0, 0, 0); font-size: 1.6rem; line-height: 1.2em;">HOW DOES IT </span><span style="font-size: 1.6rem; line-height: 1.2em; color: rgb(236, 204, 93);">WORK</span><span style="font-size: 1.6rem; line-height: 1.2em; color: rgb(236, 204, 93);">?</span></span></font></p>
+</div>
+                        </div> 
+                            
+                                                                                                               
+                        </div>
+                    </div>
+                </div>
+<div class="row row--equal background_changer--blur0" data-component="grid" id="MLn6pmH8kD" alt="" style="background-color: rgba(0, 0, 0, 0); border-radius: 0px; border-style: none; border-width: 0px; margin-top: 0px; margin-bottom: 50px; background-image: none; opacity: 1;">
+                    <div class="col-md-4">
+                        <div class="js_kartra_component_holder">
+                                                    
+                            <div data-component="headline">
+                                <div class="kartra_headline kartra_headline--text-center kartra_headline--h4 kartra_headline--asap-font kartra_headline--black" style="position: relative;" aria-controls="cke_1267" aria-activedescendant="" aria-autocomplete="list" aria-expanded="false">
+<p style="font-size: 1.6rem;"><strong><span style="font-size: 1.6rem;">1.</span></strong></p>
+
+<p><span style="font-family:anton;">PURCHASE B4RE TOKENS</span></p>
+</div>
+                            </div>                           
+                            <div data-component="text">
+                                <div class="kartra_text kartra_text--text-center kartra_text--dim-grey kartra_text--margin-bottom-special-medium" style="position: relative;" aria-controls="cke_4254" aria-activedescendant="" aria-autocomplete="list" aria-expanded="false">
+<p style="font-size: 0.8rem;"><span style="font-size: 0.8rem; color: rgb(0, 0, 0);">The only tokens accepted in the B4Real Staking System are our platforms token B4RE. </span></p>
+</div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="js_kartra_component_holder">
+                                                    
+                            <div data-component="headline" id="NCR63cUW5L">
+                                <div class="kartra_headline kartra_headline--text-center kartra_headline--h4 kartra_headline--asap-font kartra_headline--black" style="position: relative;" aria-controls="cke_1698" aria-activedescendant="" aria-autocomplete="list" aria-expanded="false">
+<p style="font-size: 1.6rem;"><strong><span style="font-size: 1.6rem;">2.</span></strong></p>
+
+<p><font face="anton">STAKE B4RE TOKENS</font></p>
+</div>
+                            </div>                           
+                            <div data-component="text">
+                                <div class="kartra_text kartra_text--text-center kartra_text--dim-grey kartra_text--margin-bottom-special-medium" style="position: relative;" aria-controls="cke_4633" aria-activedescendant="" aria-autocomplete="list" aria-expanded="false">
+<p style="font-size: 0.8rem;"><span style="font-size: 0.8rem; color: rgb(0, 0, 0);">As soon as the staking system is live, you will send your B4RE tokens to the staking contract.</span></p>
+</div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="js_kartra_component_holder">
+                                                    
+                            <div data-component="headline" id="MWdJFhv2tB">
+                                <div class="kartra_headline kartra_headline--text-center kartra_headline--h4 kartra_headline--asap-font kartra_headline--black" style="position: relative;" aria-controls="cke_2164" aria-activedescendant="" aria-autocomplete="list" aria-expanded="false">
+<p style="font-size: 1.6rem;"><strong><span style="font-size: 1.6rem;">3.</span></strong></p>
+
+<p><font face="anton">EARN B4RC TOKENS</font></p>
+</div>
+                            </div>                           
+                            <div data-component="text">
+                                <div class="kartra_text kartra_text--text-center kartra_text--dim-grey kartra_text--margin-bottom-special-medium" style="position: relative;" aria-controls="cke_5037" aria-activedescendant="" aria-autocomplete="list" aria-expanded="false">
+<p style="font-size: 0.8rem;"><span style="font-size: 0.8rem; color: rgb(0, 0, 0);">Staked tokens will generate you a yield from the rewards pool. These B4RC tokens can be used to buy properties via our developer partners. </span></p>
+</div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+<div class="row background_changer--blur0" data-component="grid" id="MkyeirvzPX" alt="" style="background-color: rgb(109, 108, 110); border-radius: 10px; border-style: none; border-width: 0px; margin-top: 0px; margin-bottom: 0px; background-image: none; opacity: 1;">
+                                
+                                
+                                <div class="col-md-12">
+                                    <div class="js_kartra_component_holder">
+<div data-component="divider" id="bm5wEbAaew">                            
+    <hr class="kartra_divider kartra_divider--border-tiny kartra_divider--dashed kartra_divider--border-dim-black-opaque-20 pull-center kartra_divider--full" style="border-color: rgba(255, 255, 255, 0.2); border-top-style: dashed; border-top-width: 2px; margin: 0px;">
+</div>
+<div data-component="headline" id="A0eT4e89Sl">
+                            <div class="kartra_headline kartra_headline--h2 kartra_headline--font-weight-medium kartra_headline--text-center kartra_headline--dim-black kartra_headline--margin-bottom-none" style="position: relative; margin-top: 0px; margin-bottom: 0px;" aria-controls="cke_31634" aria-activedescendant="" aria-autocomplete="list" aria-expanded="false">
+<p style="font-size: 1.6rem; line-height: 1.2em;"><strong><span style="font-size: 1.6rem; line-height: 1.2em;"><font face="roboto condensed"><span style="line-height: 1.2em; font-size: 1.6rem;"><span style="color: rgb(255, 255, 255); line-height: 1.2em; font-size: 1.6rem;">BUY</span></span></font></span></strong></p>
+
+<p style="font-size: 0.8rem; line-height: 1.2em; text-align: left;"> </p>
+</div>
+                        </div>
+<div class="kartra_element_bg kartra_element_bg--padding-small kartra_element_bg--padding-bottom-tiny kartra_element_bg--margin-bottom-extra-small" data-component="bundle" id="bqtVX6T50P_enAj9eZ5Gl" style="margin-top: 0px; margin-bottom: 20px; padding: 10px 25px;">
+                            <div style="background-color: rgb(230, 230, 230); border-radius: 10px; border-color: rgb(51, 51, 51); border-style: none; border-width: 0px; background-image: none; opacity: 1;" class="background-item background_changer--blur0" alt=""></div>
+                            <div class="row row--equal" data-component="grid">
+                                <div class="col-md-3">
+                                    <div class="js_kartra_component_holder"><div data-component="image" href="javascript: void(0);"><picture><source type="image/webp" data-srcset="//d1aettbyeyfilo.cloudfront.net/aoperformance/30616936_1663034980NpIusdc-coin-icon.webp"></source><source type="image/png" data-srcset="//d1aettbyeyfilo.cloudfront.net/aoperformance/30616936_1663034980NpIusdc-coin-icon.png"></source><img class="kartra_image kartra_image--full pull-center background_changer--blur0" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" onerror="this.onerror=null;this.src='//d2uolguxr56s4e.cloudfront.net/img/kartrapages/placeholder.jpg';" style="border-color: rgb(51, 51, 51); border-style: none; border-width: 0px; margin: 0px auto; opacity: 1; width: 55px; max-width: 100%; height: auto;" alt="" data-original="//d1aettbyeyfilo.cloudfront.net/aoperformance/30616936_1663034980NpIusdc-coin-icon.png"></picture></div></div>
+                                </div>
+                                <div class="column--vertical-center background_changer--blur0 col-md-8 col-md-offset-1" style="background-color: rgb(255, 255, 255); border-radius: 10px; border-style: none; border-width: 0px; padding: 0px 15px; background-image: none; opacity: 1;" alt="">
+                                    <div class="js_kartra_component_holder"><div data-component="headline" id="QfdLNT2m6G">
+                            <div class="kartra_headline kartra_headline--h2 kartra_headline--font-weight-medium kartra_headline--text-center kartra_headline--dim-black kartra_headline--margin-bottom-none" style="position: relative; margin-top: 0px; margin-bottom: 0px;" aria-controls="cke_30177" aria-activedescendant="" aria-autocomplete="list" aria-expanded="false">
+<p style="font-size: 0.8rem; line-height: 1.2em;"><em><span style="font-size: 0.8rem; line-height: 1.2em;"><font face="roboto condensed"><span style="font-size: 0.8rem; line-height: 1.2em;"><span style="font-size: 0.8rem; line-height: 1.2em;">Input amount</span></span></font></span></em></p>
+</div>
+                        </div></div>
+                                </div>
+                            </div>
+                        </div>
+<div class="kartra_element_bg kartra_element_bg--padding-small kartra_element_bg--padding-bottom-tiny kartra_element_bg--margin-bottom-extra-small" data-component="bundle" id="nqe2UgHpMw_mjbM7Uqrbq" style="margin-top: 0px; margin-bottom: 20px; padding: 10px 25px;">
+                            <div style="background-color: rgb(230, 230, 230); border-radius: 10px; border-color: rgb(51, 51, 51); border-style: none; border-width: 0px; background-image: none; opacity: 1;" class="background-item background_changer--blur0" alt=""></div>
+                            <div class="row row--equal" data-component="grid">
+                                <div class="col-md-3">
+                                    <div class="js_kartra_component_holder"><div data-component="image" href="javascript: void(0);"><picture><source type="image/webp" data-srcset="//d1aettbyeyfilo.cloudfront.net/aoperformance/29960112_1660276404ksjB4Real_Icon_black.webp"></source><source type="image/png" data-srcset="//d1aettbyeyfilo.cloudfront.net/aoperformance/29960112_1660276404ksjB4Real_Icon_black.png"></source><img class="kartra_image kartra_image--full pull-center background_changer--blur0" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" onerror="this.onerror=null;this.src='//d2uolguxr56s4e.cloudfront.net/img/kartrapages/placeholder.jpg';" style="border-color: rgb(51, 51, 51); border-style: none; border-width: 0px; margin: 0px auto; opacity: 1; width: 60px; max-width: 100%; height: auto;" alt="" data-original="//d1aettbyeyfilo.cloudfront.net/aoperformance/29960112_1660276404ksjB4Real_Icon_black.png"></picture></div></div>
+                                </div>
+                                <div class="column--vertical-center background_changer--blur0 col-md-8 col-md-offset-1" style="background-color: rgb(255, 255, 255); border-radius: 10px; border-style: none; border-width: 0px; padding: 0px 15px; background-image: none; opacity: 1;" alt="">
+                                    <div class="js_kartra_component_holder"><div data-component="headline" id="QfdLNT2m6G">
+                            <div class="kartra_headline kartra_headline--h2 kartra_headline--font-weight-medium kartra_headline--text-center kartra_headline--dim-black kartra_headline--margin-bottom-none" style="position: relative; margin-top: 0px; margin-bottom: 0px;" aria-controls="cke_30561" aria-activedescendant="" aria-autocomplete="list" aria-expanded="false">
+<p style="font-size: 0.8rem; line-height: 1.2em;"><em><span style="font-size: 0.8rem; line-height: 1.2em;"><font face="roboto condensed"><span style="font-size: 0.8rem; line-height: 1.2em;"><span style="font-size: 0.8rem; line-height: 1.2em;">Output amount</span></span></font></span></em></p>
+</div>
+                        </div></div>
+                                </div>
+                            </div>
+                        </div>
+<div data-component="button" id="yAV8D8NUTm"><a href="javascript: void(0);" class="kartra_button1 kartra_button1--default kartra_button1--hollow kartra_button1--large kartra_button1--squared pull-center" style="background-color: transparent; color: rgb(255, 255, 255); margin: 20px auto; font-weight: 400; font-family: Roboto; border-color: rgb(236, 204, 93);" onmouseover="this.style.color='#fff';this.style.backgroundColor='rgb(236, 204, 93)';this.style.borderColor='rgb(236, 204, 93)';if (this.querySelector('.fa')) this.querySelector('.fa').style.color='#fff'" onmouseout="this.style.color='rgb(255, 255, 255)';this.style.borderColor='rgb(236, 204, 93)';this.style.backgroundColor='transparent';if (this.querySelector('.fa')) this.querySelector('.fa').style.color='rgb(255, 255, 255)'" data-frame-id="_2hgg1bxg9" target="_parent"><span class="kartra_icon__icon fa fa-first-order" data-color="rgb(255, 255, 255)" style="font-weight: 400; color: rgb(255, 255, 255);"></span>CONNECT WALLET</a></div>
+</div>
+                                </div>
+
+                            </div>
+<div class="row row--equal background_changer--blur0" data-component="grid" id="qzUvGK4CoA" alt="" style="background-color: rgba(0, 0, 0, 0); border-radius: 0px; border-style: none; border-width: 0px; margin-top: 0px; margin-bottom: 50px; background-image: none; opacity: 1;">
+                    
+                    
+                    
+                    <div class="col-md-12">
+                        <div class="js_kartra_component_holder">
+<div data-component="divider" id="ndAKdixs1L">                            
+    <hr class="kartra_divider kartra_divider--border-tiny kartra_divider--dashed kartra_divider--border-dim-black-opaque-20 pull-center kartra_divider--full" style="border-color: rgba(33, 33, 33, 0.2); border-top-style: dashed; border-top-width: 2px; margin: 35px 0px 0px;">
+</div>
+<div data-component="headline" id="WGPgG4QKqo">
+                            <div class="kartra_headline kartra_headline--text-left kartra_headline--text-center kartra_headline--h1 kartra_headline--size-very-extra-large-giant kartra_headline--roboto-condensed-font" style="position: relative;" aria-controls="cke_3410" aria-activedescendant="" aria-autocomplete="list" aria-expanded="false">
+<p style="font-size: 1.6rem; line-height: 1.2em; text-align: center;"> </p>
+
+<p style="font-size: 1.6rem; line-height: 1.2em; text-align: center;"><font color="#000000" face="anton"><span style="font-size: 1.6rem; line-height: 1.2em;"><span style="font-size: 1.6rem; line-height: 1.2em;">B4REAL STAKING SYSTEM - </span></span></font><font face="anton"><span style="color: rgb(236, 204, 93); font-size: 1.6rem; line-height: 1.2em;"><span style="font-size: 1.6rem; line-height: 1.2em; color: rgb(236, 204, 93);">DEFI</span></span></font><font face="anton"><span style="color: rgb(236, 204, 93); font-size: 1.6rem; line-height: 1.2em;"><span style="font-size: 1.6rem; line-height: 1.2em; color: rgb(236, 204, 93);"> </span></span></font><font face="anton"><span style="color: rgb(236, 204, 93); font-size: 1.6rem; line-height: 1.2em;"><span style="font-size: 1.6rem; line-height: 1.2em; color: rgb(236, 204, 93);">LAYER EXPLAINER</span></span></font></p>
+</div>
+                        </div>
+<div data-component="video" data-thumbnail="https://d2uolguxr56s4e.cloudfront.net/img/shared/icon_huge_exclamation_white.png" data-screenshot="false">
+                                <div class="kartra_video kartra_video_containerJmpqFld0Qna4 js_kartra_trackable_object" style="margin-top: 0px; margin-bottom: 20px; padding-bottom: 56.25%;" data-kt-type="video" data-kt-value="JmpqFld0Qna4" data-kt-owner="7kz1W0g0" id="JmpqFld0Qna4/qdafd/?autoplay=false&amp;mute_on_start=false&amp;show_controls=true&amp;sticky=false&amp;resume_playback=false" data-random_str="qdafd"><script src="https://app.kartra.com/video/JmpqFld0Qna4/qdafd/?autoplay=false&amp;mute_on_start=false&amp;show_controls=true&amp;sticky=false&amp;resume_playback=false"></script></div>
+                            </div>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<div class="content content--padding-medium light" style="background-color: rgb(0, 0, 0); padding: 40px 0px 20px;" id="_62fc30629c5af">
+                <style id="pagesInternalCSS">
+	.kartra_element_bg--adjust-width {
+	    display: table !important;
+	    margin-left: auto !important;
+	    margin-right: auto !important;
+	}	
+</style>
+<div class="background_changer background_changer--blur0" style="background-image: none; opacity: 1;" alt=""></div>
+                <div class="background_changer_overlay" style="background-image: none;"></div>
+                <div class="container">
+                    <div class="row" data-component="grid">
+<div class="col-md-12"><div class="js_kartra_component_holder">
+<div class="kartra_link_wrapper kartra_link_wrapper--flex kartra_link_wrapper--align-left kartra_link_wrapper--sm-align-center kartra_link_wrapper--margin-bottom-big-tiny" data-component="bundle" id="rtC8ISi4Lk_uh65NSW6x2">
+                                    
+                                    
+                                    
+                                    <a class="kartra_list__link kartra_list__link--font-weight-regular kartra_list__link--orange kartra_list__link--padding-left-right-tiny kartra_list__link--hover-opacity-giant kartra_list__link--margin-bottom-extra-tiny toggle_pagelink" href="https://www.b4real.digital/terms" data-frame-id="_62fc30629c5af" style="color: rgb(255, 255, 255); font-weight: 400; font-family: Roboto;" target="_blank">Terms and conditions</a>               
+                                </div>
+<div class="kartra_link_wrapper kartra_link_wrapper--flex kartra_link_wrapper--align-left kartra_link_wrapper--sm-align-center kartra_link_wrapper--margin-bottom-big-tiny" data-component="bundle" id="Mh3ZoueRKe_liDoJk8deF">
+                                    
+                                    
+                                    <a class="kartra_list__link kartra_list__link--font-weight-regular kartra_list__link--orange kartra_list__link--padding-left-right-tiny kartra_list__link--hover-opacity-giant kartra_list__link--margin-bottom-extra-tiny toggle_pagelink" href="https://www.b4real.digital/privacy" data-frame-id="_62fc30629c5af" style="color: rgb(255, 255, 255); font-weight: 400; font-family: Roboto;" target="_blank">Privacy Policy</a>
+                                                   
+                                </div>
+</div></div>
+
+
+
+</div>
+<div class="row row--equal" data-component="grid">
+                        <div class="col-md-7 column--vertical-center">
+                            <div class="js_kartra_component_holder">
+                                <div data-component="text">
+                                    <div class="kartra_text kartra_text--font-weight-regular kartra_text--light-black kartra_text--sm-text-center" style="margin-top: 0px; margin-bottom: 10px; position: relative;" aria-controls="cke_503" aria-activedescendant="" aria-autocomplete="list" aria-expanded="false">
+<p style="font-family: Roboto"><span style="color:#ffffff;">© 2022. <strong><span style="color: rgb(255, 255, 255);">B4REAL</span></strong>. All Rights Reserved.</span></p>
+</div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-5 column--vertical-center">
+                            <div class="js_kartra_component_holder">
+                                <div class="social_icons_wrapper social_icons_wrapper--flex social_icons_wrapper--align-right social_icons_wrapper--sm-align-center social_icons_wrapper--margin-bottom-extra-small social_icons_wrapper--negative-margin-left-right-extra-tiny" data-component="bundle" id="32rDu5esZT">
+                                    <div data-component="icon">
+                                        <a href="https://www.youtube.com/c/BlackTieDigitalOfficial" class="toggle_pagelink" data-frame-id="_62fc30629c5af" target="_blank"><div class="kartra_icon kartra_icon--top-none kartra_icon--margin-left-right-extra-tiny kartra_icon--hover-opacity-medium kartra_icon--dark-grey kartra_icon--medium" style="background-color: rgba(0, 0, 0, 0); margin: 0px auto;">
+                                            <span style="color: rgb(158, 158, 158);" class="kartra_icon__icon fa fa-youtube"></span>
+                                        </div></a>                                            
+                                    </div>
+<div data-component="icon">
+                                        <a href="https://www.linkedin.com/company/b4realofficial" class="toggle_pagelink" data-frame-id="_62fc30629c5af" target="_blank"><div class="kartra_icon kartra_icon--top-none kartra_icon--margin-left-right-extra-tiny kartra_icon--hover-opacity-medium kartra_icon--dark-grey kartra_icon--medium" style="background-color: rgba(0, 0, 0, 0); margin: 0px auto;">
+                                            <span style="color: rgb(158, 158, 158);" class="kartra_icon__icon fa fa-linkedin-square"></span>
+                                        </div></a>                                            
+                                    </div>
+<div data-component="icon">
+                                        <a href="https://t.me/blacktiedigital" class="toggle_pagelink" data-frame-id="_62fc30629c5af" target="_blank"><div class="kartra_icon kartra_icon--top-none kartra_icon--margin-left-right-extra-tiny kartra_icon--hover-opacity-medium kartra_icon--dark-grey kartra_icon--medium" style="background-color: rgba(0, 0, 0, 0); margin: 0px auto;">
+                                            <span style="color: rgb(158, 158, 158);" class="kartra_icon__icon fa fa-telegram"></span>
+                                        </div></a>                                            
+                                    </div>
+<div data-component="icon">
+                                        <a href="https://twitter.com/B4Real_Official" class="toggle_pagelink" data-frame-id="_62fc30629c5af" target="_blank"><div class="kartra_icon kartra_icon--top-none kartra_icon--margin-left-right-extra-tiny kartra_icon--hover-opacity-medium kartra_icon--dark-grey kartra_icon--medium" style="background-color: rgba(0, 0, 0, 0); margin: 0px auto;">
+                                            <span style="color: rgb(158, 158, 158);" class="kartra_icon__icon fa fa-twitter"></span>
+                                        </div></a>                                            
+                                    </div>
+<div data-component="icon">
+                                        <a href="https://www.facebook.com/B4REALOfficial" class="toggle_pagelink" data-frame-id="_62fc30629c5af" target="_blank"><div class="kartra_icon kartra_icon--top-none kartra_icon--margin-left-right-extra-tiny kartra_icon--hover-opacity-medium kartra_icon--dark-grey kartra_icon--medium" style="background-color: rgba(0, 0, 0, 0); margin: 0px auto;">
+                                            <span style="color: rgb(158, 158, 158);" class="kartra_icon__icon fa fa-facebook"></span>
+                                        </div></a>                                            
+                                    </div>                                    
+                                                                        
+                                                                        
+                                                                     
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</div>
+    </div>
+<!-- /#page -->
+    <div style="height:0px;width:0px;opacity:0;position:fixed">
+        <!-- Start of HubSpot Embed Code -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/19910718.js"></script>
+<!-- End of HubSpot Embed Code -->
+    </div>
+    <div style="height:0px;width:0px;opacity:0;position:fixed">
+        
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2119738378178740');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2119738378178740&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
+<meta name="facebook-domain-verification" content="zmmuzs0tjlnzfb7h56w0yygumlnpoc" />
+    </div>
+     <!-- Load JS here for greater good =============================-->
+    <script src="js/build/front/pages/skeleton-immediate.js"></script>
+    <script src="js/build/front/pages/skeleton-below.js" async defer></script>
+    <script src="//app.kartra.com/resources/js/analytics/7kz1W0g0" async defer></script>
+    <script src="//app.kartra.com/resources/js/page_check?page_id=VO09zs7KpgCp" async defer></script>
+    <script>
+    if ( typeof window['jQuery'] !== 'undefined') {
+        window.jsVars = {"vendor_time_format":"12h","page_title":"B4Real Staking System","page_description":"The B4Real staking system is a world-first that allows you to generate tokens for real estate purchases. Check it out here!","page_keywords":"real estate crypto, blockchain real estate australia, bitcoin property, B4REAL, blockchain companies australia, Buy a house with crypto, B4Real Staking System,  Staking, DeFi, Real Estate Industry, Real Estate Market, Real Estate Investing","page_robots":"index, follow","secure_base_url":"\/\/app.kartra.com\/","global_id":"VO09zs7KpgCp"};
+        window.global_id = 'VO09zs7KpgCp';
+        window.secure_base_url = '//app.kartra.com/';
+        if( typeof Porthole !== 'undefined' ) {
+            windowProxy= new Porthole.WindowProxy('//app.kartra.com/front/deal/proxy');
+        }
+    }
+    </script>
+    <footer>
+        <div style="height:0px;width:0px;opacity:0;position:fixed">
+            
+        </div>
+    </footer>
+    <!-- GDPR cookie BANNER -->
+    <!-- GDPR cookie BANNER -->
+<div class="gdpr_cookie_banner js_gdpr_cookie_banner" style="display: none;">
+    <button type="button" class="gdpr-uncollapse-button js_show_gdpr_banner">
+        Cookies
+    </button>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="d-grid grid-gdpr-banner grid-col-gap-60px">
+                    <div>
+                        <div class="js_gdrp_cookie_banner_text gdpr-text">
+                            We use cookies to improve our service, track analytics, remember preferences, etc. By using our site, you consent to these cookies.
+                        </div>
+                        <div class="gdpr_link_wrapper">
+                            <a href="" target="_blank" class="js_gdpr_button">Privacy policy</a>
+                            <span></span>
+                            <a href="" target="_blank" class="">Cookie policy</a>
+                        </div>
+                    </div>
+                    <div class="gdpr_button_block">
+                        <div class="gdpr_toggler">
+                            <label class="toggler_label selected">Accept all cookies</label>
+                            <div class="switcher">
+                                <input type="checkbox" name="gdpr_cookies" id="gdpr_cookies" class="cmn-toggle js_accepted_cookies"  value="2">
+                                <label for="gdpr_cookies"></label>
+                            </div>
+                            <label class="toggler_label ">Only essential cookies</label>
+                        </div>
+                        <button class="gdpr_close js_gdpr_close" type="button" data-type="kartra_page" data-type-id="355" data-type-owner="7kz1W0g0">SAVE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--// GDPR cookie BANNER -->  
+
+    <script src="//app.kartra.com/resources/js/kartra_embed_wild_card?type=kartra_page&amp;owner=7kz1W0g0"></script>
+    <!--// GDPR cookie BANNER -->   
+</body>
 </html>
