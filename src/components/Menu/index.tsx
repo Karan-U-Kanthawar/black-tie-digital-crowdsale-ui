@@ -36,8 +36,10 @@ const Menu: React.FC = () => {
           <Stack justifyContent={"center"}>
             {account ? (
               <Stack direction={"row"} spacing={2}>
-                <Chip label={`Account : ${truncateAddress(account)}`}></Chip>
-                <Button onClick={disconnect}>Disconnect</Button>
+                <Chip
+                  label={`Account : ${truncateAddress(account)}`}
+                  onClick={disconnect}
+                ></Chip>
               </Stack>
             ) : (
               <Stack>
