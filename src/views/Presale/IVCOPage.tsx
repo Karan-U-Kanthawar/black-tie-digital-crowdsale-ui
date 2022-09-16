@@ -88,7 +88,7 @@ function IVCOPage({ id }: IIVCOPage) {
           inputToken.address
         );
         return new BigNumber(inputTokenRate.toString())
-          .dividedBy(new BigNumber(10).pow(inputToken.decimals))
+          .dividedBy(new BigNumber(10).pow(18))
           .toFixed();
       })
     )
@@ -349,7 +349,7 @@ function IVCOPage({ id }: IIVCOPage) {
                       </Button>
                     </InputContainer>
                   </Stack>
-                  {Number(amount) > Number(maxUserAllocation) && (
+                  {false && Number(amount) > Number(maxUserAllocation) && (
                     <Alert variant="outlined" severity="warning">
                       Cannot deposit more than {maxUserAllocation}{" "}
                       {selectedToken.symbol}
@@ -398,7 +398,7 @@ function IVCOPage({ id }: IIVCOPage) {
                     <Button
                       variant={"contained"}
                       disabled={
-                        pendingTxn || Number(amount) > Number(maxUserAllocation)
+                        pendingTxn
                       }
                       onClick={purchaseToken}
                     >

@@ -6,53 +6,53 @@ BigNumber.config({
 });
 
 export const BLACK_TIE_DIGITAL_PRESALE_ID =
-  "0xcc224F61FEEb83F95910DBa512291C2645325E62";
+  "0x32d210761e36CC073c2D38dc7A8c67d65D1C9EF1";
 
 export const crowdsale = {
-  owner: "0x4274A49FBeB724D75b8ba7bfC55FC8495A15AD1E",
+  owner: "0xb60B993862673A87C16E4e6e5F75397131EEBb3e",
   token: {
-    address: "0x286881d76b77617e5F5C6Bc5a4c0A373ba9d297d",
-    name: "Apple",
-    symbol: "Apple",
-    url: "https://i.ibb.co/8D5r4Hp/CNT.png",
+    address: "0x286881d76b77617e5f5c6bc5a4c0a373ba9d297d",
+    name: "B4REAL",
+    symbol: "B4RE",
+    url: "https://cryption-network-local.infura-ipfs.io/ipfs/QmYcftrjFV4qRGixg8FZekc4siPndaQyYX1oJoJ1U9ie2g",
     decimals: 18,
   },
 };
 
 export const allowedInputTokens = [
   {
-    name: "Mango",
-    symbol: "Mango",
-    decimals: 18,
-    address: "0xA62EAD46A8AB6cce617fA3748869dBbde5756587",
+    name: "USDC",
+    symbol: "USDC",
+    decimals: 6,
+    address: "0x671b68fb02778d37a885699da79c13faf0d3c560",
     // Get from contract dynamically
-    tokenRate: "0",
+    tokenRate: "2.857142857142857",
     userBalance: "0",
   },
-  // {
-  //   name: "USDC",
-  //   symbol: "USDC",
-  //   decimals: 6,
-  //   address: "0x671b68fb02778D37a885699dA79c13Faf0d3C560",
-  //   // Get from contract dynamically
-  //   tokenRate: "0",
-  //   userBalance: "0",
-  // },
+  {
+    name: "USDT",
+    symbol: "USDT",
+    decimals: 6,
+    address: "0xd89a2e56b778aefe719fc86e122b7db752bb6b41",
+    // Get from contract dynamically
+    tokenRate: "2.857142857142857",
+    userBalance: "0",
+  },
 ];
 
 export const BLACK_TIE_DIGITAL_SOCIALS = {
   address: BLACK_TIE_DIGITAL_PRESALE_ID,
   twitter: {
     username: "CryptionNetwork",
-    link: "https://twitter.com/CryptionNetwork",
+    link: "https://twitter.com/B4Real_Official",
   },
   telegram: {
     username: "CryptionNetwork",
-    link: "https://t.me/CryptionNetwork",
+    link: "https://t.me/blacktiedigital",
   },
   whitepaper: {
     username: "Cryption Network",
-    link: "https://www.cryption.network/assets/docs/Cryption-Network-Litepaper.pdf",
+    link: "https://b4real.s3.ap-southeast-2.amazonaws.com/B4REAL+White+Paper+(v1).pdf",
   },
   vestingInfo:
     "20% of the token will be given on 31st Jan & the remaining will be linearly vested for 6 months.",
