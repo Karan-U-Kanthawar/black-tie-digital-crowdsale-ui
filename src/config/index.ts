@@ -6,12 +6,12 @@ BigNumber.config({
 });
 
 export const BLACK_TIE_DIGITAL_PRESALE_ID =
-  "0x32d210761e36CC073c2D38dc7A8c67d65D1C9EF1";
+  "0xd7845A6D97Cb997EEf4acAd95ABE20fDAb4fbBc4";
 
 export const crowdsale = {
-  owner: "0xb60B993862673A87C16E4e6e5F75397131EEBb3e",
+  owner: "0x138D8d4b749C4113B2d88610302c20bAb282677d",
   token: {
-    address: "0x286881d76b77617e5f5c6bc5a4c0a373ba9d297d",
+    address: "0x3c27564e3161bbaA6E7d2f0320fa4BE77AED54da",
     name: "B4REAL",
     symbol: "B4RE",
     url: "https://cryption-network-local.infura-ipfs.io/ipfs/QmYcftrjFV4qRGixg8FZekc4siPndaQyYX1oJoJ1U9ie2g",
@@ -24,7 +24,7 @@ export const allowedInputTokens = [
     name: "USDC",
     symbol: "USDC",
     decimals: 6,
-    address: "0x671b68fb02778d37a885699da79c13faf0d3c560",
+    address: "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
     // Get from contract dynamically
     tokenRate: "2.857142857142857",
     userBalance: "0",
@@ -33,7 +33,7 @@ export const allowedInputTokens = [
     name: "USDT",
     symbol: "USDT",
     decimals: 6,
-    address: "0xd89a2e56b778aefe719fc86e122b7db752bb6b41",
+    address: "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
     // Get from contract dynamically
     tokenRate: "2.857142857142857",
     userBalance: "0",
@@ -43,15 +43,15 @@ export const allowedInputTokens = [
 export const BLACK_TIE_DIGITAL_SOCIALS = {
   address: BLACK_TIE_DIGITAL_PRESALE_ID,
   twitter: {
-    username: "CryptionNetwork",
+    username: "B4Real",
     link: "https://twitter.com/B4Real_Official",
   },
   telegram: {
-    username: "CryptionNetwork",
+    username: "B4Real",
     link: "https://t.me/blacktiedigital",
   },
   whitepaper: {
-    username: "Cryption Network",
+    username: "B4Real",
     link: "https://b4real.s3.ap-southeast-2.amazonaws.com/B4REAL+White+Paper+(v1).pdf",
   },
   vestingInfo:
