@@ -8,6 +8,8 @@ BigNumber.config({
 export const BLACK_TIE_DIGITAL_PRESALE_ID =
   "0xd7845A6D97Cb997EEf4acAd95ABE20fDAb4fbBc4";
 
+export const MAINNET_CHAINID = 137;
+
 export const crowdsale = {
   owner: "0x138D8d4b749C4113B2d88610302c20bAb282677d",
   token: {
