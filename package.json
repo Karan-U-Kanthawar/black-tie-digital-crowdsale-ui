@@ -5,6 +5,7 @@
   "dependencies": {
     "@ethersproject/providers": "^5.4.5",
     "@mui/icons-material": "^5.10.2",
+    "@mui/lab": "^5.0.0-alpha.99",
     "@mui/material": "^5.10.2",
     "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest",
     "@walletconnect/web3-provider": "^1.8.0",

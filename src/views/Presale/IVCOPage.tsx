@@ -13,6 +13,7 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
 import { ethers } from "ethers";
 import {
   getCrowdsaleContract,
@@ -395,15 +396,13 @@ function IVCOPage({ id }: IIVCOPage) {
                   )}
 
                   {account ? (
-                    <Button
+                    <LoadingButton
+                      loading={pendingTxn}
                       variant={"contained"}
-                      disabled={
-                        pendingTxn
-                      }
                       onClick={purchaseToken}
                     >
                       Invest into {crowdsaleData.token.symbol}
-                    </Button>
+                    </LoadingButton>
                   ) : (
                     <Button variant={"outlined"} onClick={connectWallet}>
                       Connect to Wallet
