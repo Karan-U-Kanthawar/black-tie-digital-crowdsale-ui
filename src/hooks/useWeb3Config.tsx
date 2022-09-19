@@ -39,6 +39,7 @@ const providerOptions = {
 };
 
 const web3Modal = new Web3Modal({
+  disableInjectedProvider: true,
   cacheProvider: true,
   providerOptions,
 });
