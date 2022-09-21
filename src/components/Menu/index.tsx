@@ -22,8 +22,12 @@ const NavigationContainer = styled.nav`
 
 const LogoContainer = styled.div``;
 
-const Menu: React.FC = () => {
-  const { account, connectWallet, disconnect } = useWeb3Config();
+interface IMenu {
+  handleConnectWalletModalOpen: () => void;
+}
+
+const Menu: React.FC<IMenu> = ({ handleConnectWalletModalOpen }) => {
+  const { account, disconnect } = useWeb3Config();
 
   return (
     <BlackContainer>
@@ -43,7 +47,10 @@ const Menu: React.FC = () => {
               </Stack>
             ) : (
               <Stack>
-                <Button variant={"contained"} onClick={connectWallet}>
+                <Button
+                  variant={"contained"}
+                  onClick={handleConnectWalletModalOpen}
+                >
                   Connect to wallet
                 </Button>
               </Stack>

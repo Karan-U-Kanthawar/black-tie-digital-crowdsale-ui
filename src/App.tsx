@@ -10,11 +10,16 @@ import ConnectWalletModal from "./components/ConnectWalletModal";
 import useAuth from "./hooks/useAuth";
 
 function App() {
+  const [open, setOpen] = React.useState(false);
   const { login } = useAuth();
-  const [open, setOpen] = React.useState(true);
-  const handleClose = () => {
+
+  const handleConnectWalletClose = () => {
     setOpen(() => false);
   };
+  const handleConnectWalletOpen = () => {
+    setOpen(() => true);
+  };
+
   useWeb3Config();
   useEffect(() => {
     const checkNetwork = async () => {
@@ -58,8 +63,12 @@ function App() {
 
   return (
     <Router history={history}>
-      <ConnectWalletModal login={login} handleClose={handleClose} open={open} />
-      <Menu />
+      <ConnectWalletModal
+        login={login}
+        handleClose={handleConnectWalletClose}
+        open={open}
+      />
+      <Menu handleConnectWalletModalOpen={handleConnectWalletOpen} />
       <Switch>
         <Route path="/" exact>
           <Presale />
