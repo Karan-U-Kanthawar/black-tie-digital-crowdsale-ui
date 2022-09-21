@@ -1,45 +1,39 @@
 import BigNumber from "bignumber.js/bignumber";
-import Metamask from "./walletIcons/Metamask";
-import WalletConnect from "./walletIcons/WalletConnect";
-import { FC } from "react";
-import { SvgProps } from "./walletIcons/types";
 
 BigNumber.config({
   EXPONENTIAL_AT: 1000,
   DECIMAL_PLACES: 80,
 });
 
-enum ConnectorNames {
-  Injected = "injected",
-  WalletConnect = "walletconnect",
-}
-
-interface Config {
-  title: string;
-  type: string;
-  icon: FC<SvgProps>;
-  connectorId: ConnectorNames;
-}
-
-export const connectors: Config[] = [
-  {
-    title: "Metamask",
-    icon: Metamask,
-    type: "web3",
-    connectorId: ConnectorNames.Injected,
+export const NATIVE_TOKENS = {
+  80001: {
+    name: "MATIC",
+    symbol: "MATIC",
+    decimals: "18",
   },
-  {
-    title: "WalletConnect",
-    icon: WalletConnect,
-    type: "web3",
-    connectorId: ConnectorNames.WalletConnect,
+  137: {
+    name: "MATIC",
+    symbol: "MATIC",
+    decimals: "18",
   },
-];
-
-export const BLACK_TIE_DIGITAL_PRESALE_ID =
-  "0xd7845A6D97Cb997EEf4acAd95ABE20fDAb4fbBc4";
+  1: {
+    name: "ETH",
+    symbol: "ETH",
+    decimals: "18",
+  },
+  1287: {
+    name: "Glimmer",
+    symbol: "GLMR",
+    decimals: "18",
+  },
+};
 
 export const MAINNET_CHAINID = 137;
+export const SUPPORTED_NETWORK_IDS = [137, 80001];
+
+// crowdsale config
+export const BLACK_TIE_DIGITAL_PRESALE_ID =
+  "0xd7845A6D97Cb997EEf4acAd95ABE20fDAb4fbBc4";
 
 export const crowdsale = {
   owner: "0x138D8d4b749C4113B2d88610302c20bAb282677d",

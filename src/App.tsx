@@ -6,8 +6,15 @@ import useWeb3Config from "./hooks/useWeb3Config";
 import Menu from "./components/Menu";
 import { MAINNET_CHAINID } from "./config";
 import getNodeUrl from "./utils/getRpcUrl";
+import ConnectWalletModal from "./components/ConnectWalletModal";
+import useAuth from "./hooks/useAuth";
 
 function App() {
+  const { login } = useAuth();
+  const [open, setOpen] = React.useState(true);
+  const handleClose = () => {
+    setOpen(() => false);
+  };
   useWeb3Config();
   useEffect(() => {
     const checkNetwork = async () => {
@@ -51,6 +58,7 @@ function App() {
 
   return (
     <Router history={history}>
+      <ConnectWalletModal login={login} handleClose={handleClose} open={open} />
       <Menu />
       <Switch>
         <Route path="/" exact>
