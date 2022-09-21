@@ -4,13 +4,13 @@ import history from "./routerHistory";
 import Presale from "./views/Presale";
 import useWeb3Config from "./hooks/useWeb3Config";
 import Menu from "./components/Menu";
-import { MAINNET_CHAINID } from './config/index';
-import getNodeUrl from './utils/getRpcUrl';
+import { MAINNET_CHAINID } from "./config";
+import getNodeUrl from "./utils/getRpcUrl";
 
 function App() {
   useWeb3Config();
   useEffect(() => {
-    const checkNetwrok = async () => {
+    const checkNetwork = async () => {
       if (window && window.ethereum && window.ethereum.networkVersion) {
         if (window.ethereum.networkVersion !== MAINNET_CHAINID) {
           try {
@@ -21,7 +21,7 @@ function App() {
             return true;
           } catch (switchError: any) {
             if (switchError.code === 4902) {
-              const rpcUrl = getNodeUrl(MAINNET_CHAINID)
+              const rpcUrl = getNodeUrl(MAINNET_CHAINID);
               // @ts-ignore
               await provider.request({
                 method: "wallet_addEthereumChain",
@@ -45,9 +45,9 @@ function App() {
           }
         }
       }
-    }
-    checkNetwrok()
-  }, [])
+    };
+    checkNetwork();
+  }, []);
 
   return (
     <Router history={history}>
