@@ -1,8 +1,10 @@
 import React from "react";
 import { Button, Chip, Container, Stack } from "@mui/material";
 import styled from "styled-components";
-import useWeb3Config, { truncateAddress } from "../../hooks/useWeb3Config";
+import { truncateAddress } from "../../hooks/useWeb3Config";
 import CompanyLogo from "./companyLogo.svg";
+import useActiveWeb3React from "../../hooks/useActiveWeb3React";
+import useAuth from "../../hooks/useAuth";
 
 const BlackContainer = styled.div`
   background-color: ${(props) => props.theme.palette.background.default};
@@ -27,7 +29,8 @@ interface IMenu {
 }
 
 const Menu: React.FC<IMenu> = ({ handleConnectWalletModalOpen }) => {
-  const { account, disconnect } = useWeb3Config();
+  const { account } = useActiveWeb3React();
+  const { logout } = useAuth();
 
   return (
     <BlackContainer>
@@ -42,7 +45,7 @@ const Menu: React.FC<IMenu> = ({ handleConnectWalletModalOpen }) => {
               <Stack direction={"row"} spacing={2}>
                 <Chip
                   label={`Account : ${truncateAddress(account)}`}
-                  onClick={disconnect}
+                  onClick={logout}
                 ></Chip>
               </Stack>
             ) : (
