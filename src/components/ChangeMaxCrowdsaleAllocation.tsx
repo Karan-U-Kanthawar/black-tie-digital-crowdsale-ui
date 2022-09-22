@@ -44,7 +44,6 @@ const ChangeMaxCrowdsaleAllocation = ({
       const newCrowdsaleAllocationInWei = new BigNumber(newCrowdsaleAllocation)
         .multipliedBy(new BigNumber(10).pow(crowdsale.token.decimals))
         .toFixed();
-      console.log("value: ", newCrowdsaleAllocationInWei);
 
       const txn = await crowdSaleContract.updateMaxCrowdsaleAllocation(
         newCrowdsaleAllocationInWei
