@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import BigNumber from "bignumber.js";
 import {
-  Alert,
   Button,
   FormControl,
   Grid,
@@ -20,7 +19,6 @@ import {
   getERC20Contract,
 } from "../../utils/contractHelpers";
 import { allowedInputTokens, crowdsale } from "../../config";
-import useWeb3Config from "../../hooks/useWeb3Config";
 import HeroCard from "../../components/HeroCard";
 import { Card, CardSubHeading, CardText } from "../../styles/CardStyles";
 import { Contract } from "@ethersproject/contracts";
@@ -28,6 +26,7 @@ import erc20Abi from "../../config/constants/abi/erc20.json";
 import crowdsaleAbi from "../../config/constants/abi/crowdsale.json";
 import ChangeInputTokenRate from "../../components/ChangeInputTokenRate";
 import ChangeMaxCrowdsaleAllocation from "../../components/ChangeMaxCrowdsaleAllocation";
+import useActiveWeb3React from "../../hooks/useActiveWeb3React";
 
 export const InputContainer = styled.div`
   position: relative;
@@ -35,19 +34,19 @@ export const InputContainer = styled.div`
 
 interface IIVCOPage {
   id: string;
+  handleConnectWalletModalOpen: () => void;
 }
 
 const crowdsaleData = crowdsale;
 const allowedInputTokensData = allowedInputTokens;
 
-function IVCOPage({ id }: IIVCOPage) {
-  const { account, library, connectWallet } = useWeb3Config();
+function IVCOPage({ id, handleConnectWalletModalOpen }: IIVCOPage) {
+  const { account, library } = useActiveWeb3React();
   const [
     allowedInputTokensWithRateAndBalance,
     setAllowedInputTokensWithRateAndBalance,
   ] = useState(allowedInputTokensData);
   const [tokensRemainingForSale, setTokensRemainingForSale] = useState("0");
-  const [maxUserAllocation, setMaxUserAllocation] = useState("100");
   const [userVestedAmount, setUserVestedAmount] = useState("0");
   const [crowdsaleEndTime, setCrowdsaleEndTime] = useState(Date.now() / 1000);
   const [amount, setAmount] = useState("0");
@@ -69,16 +68,6 @@ function IVCOPage({ id }: IIVCOPage) {
     );
 
     setTokensRemainingForSale(tokensRemainingForSaleInEth);
-  }, [id]);
-  //
-  const getUserMaxAllocation = useCallback(async () => {
-    const crowdSaleContract = getCrowdsaleContract(id);
-    const maxUserAllocationInWei = await crowdSaleContract.maxUserAllocation();
-    const maxUserAllocationInEth = ethers.utils.formatEther(
-      maxUserAllocationInWei
-    );
-
-    setMaxUserAllocation(maxUserAllocationInEth);
   }, [id]);
 
   const getInputTokenValues = useCallback(async () => {
@@ -157,7 +146,10 @@ function IVCOPage({ id }: IIVCOPage) {
     try {
       if (!account) return;
       setPendingTxn(() => true);
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const provider = new ethers.providers.Web3Provider(
+        //  @ts-ignore
+        (window as WindowChain).ethereum
+      );
       const signer = provider.getSigner();
       const crowdSaleContract = await new Contract(id, crowdsaleAbi, signer);
       const endingCrowdsale = await crowdSaleContract.endCrowdsale();
@@ -179,7 +171,10 @@ function IVCOPage({ id }: IIVCOPage) {
     if (account) {
       try {
         setPendingTxn(true);
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const provider = new ethers.providers.Web3Provider(
+          //  @ts-ignore
+          (window as WindowChain).ethereum
+        );
         const signer = provider.getSigner();
         const erc20ContractWithSigner = await new Contract(
           selectedToken.address,
@@ -223,21 +218,13 @@ function IVCOPage({ id }: IIVCOPage) {
     getTokensRemainingForSale().catch((error) =>
       console.error("Error while getting crowdsale contract info: ", error)
     );
-    getUserMaxAllocation().catch((error) =>
-      console.error("Error while getting crowdsale contract info: ", error)
-    );
     getInputTokenValues().catch((error) =>
       console.error("Error while setting input token rates: ", error)
     );
     getCrowdsaleEndTime().catch((error) =>
       console.error("Error while getting crowdsale end time: ", error)
     );
-  }, [
-    getCrowdsaleEndTime,
-    getInputTokenValues,
-    getTokensRemainingForSale,
-    getUserMaxAllocation,
-  ]);
+  }, [getCrowdsaleEndTime, getInputTokenValues, getTokensRemainingForSale]);
 
   useEffect(() => {
     if (account) {
@@ -278,6 +265,7 @@ function IVCOPage({ id }: IIVCOPage) {
                     pendingTxn={pendingTxn}
                     setPendingTxn={setPendingTxn}
                     tokensRemaining={tokensRemainingForSale}
+                    handleConnectWalletModalOpen={handleConnectWalletModalOpen}
                   />
                   <ChangeInputTokenRate
                     id={id}
@@ -291,6 +279,7 @@ function IVCOPage({ id }: IIVCOPage) {
                     }
                     pendingTxn={pendingTxn}
                     setPendingTxn={setPendingTxn}
+                    handleConnectWalletModalOpen={handleConnectWalletModalOpen}
                   />
                   <Card>
                     <Button
@@ -350,13 +339,6 @@ function IVCOPage({ id }: IIVCOPage) {
                       </Button>
                     </InputContainer>
                   </Stack>
-                  {false && Number(amount) > Number(maxUserAllocation) && (
-                    <Alert variant="outlined" severity="warning">
-                      Cannot deposit more than {maxUserAllocation}{" "}
-                      {selectedToken.symbol}
-                    </Alert>
-                  )}
-
                   {
                     <FormControl>
                       <InputLabel id={"select-input-token-label"}>
@@ -386,7 +368,8 @@ function IVCOPage({ id }: IIVCOPage) {
                     <Stack direction={"row"} justifyContent={"center"}>
                       <CardSubHeading>You will receive about</CardSubHeading>
                       <CardText style={{ margin: "0 8px" }}>
-                        {selectedToken.tokenRate} {crowdsaleData.token.symbol}
+                        {Number(selectedToken.tokenRate).toFixed(3)}{" "}
+                        {crowdsaleData.token.symbol}
                       </CardText>
                       <CardSubHeading>for</CardSubHeading>
                       <CardSubHeading style={{ margin: "0 8px" }}>
@@ -404,7 +387,10 @@ function IVCOPage({ id }: IIVCOPage) {
                       Invest into {crowdsaleData.token.symbol}
                     </LoadingButton>
                   ) : (
-                    <Button variant={"outlined"} onClick={connectWallet}>
+                    <Button
+                      variant={"outlined"}
+                      onClick={handleConnectWalletModalOpen}
+                    >
                       Connect to Wallet
                     </Button>
                   )}

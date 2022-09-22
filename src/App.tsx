@@ -2,26 +2,43 @@ import React, { useEffect } from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import history from "./routerHistory";
 import Presale from "./views/Presale";
-import useWeb3Config from "./hooks/useWeb3Config";
 import Menu from "./components/Menu";
-import { MAINNET_CHAINID } from './config/index';
-import getNodeUrl from './utils/getRpcUrl';
+import { MAINNET_CHAINID } from "./config";
+import getNodeUrl from "./utils/getRpcUrl";
+import ConnectWalletModal from "./components/ConnectWalletModal";
+import useAuth from "./hooks/useAuth";
 
 function App() {
-  useWeb3Config();
+  const [open, setOpen] = React.useState(false);
+  const { login } = useAuth();
+
+  const handleConnectWalletClose = () => {
+    setOpen(() => false);
+  };
+  const handleConnectWalletOpen = () => {
+    setOpen(() => true);
+  };
+
   useEffect(() => {
-    const checkNetwrok = async () => {
-      if (window && window.ethereum && window.ethereum.networkVersion) {
-        if (window.ethereum.networkVersion !== MAINNET_CHAINID) {
+    const checkNetwork = async () => {
+      if (
+        (window as WindowChain) &&
+        (window as WindowChain).ethereum &&
+        (window as WindowChain).ethereum?.networkVersion
+      ) {
+        if (
+          (window as WindowChain).ethereum?.networkVersion !==
+          MAINNET_CHAINID.toString()
+        ) {
           try {
-            await window.ethereum.request({
+            await (window as WindowChain).ethereum?.request({
               method: "wallet_switchEthereumChain",
               params: [{ chainId: `0x${MAINNET_CHAINID.toString(16)}` }],
             });
             return true;
           } catch (switchError: any) {
             if (switchError.code === 4902) {
-              const rpcUrl = getNodeUrl(MAINNET_CHAINID)
+              const rpcUrl = getNodeUrl(MAINNET_CHAINID);
               // @ts-ignore
               await provider.request({
                 method: "wallet_addEthereumChain",
@@ -45,16 +62,21 @@ function App() {
           }
         }
       }
-    }
-    checkNetwrok()
-  }, [])
+    };
+    checkNetwork();
+  }, []);
 
   return (
     <Router history={history}>
-      <Menu />
+      <ConnectWalletModal
+        login={login}
+        handleClose={handleConnectWalletClose}
+        open={open}
+      />
+      <Menu handleConnectWalletModalOpen={handleConnectWalletOpen} />
       <Switch>
         <Route path="/" exact>
-          <Presale />
+          <Presale handleConnectWalletModalOpen={handleConnectWalletOpen} />
         </Route>
       </Switch>
     </Router>

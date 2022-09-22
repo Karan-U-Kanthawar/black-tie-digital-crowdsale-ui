@@ -3,6 +3,7 @@
 interface WindowChain {
   ethereum?: {
     isMetaMask?: true;
-    request?: (...args: any[]) => void;
+    request: (...args: any[]) => void;
+    networkVersion: string;
   };
 }

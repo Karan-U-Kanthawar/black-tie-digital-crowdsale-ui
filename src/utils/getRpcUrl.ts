@@ -1,3 +1,5 @@
+import { MAINNET_CHAINID } from "../config";
+
 export const nodes = {
   "80001": "https://matic-mumbai.chainstacklabs.com",
   "5": "https://goerli.infura.io/v3/",
@@ -8,9 +10,11 @@ export const nodes = {
 };
 
 const getNodeUrl = (chainId?: number) => {
-  let id = chainId ?? 80001;
-  if (!chainId && window && window.ethereum) {
-    id = window.ethereum.networkVersion;
+  let id = chainId ?? MAINNET_CHAINID;
+  if (!chainId && window && (window as WindowChain).ethereum) {
+    id = Number(
+      (window as WindowChain).ethereum?.networkVersion ?? MAINNET_CHAINID
+    );
   }
   return nodes[id.toString() as keyof typeof nodes];
 };

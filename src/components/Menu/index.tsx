@@ -1,8 +1,20 @@
-import React from "react";
-import { Button, Chip, Container, Stack } from "@mui/material";
+import React, { useEffect } from "react";
+import { Button, Container, Stack } from "@mui/material";
 import styled from "styled-components";
-import useWeb3Config, { truncateAddress } from "../../hooks/useWeb3Config";
 import CompanyLogo from "./companyLogo.svg";
+import useActiveWeb3React from "../../hooks/useActiveWeb3React";
+import useAuth from "../../hooks/useAuth";
+import { connectorLocalStorageKey } from "../ConnectWalletModal";
+import { ConnectorNames } from "../ConnectWalletModal/connectors";
+
+const truncateAddress = (address: string) => {
+  if (!address) return "No Account";
+  const match = address.match(
+    /^(0x[a-zA-Z0-9]{2})[a-zA-Z0-9]+([a-zA-Z0-9]{4})$/
+  );
+  if (!match) return address;
+  return `${match[1]}…${match[2]}`;
+};
 
 const BlackContainer = styled.div`
   background-color: ${(props) => props.theme.palette.background.default};
@@ -22,8 +34,30 @@ const NavigationContainer = styled.nav`
 
 const LogoContainer = styled.div``;
 
-const Menu: React.FC = () => {
-  const { account, connectWallet, disconnect } = useWeb3Config();
+interface IMenu {
+  handleConnectWalletModalOpen: () => void;
+}
+
+const Menu: React.FC<IMenu> = ({ handleConnectWalletModalOpen }) => {
+  const { account } = useActiveWeb3React();
+  const { logout, login } = useAuth();
+
+  const deactivate = () => {
+    logout();
+    window.localStorage.removeItem(connectorLocalStorageKey);
+  };
+
+  useEffect(() => {
+    if (account === null || account === undefined) {
+      const connectorId = window.localStorage.getItem(
+        connectorLocalStorageKey
+      ) as ConnectorNames;
+
+      if (connectorId && connectorId) {
+        login(connectorId);
+      }
+    }
+  }, [account, login]);
 
   return (
     <BlackContainer>
@@ -36,14 +70,16 @@ const Menu: React.FC = () => {
           <Stack justifyContent={"center"}>
             {account ? (
               <Stack direction={"row"} spacing={2}>
-                <Chip
-                  label={`Account : ${truncateAddress(account)}`}
-                  onClick={disconnect}
-                ></Chip>
+                <Button variant={"outlined"} onClick={deactivate}>
+                  {`${truncateAddress(account)}`}
+                </Button>
               </Stack>
             ) : (
               <Stack>
-                <Button variant={"contained"} onClick={connectWallet}>
+                <Button
+                  variant={"contained"}
+                  onClick={handleConnectWalletModalOpen}
+                >
                   Connect to wallet
                 </Button>
               </Stack>

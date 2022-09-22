@@ -5,10 +5,35 @@ BigNumber.config({
   DECIMAL_PLACES: 80,
 });
 
-export const BLACK_TIE_DIGITAL_PRESALE_ID =
-  "0xd7845A6D97Cb997EEf4acAd95ABE20fDAb4fbBc4";
+export const NATIVE_TOKENS = {
+  80001: {
+    name: "MATIC",
+    symbol: "MATIC",
+    decimals: "18",
+  },
+  137: {
+    name: "MATIC",
+    symbol: "MATIC",
+    decimals: "18",
+  },
+  1: {
+    name: "ETH",
+    symbol: "ETH",
+    decimals: "18",
+  },
+  1287: {
+    name: "Glimmer",
+    symbol: "GLMR",
+    decimals: "18",
+  },
+};
 
 export const MAINNET_CHAINID = 137;
+export const SUPPORTED_NETWORK_IDS = [137, 80001];
+
+// crowdsale config
+export const BLACK_TIE_DIGITAL_PRESALE_ID =
+  "0xd7845A6D97Cb997EEf4acAd95ABE20fDAb4fbBc4";
 
 export const crowdsale = {
   owner: "0x138D8d4b749C4113B2d88610302c20bAb282677d",
