@@ -1,12 +1,20 @@
 import React, { useEffect } from "react";
 import { Button, Container, Stack } from "@mui/material";
 import styled from "styled-components";
-import { truncateAddress } from "../../hooks/useWeb3Config";
 import CompanyLogo from "./companyLogo.svg";
 import useActiveWeb3React from "../../hooks/useActiveWeb3React";
 import useAuth from "../../hooks/useAuth";
 import { connectorLocalStorageKey } from "../ConnectWalletModal";
 import { ConnectorNames } from "../ConnectWalletModal/connectors";
+
+const truncateAddress = (address: string) => {
+  if (!address) return "No Account";
+  const match = address.match(
+    /^(0x[a-zA-Z0-9]{2})[a-zA-Z0-9]+([a-zA-Z0-9]{4})$/
+  );
+  if (!match) return address;
+  return `${match[1]}…${match[2]}`;
+};
 
 const BlackContainer = styled.div`
   background-color: ${(props) => props.theme.palette.background.default};
