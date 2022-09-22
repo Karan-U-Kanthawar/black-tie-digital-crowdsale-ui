@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Chip, Container, Stack } from "@mui/material";
 import styled from "styled-components";
 import { truncateAddress } from "../../hooks/useWeb3Config";
 import CompanyLogo from "./companyLogo.svg";
 import useActiveWeb3React from "../../hooks/useActiveWeb3React";
 import useAuth from "../../hooks/useAuth";
+import { connectorLocalStorageKey } from "../ConnectWalletModal";
+import { ConnectorNames } from "../ConnectWalletModal/connectors";
 
 const BlackContainer = styled.div`
   background-color: ${(props) => props.theme.palette.background.default};
@@ -30,7 +32,19 @@ interface IMenu {
 
 const Menu: React.FC<IMenu> = ({ handleConnectWalletModalOpen }) => {
   const { account } = useActiveWeb3React();
-  const { logout } = useAuth();
+  const { logout, login } = useAuth();
+
+  useEffect(() => {
+    if (account === null || account === undefined) {
+      const connectorId = window.localStorage.getItem(
+        connectorLocalStorageKey
+      ) as ConnectorNames;
+
+      if (connectorId && connectorId) {
+        login(connectorId);
+      }
+    }
+  }, [account, login]);
 
   return (
     <BlackContainer>
