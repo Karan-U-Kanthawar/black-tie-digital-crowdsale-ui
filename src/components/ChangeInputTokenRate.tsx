@@ -48,7 +48,10 @@ const ChangeInputTokenRate = ({
   const handleUpdateInputTokenRate = async () => {
     setPendingTxn(true);
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const provider = new ethers.providers.Web3Provider(
+        // @ts-ignore
+        (window as WindowChain).ethereum
+      );
       const signer = provider.getSigner();
       const crowdSaleContract = await new Contract(id, crowdsaleAbi, signer);
 

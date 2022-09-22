@@ -146,7 +146,10 @@ function IVCOPage({ id, handleConnectWalletModalOpen }: IIVCOPage) {
     try {
       if (!account) return;
       setPendingTxn(() => true);
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const provider = new ethers.providers.Web3Provider(
+        //  @ts-ignore
+        (window as WindowChain).ethereum
+      );
       const signer = provider.getSigner();
       const crowdSaleContract = await new Contract(id, crowdsaleAbi, signer);
       const endingCrowdsale = await crowdSaleContract.endCrowdsale();
@@ -168,7 +171,10 @@ function IVCOPage({ id, handleConnectWalletModalOpen }: IIVCOPage) {
     if (account) {
       try {
         setPendingTxn(true);
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const provider = new ethers.providers.Web3Provider(
+          //  @ts-ignore
+          (window as WindowChain).ethereum
+        );
         const signer = provider.getSigner();
         const erc20ContractWithSigner = await new Contract(
           selectedToken.address,

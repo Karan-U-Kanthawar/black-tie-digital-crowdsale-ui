@@ -1,5 +1,4 @@
 import React from "react";
-import { CustomWeb3Provider } from "./hooks/useWeb3Config";
 import { createWeb3ReactRoot, Web3ReactProvider } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
 
@@ -13,7 +12,7 @@ const Providers: React.FC = ({ children }) => {
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
       <Web3ProviderNetwork getLibrary={getLibrary}>
-        <CustomWeb3Provider>{children}</CustomWeb3Provider>
+        {children}
       </Web3ProviderNetwork>
     </Web3ReactProvider>
   );

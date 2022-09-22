@@ -11,8 +11,10 @@ export const nodes = {
 
 const getNodeUrl = (chainId?: number) => {
   let id = chainId ?? MAINNET_CHAINID;
-  if (!chainId && window && window.ethereum) {
-    id = window.ethereum.networkVersion;
+  if (!chainId && window && (window as WindowChain).ethereum) {
+    id = Number(
+      (window as WindowChain).ethereum?.networkVersion ?? MAINNET_CHAINID
+    );
   }
   return nodes[id.toString() as keyof typeof nodes];
 };

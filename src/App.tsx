@@ -21,10 +21,17 @@ function App() {
 
   useEffect(() => {
     const checkNetwork = async () => {
-      if (window && window.ethereum && window.ethereum.networkVersion) {
-        if (window.ethereum.networkVersion !== MAINNET_CHAINID) {
+      if (
+        (window as WindowChain) &&
+        (window as WindowChain).ethereum &&
+        (window as WindowChain).ethereum?.networkVersion
+      ) {
+        if (
+          (window as WindowChain).ethereum?.networkVersion !==
+          MAINNET_CHAINID.toString()
+        ) {
           try {
-            await window.ethereum.request({
+            await (window as WindowChain).ethereum?.request({
               method: "wallet_switchEthereumChain",
               params: [{ chainId: `0x${MAINNET_CHAINID.toString(16)}` }],
             });
