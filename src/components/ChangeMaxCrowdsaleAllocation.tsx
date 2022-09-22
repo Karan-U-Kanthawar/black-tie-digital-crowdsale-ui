@@ -3,7 +3,6 @@ import { Card, CardSubHeading, CardText } from "../styles/CardStyles";
 import { Button, Stack, TextField } from "@mui/material";
 import { crowdsale } from "../config";
 import { InputContainer } from "../views/Presale/IVCOPage";
-import useWeb3Config from "../hooks/useWeb3Config";
 import { ethers } from "ethers";
 import { Contract } from "@ethersproject/contracts";
 import crowdsaleAbi from "../config/constants/abi/crowdsale.json";
@@ -16,6 +15,7 @@ const ChangeMaxCrowdsaleAllocation = ({
   pendingTxn,
   setPendingTxn,
   tokensRemaining,
+  handleConnectWalletModalOpen,
 }: {
   id: string;
   account: string;
@@ -23,9 +23,9 @@ const ChangeMaxCrowdsaleAllocation = ({
   pendingTxn: boolean;
   setPendingTxn: React.Dispatch<React.SetStateAction<boolean>>;
   tokensRemaining: string;
+  handleConnectWalletModalOpen: () => void;
 }) => {
   const [newCrowdsaleAllocation, setNewCrowdsaleAllocation] = useState("0");
-  const { connectWallet } = useWeb3Config();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewCrowdsaleAllocation(event.target.value);
@@ -103,7 +103,7 @@ const ChangeMaxCrowdsaleAllocation = ({
               Update max crowdsale allocation for {crowdsaleData.token.symbol}
             </Button>
           ) : (
-            <Button variant={"outlined"} onClick={connectWallet}>
+            <Button variant={"outlined"} onClick={handleConnectWalletModalOpen}>
               Connect to Wallet
             </Button>
           )}

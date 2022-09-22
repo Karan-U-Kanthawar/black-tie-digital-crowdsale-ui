@@ -19,7 +19,6 @@ import {
   getERC20Contract,
 } from "../../utils/contractHelpers";
 import { allowedInputTokens, crowdsale } from "../../config";
-import useWeb3Config from "../../hooks/useWeb3Config";
 import HeroCard from "../../components/HeroCard";
 import { Card, CardSubHeading, CardText } from "../../styles/CardStyles";
 import { Contract } from "@ethersproject/contracts";
@@ -27,6 +26,7 @@ import erc20Abi from "../../config/constants/abi/erc20.json";
 import crowdsaleAbi from "../../config/constants/abi/crowdsale.json";
 import ChangeInputTokenRate from "../../components/ChangeInputTokenRate";
 import ChangeMaxCrowdsaleAllocation from "../../components/ChangeMaxCrowdsaleAllocation";
+import useActiveWeb3React from "../../hooks/useActiveWeb3React";
 
 export const InputContainer = styled.div`
   position: relative;
@@ -34,13 +34,14 @@ export const InputContainer = styled.div`
 
 interface IIVCOPage {
   id: string;
+  handleConnectWalletModalOpen: () => void;
 }
 
 const crowdsaleData = crowdsale;
 const allowedInputTokensData = allowedInputTokens;
 
-function IVCOPage({ id }: IIVCOPage) {
-  const { account, library, connectWallet } = useWeb3Config();
+function IVCOPage({ id, handleConnectWalletModalOpen }: IIVCOPage) {
+  const { account, library } = useActiveWeb3React();
   const [
     allowedInputTokensWithRateAndBalance,
     setAllowedInputTokensWithRateAndBalance,
@@ -258,6 +259,7 @@ function IVCOPage({ id }: IIVCOPage) {
                     pendingTxn={pendingTxn}
                     setPendingTxn={setPendingTxn}
                     tokensRemaining={tokensRemainingForSale}
+                    handleConnectWalletModalOpen={handleConnectWalletModalOpen}
                   />
                   <ChangeInputTokenRate
                     id={id}
@@ -271,6 +273,7 @@ function IVCOPage({ id }: IIVCOPage) {
                     }
                     pendingTxn={pendingTxn}
                     setPendingTxn={setPendingTxn}
+                    handleConnectWalletModalOpen={handleConnectWalletModalOpen}
                   />
                   <Card>
                     <Button
@@ -377,7 +380,10 @@ function IVCOPage({ id }: IIVCOPage) {
                       Invest into {crowdsaleData.token.symbol}
                     </LoadingButton>
                   ) : (
-                    <Button variant={"outlined"} onClick={connectWallet}>
+                    <Button
+                      variant={"outlined"}
+                      onClick={handleConnectWalletModalOpen}
+                    >
                       Connect to Wallet
                     </Button>
                   )}

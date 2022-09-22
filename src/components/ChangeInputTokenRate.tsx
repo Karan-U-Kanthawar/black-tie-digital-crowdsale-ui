@@ -12,7 +12,6 @@ import {
 } from "@mui/material";
 import { allowedInputTokens, crowdsale } from "../config";
 import { InputContainer } from "../views/Presale/IVCOPage";
-import useWeb3Config from "../hooks/useWeb3Config";
 import { ethers } from "ethers";
 import { Contract } from "@ethersproject/contracts";
 import crowdsaleAbi from "../config/constants/abi/crowdsale.json";
@@ -27,6 +26,7 @@ const ChangeInputTokenRate = ({
   pendingTxn,
   setPendingTxn,
   id,
+  handleConnectWalletModalOpen,
 }: {
   id: string;
   account: string;
@@ -37,9 +37,9 @@ const ChangeInputTokenRate = ({
   allowedInputTokensWithRateAndBalance: typeof allowedInputTokens;
   pendingTxn: boolean;
   setPendingTxn: React.Dispatch<React.SetStateAction<boolean>>;
+  handleConnectWalletModalOpen: () => void;
 }) => {
   const [newInputTokenRate, setNewInputTokenRate] = useState("0");
-  const { connectWallet } = useWeb3Config();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewInputTokenRate(event.target.value);
@@ -142,7 +142,7 @@ const ChangeInputTokenRate = ({
               Update token rate for {selectedToken.symbol}
             </Button>
           ) : (
-            <Button variant={"outlined"} onClick={connectWallet}>
+            <Button variant={"outlined"} onClick={handleConnectWalletModalOpen}>
               Connect to Wallet
             </Button>
           )}

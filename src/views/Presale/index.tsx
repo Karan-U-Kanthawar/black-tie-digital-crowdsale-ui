@@ -11,11 +11,18 @@ const BlackContainer = styled.div`
 
 const StyledContainer = styled(Container)``;
 
-const Presale: React.FC = () => {
+const Presale = ({
+  handleConnectWalletModalOpen,
+}: {
+  handleConnectWalletModalOpen: () => void;
+}) => {
   return (
     <BlackContainer>
       <StyledContainer>
-        <IVCOPage id={BLACK_TIE_DIGITAL_PRESALE_ID} />
+        <IVCOPage
+          id={BLACK_TIE_DIGITAL_PRESALE_ID}
+          handleConnectWalletModalOpen={handleConnectWalletModalOpen}
+        />
       </StyledContainer>
     </BlackContainer>
   );

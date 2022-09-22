@@ -69,7 +69,7 @@ function App() {
       <Menu handleConnectWalletModalOpen={handleConnectWalletOpen} />
       <Switch>
         <Route path="/" exact>
-          <Presale />
+          <Presale handleConnectWalletModalOpen={handleConnectWalletOpen} />
         </Route>
       </Switch>
     </Router>
