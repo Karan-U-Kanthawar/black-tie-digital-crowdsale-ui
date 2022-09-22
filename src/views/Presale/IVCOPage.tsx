@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import BigNumber from "bignumber.js";
 import {
-  Alert,
   Button,
   FormControl,
   Grid,
@@ -47,7 +46,6 @@ function IVCOPage({ id }: IIVCOPage) {
     setAllowedInputTokensWithRateAndBalance,
   ] = useState(allowedInputTokensData);
   const [tokensRemainingForSale, setTokensRemainingForSale] = useState("0");
-  const [maxUserAllocation, setMaxUserAllocation] = useState("100");
   const [userVestedAmount, setUserVestedAmount] = useState("0");
   const [crowdsaleEndTime, setCrowdsaleEndTime] = useState(Date.now() / 1000);
   const [amount, setAmount] = useState("0");
@@ -69,16 +67,6 @@ function IVCOPage({ id }: IIVCOPage) {
     );
 
     setTokensRemainingForSale(tokensRemainingForSaleInEth);
-  }, [id]);
-  //
-  const getUserMaxAllocation = useCallback(async () => {
-    const crowdSaleContract = getCrowdsaleContract(id);
-    const maxUserAllocationInWei = await crowdSaleContract.maxUserAllocation();
-    const maxUserAllocationInEth = ethers.utils.formatEther(
-      maxUserAllocationInWei
-    );
-
-    setMaxUserAllocation(maxUserAllocationInEth);
   }, [id]);
 
   const getInputTokenValues = useCallback(async () => {
@@ -223,21 +211,13 @@ function IVCOPage({ id }: IIVCOPage) {
     getTokensRemainingForSale().catch((error) =>
       console.error("Error while getting crowdsale contract info: ", error)
     );
-    getUserMaxAllocation().catch((error) =>
-      console.error("Error while getting crowdsale contract info: ", error)
-    );
     getInputTokenValues().catch((error) =>
       console.error("Error while setting input token rates: ", error)
     );
     getCrowdsaleEndTime().catch((error) =>
       console.error("Error while getting crowdsale end time: ", error)
     );
-  }, [
-    getCrowdsaleEndTime,
-    getInputTokenValues,
-    getTokensRemainingForSale,
-    getUserMaxAllocation,
-  ]);
+  }, [getCrowdsaleEndTime, getInputTokenValues, getTokensRemainingForSale]);
 
   useEffect(() => {
     if (account) {
@@ -350,13 +330,6 @@ function IVCOPage({ id }: IIVCOPage) {
                       </Button>
                     </InputContainer>
                   </Stack>
-                  {false && Number(amount) > Number(maxUserAllocation) && (
-                    <Alert variant="outlined" severity="warning">
-                      Cannot deposit more than {maxUserAllocation}{" "}
-                      {selectedToken.symbol}
-                    </Alert>
-                  )}
-
                   {
                     <FormControl>
                       <InputLabel id={"select-input-token-label"}>
