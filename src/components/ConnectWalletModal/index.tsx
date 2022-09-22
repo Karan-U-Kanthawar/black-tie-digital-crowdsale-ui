@@ -19,7 +19,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 360,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -46,8 +46,8 @@ const WalletCard: FC<Props> = ({ login, walletConfig, onDismiss }) => {
         );
         onDismiss();
       }}
+      fullWidth
       style={{ marginBottom: "10px" }}
-      key={walletConfig.connectorId}
     >
       <Stack
         width={"100%"}
@@ -72,16 +72,18 @@ const ConnectWalletModal: FC<IStyledModal> = ({ open, handleClose, login }) => {
     >
       <Card
         sx={style}
-        style={{ maxWidth: "500px", justifyContent: "space-between" }}
+        style={{ maxWidth: "500px", justifyContent: "space-around" }}
       >
         <CardHeading>Connect Wallet</CardHeading>
         <Stack flexDirection={"column"}>
           {Connectors.map((connector) => (
-            <WalletCard
-              walletConfig={connector}
-              login={login}
-              onDismiss={handleClose}
-            />
+            <div style={{ width: "100%" }} key={connector.connectorId}>
+              <WalletCard
+                walletConfig={connector}
+                login={login}
+                onDismiss={handleClose}
+              />
+            </div>
           ))}
         </Stack>
       </Card>
