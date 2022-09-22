@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, Chip, Container, Stack } from "@mui/material";
+import { Button, Container, Stack } from "@mui/material";
 import styled from "styled-components";
 import { truncateAddress } from "../../hooks/useWeb3Config";
 import CompanyLogo from "./companyLogo.svg";
@@ -34,6 +34,11 @@ const Menu: React.FC<IMenu> = ({ handleConnectWalletModalOpen }) => {
   const { account } = useActiveWeb3React();
   const { logout, login } = useAuth();
 
+  const deactivate = () => {
+    logout();
+    window.localStorage.removeItem(connectorLocalStorageKey);
+  };
+
   useEffect(() => {
     if (account === null || account === undefined) {
       const connectorId = window.localStorage.getItem(
@@ -57,10 +62,9 @@ const Menu: React.FC<IMenu> = ({ handleConnectWalletModalOpen }) => {
           <Stack justifyContent={"center"}>
             {account ? (
               <Stack direction={"row"} spacing={2}>
-                <Chip
-                  label={`Account : ${truncateAddress(account)}`}
-                  onClick={logout}
-                ></Chip>
+                <Button variant={"outlined"} onClick={deactivate}>
+                  {`${truncateAddress(account)}`}
+                </Button>
               </Stack>
             ) : (
               <Stack>
