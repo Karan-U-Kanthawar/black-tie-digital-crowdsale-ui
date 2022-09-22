@@ -368,7 +368,8 @@ function IVCOPage({ id, handleConnectWalletModalOpen }: IIVCOPage) {
                     <Stack direction={"row"} justifyContent={"center"}>
                       <CardSubHeading>You will receive about</CardSubHeading>
                       <CardText style={{ margin: "0 8px" }}>
-                        {selectedToken.tokenRate} {crowdsaleData.token.symbol}
+                        {Number(selectedToken.tokenRate).toFixed(3)}{" "}
+                        {crowdsaleData.token.symbol}
                       </CardText>
                       <CardSubHeading>for</CardSubHeading>
                       <CardSubHeading style={{ margin: "0 8px" }}>
