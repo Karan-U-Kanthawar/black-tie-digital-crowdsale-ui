@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import history from "./routerHistory";
 import Presale from "./views/Presale";
-import useWeb3Config from "./hooks/useWeb3Config";
 import Menu from "./components/Menu";
 import { MAINNET_CHAINID } from "./config";
 import getNodeUrl from "./utils/getRpcUrl";
@@ -20,7 +19,6 @@ function App() {
     setOpen(() => true);
   };
 
-  useWeb3Config();
   useEffect(() => {
     const checkNetwork = async () => {
       if (window && window.ethereum && window.ethereum.networkVersion) {
