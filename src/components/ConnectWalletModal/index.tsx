@@ -47,6 +47,7 @@ const WalletCard: FC<Props> = ({ login, walletConfig, onDismiss }) => {
         onDismiss();
       }}
       style={{ marginBottom: "10px" }}
+      key={walletConfig.connectorId}
     >
       <Stack
         width={"100%"}
