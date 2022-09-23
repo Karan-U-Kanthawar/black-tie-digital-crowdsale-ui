@@ -196,16 +196,24 @@ function IVCOPage({ id, handleConnectWalletModalOpen }: IIVCOPage) {
             inputTokenAmountInWei.toString()
           )
         ) {
-          const approvalTx = await erc20ContractWithSigner.approve(
+          const approvalTxn = await erc20ContractWithSigner.approve(
             id,
             inputTokenAmountInWei
           );
-          await approvalTx.wait();
+          await approvalTxn.wait();
         }
-        await crowdSaleContract.purchaseToken(
+        const purchaseTxn = await crowdSaleContract.purchaseToken(
           selectedToken.address,
           inputTokenAmountInWei
         );
+        await purchaseTxn.wait();
+        setTimeout(async () => {
+          const vestedAmountInWei = await crowdSaleContract.vestedAmount(
+            account
+          );
+          const vestedAmountInEth = ethers.utils.formatEther(vestedAmountInWei);
+          setUserVestedAmount(() => vestedAmountInEth);
+        }, 20000);
         setPendingTxn(false);
       } catch (error) {
         setPendingTxn(false);
