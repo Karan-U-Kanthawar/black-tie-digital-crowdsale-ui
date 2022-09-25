@@ -27,6 +27,7 @@ import crowdsaleAbi from "../../config/constants/abi/crowdsale.json";
 import ChangeInputTokenRate from "../../components/ChangeInputTokenRate";
 import ChangeMaxCrowdsaleAllocation from "../../components/ChangeMaxCrowdsaleAllocation";
 import useActiveWeb3React from "../../hooks/useActiveWeb3React";
+import StyledModal from "../../components/StyledModal";
 
 export const InputContainer = styled.div`
   position: relative;
@@ -57,6 +58,14 @@ function IVCOPage({ id, handleConnectWalletModalOpen }: IIVCOPage) {
   const [showSelectedToken, setShowSelectedToken] = useState<string>(
     allowedInputTokensWithRateAndBalance[0].symbol
   );
+  const [purchasePending, setPurchasePending] = useState({
+    loading: false,
+    success: false,
+    failure: false,
+  });
+  const [openPurchaseModal, setOpenPurchaseModal] = useState(false);
+  const handleOpenPurchaseModal = () => setOpenPurchaseModal(true);
+  const handleClosePurchaseModal = () => setOpenPurchaseModal(false);
 
   // functions querying the contract
   const getTokensRemainingForSale = useCallback(async () => {
@@ -170,7 +179,8 @@ function IVCOPage({ id, handleConnectWalletModalOpen }: IIVCOPage) {
   const purchaseToken = async () => {
     if (account) {
       try {
-        setPendingTxn(true);
+        handleOpenPurchaseModal();
+        setPurchasePending({ loading: true, success: false, failure: false });
         const provider = new ethers.providers.Web3Provider(
           //  @ts-ignore
           (window as WindowChain).ethereum
@@ -196,19 +206,27 @@ function IVCOPage({ id, handleConnectWalletModalOpen }: IIVCOPage) {
             inputTokenAmountInWei.toString()
           )
         ) {
-          const approvalTx = await erc20ContractWithSigner.approve(
+          const approvalTxn = await erc20ContractWithSigner.approve(
             id,
             inputTokenAmountInWei
           );
-          await approvalTx.wait();
+          await approvalTxn.wait();
         }
-        await crowdSaleContract.purchaseToken(
+        const purchaseTxn = await crowdSaleContract.purchaseToken(
           selectedToken.address,
           inputTokenAmountInWei
         );
-        setPendingTxn(false);
+        await purchaseTxn.wait();
+        setTimeout(async () => {
+          const vestedAmountInWei = await crowdSaleContract.vestedAmount(
+            account
+          );
+          const vestedAmountInEth = ethers.utils.formatEther(vestedAmountInWei);
+          setUserVestedAmount(() => vestedAmountInEth);
+        }, 20000);
+        setPurchasePending({ loading: false, success: true, failure: false });
       } catch (error) {
-        setPendingTxn(false);
+        setPurchasePending({ loading: false, success: false, failure: true });
         console.error("Error while trying to purchase token: ", error);
       }
     }
@@ -252,6 +270,12 @@ function IVCOPage({ id, handleConnectWalletModalOpen }: IIVCOPage) {
             crowdsaleData={crowdsaleData}
             totalSupply={tokensRemainingForSale}
           />
+          <StyledModal
+            open={openPurchaseModal}
+            handleClose={handleClosePurchaseModal}
+            purchasePending={purchasePending}
+          />
+
           {new BigNumber(crowdsaleEndTime).isGreaterThanOrEqualTo(
             Date.now() / 1000
           ) || new BigNumber(crowdsaleEndTime).isEqualTo(0) ? (
