@@ -27,8 +27,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts --openssl-legacy-provider build",
-    "build:local": "react-scripts --openssl-legacy-provider  build",
+    "build": "react-scripts build",
+    "build:local": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "postinstall": "yarn run typechain",
