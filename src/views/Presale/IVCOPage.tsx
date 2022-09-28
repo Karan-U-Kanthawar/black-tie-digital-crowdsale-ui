@@ -32,6 +32,7 @@ import ChangeInputTokenRate from "../../components/ChangeInputTokenRate";
 import ChangeMaxCrowdsaleAllocation from "../../components/ChangeMaxCrowdsaleAllocation";
 import useActiveWeb3React from "../../hooks/useActiveWeb3React";
 import StyledModal from "../../components/StyledModal";
+import ChangeMaxUserAllocation from "../../components/ChangeMaxUserAllocation";
 
 export const InputContainer = styled.div`
   position: relative;
@@ -52,6 +53,7 @@ function IVCOPage({ id, handleConnectWalletModalOpen }: IIVCOPage) {
     setAllowedInputTokensWithRateAndBalance,
   ] = useState(allowedInputTokensData);
   const [tokensRemainingForSale, setTokensRemainingForSale] = useState("0");
+  const [currMaxUserAllocation, setCurrMaxUserAllocation] = useState("0");
   const [userVestedAmount, setUserVestedAmount] = useState("0");
   const [crowdsaleEndTime, setCrowdsaleEndTime] = useState(Date.now() / 1000);
   const [amount, setAmount] = useState("0");
@@ -81,6 +83,16 @@ function IVCOPage({ id, handleConnectWalletModalOpen }: IIVCOPage) {
     );
 
     setTokensRemainingForSale(tokensRemainingForSaleInEth);
+  }, [id]);
+
+  const getCurrMaxUserAllocation = useCallback(async () => {
+    const crowdSaleContract = getCrowdsaleContract(id);
+    const maxUserAllocationInWei = await crowdSaleContract.maxUserAllocation();
+    const maxUserAllocationInEth = ethers.utils.formatEther(
+      maxUserAllocationInWei
+    );
+
+    setCurrMaxUserAllocation(maxUserAllocationInEth);
   }, [id]);
 
   const getInputTokenValues = useCallback(async () => {
@@ -240,13 +252,21 @@ function IVCOPage({ id, handleConnectWalletModalOpen }: IIVCOPage) {
     getTokensRemainingForSale().catch((error) =>
       console.error("Error while getting crowdsale contract info: ", error)
     );
+    getCurrMaxUserAllocation().catch((error) =>
+      console.error("Error while getting max user allocation: ", error)
+    );
     getInputTokenValues().catch((error) =>
       console.error("Error while setting input token rates: ", error)
     );
     getCrowdsaleEndTime().catch((error) =>
       console.error("Error while getting crowdsale end time: ", error)
     );
-  }, [getCrowdsaleEndTime, getInputTokenValues, getTokensRemainingForSale]);
+  }, [
+    getCrowdsaleEndTime,
+    getCurrMaxUserAllocation,
+    getInputTokenValues,
+    getTokensRemainingForSale,
+  ]);
 
   useEffect(() => {
     if (account) {
@@ -293,6 +313,15 @@ function IVCOPage({ id, handleConnectWalletModalOpen }: IIVCOPage) {
                     pendingTxn={pendingTxn}
                     setPendingTxn={setPendingTxn}
                     tokensRemaining={tokensRemainingForSale}
+                    handleConnectWalletModalOpen={handleConnectWalletModalOpen}
+                  />
+                  <ChangeMaxUserAllocation
+                    id={id}
+                    account={account}
+                    crowdsaleData={crowdsaleData}
+                    pendingTxn={pendingTxn}
+                    setPendingTxn={setPendingTxn}
+                    currMaxUserAllocation={currMaxUserAllocation}
                     handleConnectWalletModalOpen={handleConnectWalletModalOpen}
                   />
                   <ChangeInputTokenRate

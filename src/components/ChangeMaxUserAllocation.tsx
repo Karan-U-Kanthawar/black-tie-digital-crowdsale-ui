@@ -8,13 +8,13 @@ import { Contract } from "@ethersproject/contracts";
 import crowdsaleAbi from "../config/constants/abi/crowdsale.json";
 import BigNumber from "bignumber.js";
 
-const ChangeMaxCrowdsaleAllocation = ({
+const ChangeMaxUserAllocation = ({
   id,
   account,
   crowdsaleData,
   pendingTxn,
   setPendingTxn,
-  tokensRemaining,
+  currMaxUserAllocation,
   handleConnectWalletModalOpen,
 }: {
   id: string;
@@ -22,16 +22,16 @@ const ChangeMaxCrowdsaleAllocation = ({
   crowdsaleData: typeof crowdsale;
   pendingTxn: boolean;
   setPendingTxn: React.Dispatch<React.SetStateAction<boolean>>;
-  tokensRemaining: string;
+  currMaxUserAllocation: string;
   handleConnectWalletModalOpen: () => void;
 }) => {
-  const [newCrowdsaleAllocation, setNewCrowdsaleAllocation] = useState("0");
+  const [newMaxUserAllocation, setNewMaxUserAllocation] = useState("0");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNewCrowdsaleAllocation(event.target.value);
+    setNewMaxUserAllocation(event.target.value);
   };
 
-  const handleUpdateMaxCrowdsaleAllocation = async () => {
+  const handleUpdateMaxUserAllocation = async () => {
     setPendingTxn(true);
     try {
       const provider = new ethers.providers.Web3Provider(
@@ -41,22 +41,19 @@ const ChangeMaxCrowdsaleAllocation = ({
       const signer = provider.getSigner();
       const crowdSaleContract = await new Contract(id, crowdsaleAbi, signer);
 
-      const newCrowdsaleAllocationInWei = new BigNumber(newCrowdsaleAllocation)
+      const newMaxUserAllocationInWei = new BigNumber(newMaxUserAllocation)
         .multipliedBy(new BigNumber(10).pow(crowdsale.token.decimals))
         .toFixed();
 
-      const txn = await crowdSaleContract.updateMaxCrowdsaleAllocation(
-        newCrowdsaleAllocationInWei
+      const txn = await crowdSaleContract.updateMaxUserAllocation(
+        newMaxUserAllocationInWei
       );
 
       txn.wait();
       setPendingTxn(false);
     } catch (err) {
       setPendingTxn(false);
-      console.error(
-        "Error while updating the maximum crowdsale allocation: ",
-        err
-      );
+      console.error("Error while updating the maximum user allocation: ", err);
     }
   };
 
@@ -64,20 +61,20 @@ const ChangeMaxCrowdsaleAllocation = ({
     <>
       <Card>
         <Stack rowGap={3}>
-          <CardText>Change Max Crowdsale Allocation</CardText>
+          <CardText>Change Max User Allocation</CardText>
           {account && (
             <>
               <Stack direction={"row"} justifyContent={"center"}>
-                <CardSubHeading>Current allocation: </CardSubHeading>
+                <CardSubHeading>Current user allocation: </CardSubHeading>
                 <CardText style={{ margin: "0 8px" }}>
-                  {Number(tokensRemaining).toFixed(ROUND_OFF_DECIMALS_TO)}{" "}
+                  {Number(currMaxUserAllocation).toFixed(ROUND_OFF_DECIMALS_TO)}{" "}
                   {crowdsaleData.token.symbol}
                 </CardText>
               </Stack>
               <Stack direction={"row"} justifyContent={"center"}>
-                <CardSubHeading>New token rate: </CardSubHeading>
+                <CardSubHeading>New user allocation: </CardSubHeading>
                 <CardText style={{ margin: "0 8px" }}>
-                  {newCrowdsaleAllocation} {crowdsaleData.token.symbol}
+                  {newMaxUserAllocation} {crowdsaleData.token.symbol}
                 </CardText>
               </Stack>
             </>
@@ -85,9 +82,9 @@ const ChangeMaxCrowdsaleAllocation = ({
           <Stack>
             <InputContainer>
               <TextField
-                label={"New max crowdsale allocation"}
-                value={newCrowdsaleAllocation}
-                placeholder={"Max crowdsale allocation"}
+                label={"New max user allocation"}
+                value={newMaxUserAllocation}
+                placeholder={"Max user allocation"}
                 variant={"outlined"}
                 onChange={handleInputChange}
                 size={"medium"}
@@ -101,9 +98,9 @@ const ChangeMaxCrowdsaleAllocation = ({
             <Button
               variant={"contained"}
               disabled={pendingTxn}
-              onClick={handleUpdateMaxCrowdsaleAllocation}
+              onClick={handleUpdateMaxUserAllocation}
             >
-              Update max crowdsale allocation
+              Update max user allocation
             </Button>
           ) : (
             <Button variant={"outlined"} onClick={handleConnectWalletModalOpen}>
@@ -117,4 +114,4 @@ const ChangeMaxCrowdsaleAllocation = ({
   );
 };
 
-export default ChangeMaxCrowdsaleAllocation;
+export default ChangeMaxUserAllocation;
