@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Card, CardSubHeading, CardText } from "../styles/CardStyles";
 import { Button, Stack, TextField } from "@mui/material";
-import { crowdsale } from "../config";
+import { crowdsale, ROUND_OFF_DECIMALS_TO } from "../config";
 import { InputContainer } from "../views/Presale/IVCOPage";
 import { ethers } from "ethers";
 import { Contract } from "@ethersproject/contracts";
@@ -70,7 +70,8 @@ const ChangeMaxCrowdsaleAllocation = ({
               <Stack direction={"row"} justifyContent={"center"}>
                 <CardSubHeading>Current allocation: </CardSubHeading>
                 <CardText style={{ margin: "0 8px" }}>
-                  {tokensRemaining} {crowdsaleData.token.symbol}
+                  {Number(tokensRemaining).toFixed(ROUND_OFF_DECIMALS_TO)}{" "}
+                  {crowdsaleData.token.symbol}
                 </CardText>
               </Stack>
               <Stack direction={"row"} justifyContent={"center"}>

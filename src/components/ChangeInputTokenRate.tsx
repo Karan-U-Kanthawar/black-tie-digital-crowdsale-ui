@@ -10,7 +10,11 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { allowedInputTokens, crowdsale } from "../config";
+import {
+  allowedInputTokens,
+  crowdsale,
+  ROUND_OFF_DECIMALS_TO,
+} from "../config";
 import { InputContainer } from "../views/Presale/IVCOPage";
 import { ethers } from "ethers";
 import { Contract } from "@ethersproject/contracts";
@@ -82,7 +86,10 @@ const ChangeInputTokenRate = ({
               <Stack direction={"row"} justifyContent={"center"}>
                 <CardSubHeading>Current token rate: </CardSubHeading>
                 <CardText style={{ margin: "0 8px" }}>
-                  {selectedToken.tokenRate} {crowdsaleData.token.symbol}
+                  {Number(selectedToken.tokenRate).toFixed(
+                    ROUND_OFF_DECIMALS_TO
+                  )}{" "}
+                  {crowdsaleData.token.symbol}
                 </CardText>
                 <CardSubHeading>for</CardSubHeading>
                 <CardSubHeading style={{ margin: "0 8px" }}>

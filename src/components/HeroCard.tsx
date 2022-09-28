@@ -4,7 +4,7 @@ import SocialsContainer from "./SocialsContainer";
 import React from "react";
 import { Stack } from "@mui/material";
 import styled from "styled-components";
-import { crowdsale } from "../config";
+import { crowdsale, ROUND_OFF_DECIMALS_TO } from "../config";
 
 const ImgContainer = styled.div``;
 const Title = styled.h1`
@@ -84,7 +84,9 @@ const HeroCard = ({
         <Stack direction={"row"}>
           <TextKey>Total Supply : </TextKey>
           <TextValue>
-            {convertToInternationalCurrencySystem(totalSupply)}
+            {convertToInternationalCurrencySystem(
+              Number(totalSupply).toFixed(ROUND_OFF_DECIMALS_TO)
+            )}
           </TextValue>
         </Stack>
       </Stack>

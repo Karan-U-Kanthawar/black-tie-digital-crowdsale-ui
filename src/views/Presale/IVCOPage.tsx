@@ -18,7 +18,11 @@ import {
   getCrowdsaleContract,
   getERC20Contract,
 } from "../../utils/contractHelpers";
-import { allowedInputTokens, crowdsale } from "../../config";
+import {
+  allowedInputTokens,
+  crowdsale,
+  ROUND_OFF_DECIMALS_TO,
+} from "../../config";
 import HeroCard from "../../components/HeroCard";
 import { Card, CardSubHeading, CardText } from "../../styles/CardStyles";
 import { Contract } from "@ethersproject/contracts";
@@ -334,7 +338,9 @@ function IVCOPage({ id, handleConnectWalletModalOpen }: IIVCOPage) {
                         >
                           <CardSubHeading>Balance</CardSubHeading>
                           <CardText>
-                            {parseFloat(selectedToken.userBalance).toFixed(3)}{" "}
+                            {parseFloat(selectedToken.userBalance).toFixed(
+                              ROUND_OFF_DECIMALS_TO
+                            )}{" "}
                             {selectedToken.symbol}
                           </CardText>
                         </Stack>
@@ -392,7 +398,9 @@ function IVCOPage({ id, handleConnectWalletModalOpen }: IIVCOPage) {
                     <Stack direction={"row"} justifyContent={"center"}>
                       <CardSubHeading>You will receive about</CardSubHeading>
                       <CardText style={{ margin: "0 8px" }}>
-                        {Number(selectedToken.tokenRate).toFixed(3)}{" "}
+                        {Number(selectedToken.tokenRate).toFixed(
+                          ROUND_OFF_DECIMALS_TO
+                        )}{" "}
                         {crowdsaleData.token.symbol}
                       </CardText>
                       <CardSubHeading>for</CardSubHeading>
@@ -437,7 +445,9 @@ function IVCOPage({ id, handleConnectWalletModalOpen }: IIVCOPage) {
                 <Stack justifyContent={"center"} alignItems={"center"} gap={1}>
                   <CardSubHeading>Total tokens bought</CardSubHeading>
                   <Stack direction={"row"} alignItems={"center"} gap={1}>
-                    <CardText>{Number(userVestedAmount).toFixed(3)}</CardText>
+                    <CardText>
+                      {Number(userVestedAmount).toFixed(ROUND_OFF_DECIMALS_TO)}
+                    </CardText>
                     <CardSubHeading>
                       {crowdsaleData.token.symbol}
                     </CardSubHeading>
