@@ -33,6 +33,7 @@ import ChangeMaxCrowdsaleAllocation from "../../components/ChangeMaxCrowdsaleAll
 import useActiveWeb3React from "../../hooks/useActiveWeb3React";
 import StyledModal from "../../components/StyledModal";
 import ChangeMaxUserAllocation from "../../components/ChangeMaxUserAllocation";
+import WithdrawFunds from "../../components/WithdrawFunds";
 
 export const InputContainer = styled.div`
   position: relative;
@@ -306,6 +307,15 @@ function IVCOPage({ id, handleConnectWalletModalOpen }: IIVCOPage) {
             <>
               {crowdsaleData.owner === account && (
                 <>
+                  <WithdrawFunds
+                    id={id}
+                    account={account}
+                    pendingTxn={pendingTxn}
+                    setPendingTxn={setPendingTxn}
+                    handleConnectWalletModalOpen={handleConnectWalletModalOpen}
+                    crowdsaleData={crowdsaleData}
+                    tokensRemaining={tokensRemainingForSale}
+                  />
                   <ChangeMaxCrowdsaleAllocation
                     id={id}
                     account={account}
