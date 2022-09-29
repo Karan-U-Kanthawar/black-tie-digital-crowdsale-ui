@@ -50,6 +50,7 @@ const allowedInputTokensData = allowedInputTokens;
 
 function IVCOPage({ id, handleConnectWalletModalOpen }: IIVCOPage) {
   const { account, library } = useActiveWeb3React();
+  const [ownerAddress, setOwnerAddress] = useState(crowdsale.owner);
   const [
     allowedInputTokensWithRateAndBalance,
     setAllowedInputTokensWithRateAndBalance,
@@ -85,6 +86,12 @@ function IVCOPage({ id, handleConnectWalletModalOpen }: IIVCOPage) {
     );
 
     setTokensRemainingForSale(tokensRemainingForSaleInEth);
+  }, [id]);
+
+  const getOwner = useCallback(async () => {
+    const crowdSaleContract = getCrowdsaleContract(id);
+    const owner = await crowdSaleContract.owner();
+    setOwnerAddress(owner);
   }, [id]);
 
   const getCurrMaxUserAllocation = useCallback(async () => {
@@ -254,6 +261,9 @@ function IVCOPage({ id, handleConnectWalletModalOpen }: IIVCOPage) {
     getTokensRemainingForSale().catch((error) =>
       console.error("Error while getting crowdsale contract info: ", error)
     );
+    getOwner().catch((error) =>
+      console.error("Error while getting owner address: ", error)
+    );
     getCurrMaxUserAllocation().catch((error) =>
       console.error("Error while getting max user allocation: ", error)
     );
@@ -267,6 +277,7 @@ function IVCOPage({ id, handleConnectWalletModalOpen }: IIVCOPage) {
     getCrowdsaleEndTime,
     getCurrMaxUserAllocation,
     getInputTokenValues,
+    getOwner,
     getTokensRemainingForSale,
   ]);
 
@@ -306,7 +317,7 @@ function IVCOPage({ id, handleConnectWalletModalOpen }: IIVCOPage) {
             Date.now() / 1000
           ) || new BigNumber(crowdsaleEndTime).isEqualTo(0) ? (
             <>
-              {crowdsaleData.owner === account && (
+              {ownerAddress === account && (
                 <>
                   <TransferFunds
                     account={account}
