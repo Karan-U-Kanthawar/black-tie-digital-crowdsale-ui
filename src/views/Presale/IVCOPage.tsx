@@ -464,7 +464,7 @@ function IVCOPage({ id, handleConnectWalletModalOpen }: IIVCOPage) {
                       variant={"contained"}
                       onClick={purchaseToken}
                     >
-                      Invest into {crowdsaleData.token.symbol}
+                      Swap for {crowdsaleData.token.symbol}
                     </LoadingButton>
                   ) : (
                     <Button
