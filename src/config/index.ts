@@ -73,7 +73,7 @@ export const BLACK_TIE_DIGITAL_PRESALE_ID =
   "0xd7845A6D97Cb997EEf4acAd95ABE20fDAb4fbBc4";
 
 export const crowdsale = {
-  owner: "0x138D8d4b749C4113B2d88610302c20bAb282677d",
+  owner: "0x240c439011770253a379e4fcd391761071c06bfb",
   token: {
     address: "0x3c27564e3161bbaA6E7d2f0320fa4BE77AED54da",
     name: "B4REAL",
