@@ -1,5 +1,4 @@
 import CopyToClipboard from "./CopyToClipboard";
-import convertToInternationalCurrencySystem from "../utils/displayCurrency";
 import SocialsContainer from "./SocialsContainer";
 import React from "react";
 import { Stack } from "@mui/material";
@@ -82,11 +81,11 @@ const HeroCard = ({
           <CopyToClipboard toCopy={crowdsaleData.token.address} />
         </Stack>
         <Stack direction={"row"}>
-          <TextKey>Total Supply : </TextKey>
+          <TextKey>Total Available : </TextKey>
           <TextValue>
-            {convertToInternationalCurrencySystem(
-              Number(totalSupply).toFixed(ROUND_OFF_DECIMALS_TO)
-            )}
+            {Number(totalSupply).toLocaleString("en-US", {
+              maximumFractionDigits: ROUND_OFF_DECIMALS_TO,
+            })}
           </TextValue>
         </Stack>
       </Stack>
