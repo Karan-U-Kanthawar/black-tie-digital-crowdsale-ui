@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Card, CardSubHeading, CardText } from "../styles/CardStyles";
+import { CardSubHeading, CardText } from "../styles/CardStyles";
 import { Button, Stack, TextField } from "@mui/material";
 import { crowdsale, ROUND_OFF_DECIMALS_TO } from "../config";
-import { InputContainer } from "../views/Presale/IVCOPage";
+import { InputContainer, OwnerCard } from "../views/Presale/IVCOPage";
 import { ethers } from "ethers";
 import { Contract } from "@ethersproject/contracts";
 import crowdsaleAbi from "../config/constants/abi/crowdsale.json";
@@ -58,59 +58,56 @@ const ChangeMaxUserAllocation = ({
   };
 
   return (
-    <>
-      <Card>
-        <Stack rowGap={3}>
-          <CardText>Change Max User Allocation</CardText>
-          {account && (
-            <>
-              <Stack direction={"row"} justifyContent={"center"}>
-                <CardSubHeading>Current user allocation: </CardSubHeading>
-                <CardText style={{ margin: "0 8px" }}>
-                  {Number(currMaxUserAllocation).toFixed(ROUND_OFF_DECIMALS_TO)}{" "}
-                  {crowdsaleData.token.symbol}
-                </CardText>
-              </Stack>
-              <Stack direction={"row"} justifyContent={"center"}>
-                <CardSubHeading>New user allocation: </CardSubHeading>
-                <CardText style={{ margin: "0 8px" }}>
-                  {newMaxUserAllocation} {crowdsaleData.token.symbol}
-                </CardText>
-              </Stack>
-            </>
-          )}
-          <Stack>
-            <InputContainer>
-              <TextField
-                label={"New max user allocation"}
-                value={newMaxUserAllocation}
-                placeholder={"Max user allocation"}
-                variant={"outlined"}
-                onChange={handleInputChange}
-                size={"medium"}
-                aria-placeholder={"0.0"}
-                fullWidth
-              />
-            </InputContainer>
-          </Stack>
-
-          {account ? (
-            <Button
-              variant={"contained"}
-              disabled={pendingTxn}
-              onClick={handleUpdateMaxUserAllocation}
-            >
-              Update max user allocation
-            </Button>
-          ) : (
-            <Button variant={"outlined"} onClick={handleConnectWalletModalOpen}>
-              Connect to Wallet
-            </Button>
-          )}
+    <OwnerCard>
+      <Stack rowGap={3}>
+        <CardText>Change Max User Allocation</CardText>
+        {account && (
+          <>
+            <Stack direction={"row"} justifyContent={"center"}>
+              <CardSubHeading>Current user allocation: </CardSubHeading>
+              <CardText style={{ margin: "0 8px" }}>
+                {Number(currMaxUserAllocation).toFixed(ROUND_OFF_DECIMALS_TO)}{" "}
+                {crowdsaleData.token.symbol}
+              </CardText>
+            </Stack>
+            <Stack direction={"row"} justifyContent={"center"}>
+              <CardSubHeading>New user allocation: </CardSubHeading>
+              <CardText style={{ margin: "0 8px" }}>
+                {newMaxUserAllocation} {crowdsaleData.token.symbol}
+              </CardText>
+            </Stack>
+          </>
+        )}
+        <Stack>
+          <InputContainer>
+            <TextField
+              label={"New max user allocation"}
+              value={newMaxUserAllocation}
+              placeholder={"Max user allocation"}
+              variant={"outlined"}
+              onChange={handleInputChange}
+              size={"medium"}
+              aria-placeholder={"0.0"}
+              fullWidth
+            />
+          </InputContainer>
         </Stack>
-      </Card>
-      <div></div>
-    </>
+
+        {account ? (
+          <Button
+            variant={"contained"}
+            disabled={pendingTxn}
+            onClick={handleUpdateMaxUserAllocation}
+          >
+            Update max user allocation
+          </Button>
+        ) : (
+          <Button variant={"outlined"} onClick={handleConnectWalletModalOpen}>
+            Connect to Wallet
+          </Button>
+        )}
+      </Stack>
+    </OwnerCard>
   );
 };
 

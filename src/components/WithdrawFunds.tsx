@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Card, CardSubHeading, CardText } from "../styles/CardStyles";
+import { CardSubHeading, CardText } from "../styles/CardStyles";
 import { Button, Stack, TextField } from "@mui/material";
 import { crowdsale, ROUND_OFF_DECIMALS_TO } from "../config";
-import { InputContainer } from "../views/Presale/IVCOPage";
+import { InputContainer, OwnerCard } from "../views/Presale/IVCOPage";
 import { ethers } from "ethers";
 import { Contract } from "@ethersproject/contracts";
 import crowdsaleAbi from "../config/constants/abi/crowdsale.json";
@@ -59,53 +59,50 @@ const WithdrawFunds = ({
   };
 
   return (
-    <>
-      <Card>
-        <Stack rowGap={3}>
-          <CardText>Withdraw funds ({crowdsale.token.symbol})</CardText>
-          {account && (
-            <>
-              <Stack direction={"row"} justifyContent={"center"}>
-                <CardSubHeading>Funds available: </CardSubHeading>
-                <CardText style={{ margin: "0 8px" }}>
-                  {Number(tokensRemaining).toFixed(ROUND_OFF_DECIMALS_TO)}{" "}
-                  {crowdsaleData.token.symbol}
-                </CardText>
-              </Stack>
-            </>
-          )}
-          <Stack>
-            <InputContainer>
-              <TextField
-                label={"Withdraw amount"}
-                value={withdrawAmount}
-                placeholder={"Amount to withdraw"}
-                variant={"outlined"}
-                onChange={handleInputChange}
-                size={"medium"}
-                aria-placeholder={"0.0"}
-                fullWidth
-              />
-            </InputContainer>
-          </Stack>
-
-          {account ? (
-            <Button
-              variant={"contained"}
-              disabled={pendingTxn}
-              onClick={handleWithdraw}
-            >
-              Withdraw funds
-            </Button>
-          ) : (
-            <Button variant={"outlined"} onClick={handleConnectWalletModalOpen}>
-              Connect to Wallet
-            </Button>
-          )}
+    <OwnerCard>
+      <Stack rowGap={3}>
+        <CardText>Withdraw funds ({crowdsale.token.symbol})</CardText>
+        {account && (
+          <>
+            <Stack direction={"row"} justifyContent={"center"}>
+              <CardSubHeading>Funds available: </CardSubHeading>
+              <CardText style={{ margin: "0 8px" }}>
+                {Number(tokensRemaining).toFixed(ROUND_OFF_DECIMALS_TO)}{" "}
+                {crowdsaleData.token.symbol}
+              </CardText>
+            </Stack>
+          </>
+        )}
+        <Stack>
+          <InputContainer>
+            <TextField
+              label={"Withdraw amount"}
+              value={withdrawAmount}
+              placeholder={"Amount to withdraw"}
+              variant={"outlined"}
+              onChange={handleInputChange}
+              size={"medium"}
+              aria-placeholder={"0.0"}
+              fullWidth
+            />
+          </InputContainer>
         </Stack>
-      </Card>
-      <div></div>
-    </>
+
+        {account ? (
+          <Button
+            variant={"contained"}
+            disabled={pendingTxn}
+            onClick={handleWithdraw}
+          >
+            Withdraw funds
+          </Button>
+        ) : (
+          <Button variant={"outlined"} onClick={handleConnectWalletModalOpen}>
+            Connect to Wallet
+          </Button>
+        )}
+      </Stack>
+    </OwnerCard>
   );
 };
 

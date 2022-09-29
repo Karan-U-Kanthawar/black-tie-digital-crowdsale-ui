@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, CardSubHeading, CardText } from "../styles/CardStyles";
+import { CardSubHeading, CardText } from "../styles/CardStyles";
 import {
   Button,
   FormControl,
@@ -15,7 +15,7 @@ import {
   crowdsale,
   ROUND_OFF_DECIMALS_TO,
 } from "../config";
-import { InputContainer } from "../views/Presale/IVCOPage";
+import { InputContainer, OwnerCard } from "../views/Presale/IVCOPage";
 import { ethers } from "ethers";
 import { Contract } from "@ethersproject/contracts";
 import crowdsaleAbi from "../config/constants/abi/crowdsale.json";
@@ -77,89 +77,82 @@ const ChangeInputTokenRate = ({
   };
 
   return (
-    <>
-      <Card>
-        <Stack rowGap={3}>
-          <CardText>Change Input Token Rate</CardText>
-          {account && (
-            <>
-              <Stack direction={"row"} justifyContent={"center"}>
-                <CardSubHeading>Current token rate: </CardSubHeading>
-                <CardText style={{ margin: "0 8px" }}>
-                  {Number(selectedToken.tokenRate).toFixed(
-                    ROUND_OFF_DECIMALS_TO
-                  )}{" "}
-                  {crowdsaleData.token.symbol}
-                </CardText>
-                <CardSubHeading>for</CardSubHeading>
-                <CardSubHeading style={{ margin: "0 8px" }}>
-                  1 {selectedToken.symbol}
-                </CardSubHeading>
-              </Stack>
-              <Stack direction={"row"} justifyContent={"center"}>
-                <CardSubHeading>New token rate: </CardSubHeading>
-                <CardText style={{ margin: "0 8px" }}>
-                  {newInputTokenRate} {crowdsaleData.token.symbol}
-                </CardText>
-                <CardSubHeading>for</CardSubHeading>
-                <CardSubHeading style={{ margin: "0 8px" }}>
-                  1 {selectedToken.symbol}
-                </CardSubHeading>
-              </Stack>
-            </>
-          )}
-          <Stack>
-            <InputContainer>
-              <TextField
-                label={"New Input token rate"}
-                value={newInputTokenRate}
-                placeholder={"Input token rate"}
-                variant={"outlined"}
-                onChange={handleInputChange}
-                size={"medium"}
-                aria-placeholder={"0.0"}
-                fullWidth
-              />
-            </InputContainer>
-          </Stack>
-          {
-            <FormControl>
-              <InputLabel id={"select-input-token-label"}>
-                Input token
-              </InputLabel>
-              <Select
-                labelId="select-input-token-label"
-                id="select-input-token"
-                value={showSelectedToken}
-                onChange={handleShowSelectedToken}
-                label="Input token"
-              >
-                {allowedInputTokensWithRateAndBalance.map((inputToken) => (
-                  <MenuItem value={inputToken.symbol} key={inputToken.address}>
-                    {inputToken.symbol}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          }
-
-          {account ? (
-            <Button
-              variant={"contained"}
-              disabled={pendingTxn}
-              onClick={handleUpdateInputTokenRate}
-            >
-              Update token rate for {selectedToken.symbol}
-            </Button>
-          ) : (
-            <Button variant={"outlined"} onClick={handleConnectWalletModalOpen}>
-              Connect to Wallet
-            </Button>
-          )}
+    <OwnerCard>
+      <Stack rowGap={3}>
+        <CardText>Change Input Token Rate</CardText>
+        {account && (
+          <>
+            <Stack direction={"row"} justifyContent={"center"}>
+              <CardSubHeading>Current token rate: </CardSubHeading>
+              <CardText style={{ margin: "0 8px" }}>
+                {Number(selectedToken.tokenRate).toFixed(ROUND_OFF_DECIMALS_TO)}{" "}
+                {crowdsaleData.token.symbol}
+              </CardText>
+              <CardSubHeading>for</CardSubHeading>
+              <CardSubHeading style={{ margin: "0 8px" }}>
+                1 {selectedToken.symbol}
+              </CardSubHeading>
+            </Stack>
+            <Stack direction={"row"} justifyContent={"center"}>
+              <CardSubHeading>New token rate: </CardSubHeading>
+              <CardText style={{ margin: "0 8px" }}>
+                {newInputTokenRate} {crowdsaleData.token.symbol}
+              </CardText>
+              <CardSubHeading>for</CardSubHeading>
+              <CardSubHeading style={{ margin: "0 8px" }}>
+                1 {selectedToken.symbol}
+              </CardSubHeading>
+            </Stack>
+          </>
+        )}
+        <Stack>
+          <InputContainer>
+            <TextField
+              label={"New Input token rate"}
+              value={newInputTokenRate}
+              placeholder={"Input token rate"}
+              variant={"outlined"}
+              onChange={handleInputChange}
+              size={"medium"}
+              aria-placeholder={"0.0"}
+              fullWidth
+            />
+          </InputContainer>
         </Stack>
-      </Card>
-      <div></div>
-    </>
+        {
+          <FormControl>
+            <InputLabel id={"select-input-token-label"}>Input token</InputLabel>
+            <Select
+              labelId="select-input-token-label"
+              id="select-input-token"
+              value={showSelectedToken}
+              onChange={handleShowSelectedToken}
+              label="Input token"
+            >
+              {allowedInputTokensWithRateAndBalance.map((inputToken) => (
+                <MenuItem value={inputToken.symbol} key={inputToken.address}>
+                  {inputToken.symbol}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        }
+
+        {account ? (
+          <Button
+            variant={"contained"}
+            disabled={pendingTxn}
+            onClick={handleUpdateInputTokenRate}
+          >
+            Update token rate for {selectedToken.symbol}
+          </Button>
+        ) : (
+          <Button variant={"outlined"} onClick={handleConnectWalletModalOpen}>
+            Connect to Wallet
+          </Button>
+        )}
+      </Stack>
+    </OwnerCard>
   );
 };
 
