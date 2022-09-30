@@ -35,11 +35,11 @@ export const SUPPORTED_NETWORK_IDS = [137, 80001];
 // // TESTNET Addresses
 export const MAINNET_CHAINID = 80001;
 export const BLACK_TIE_DIGITAL_PRESALE_ID =
-  "0x32d210761e36CC073c2D38dc7A8c67d65D1C9EF1";
+  "0xE9e57Af61640bD4f34DBFAD4d61896523671Cce1";
 export const crowdsale = {
   owner: "0x4274A49FBeB724D75b8ba7bfC55FC8495A15AD1E",
   token: {
-    address: "0x286881d76b77617e5f5c6bc5a4c0a373ba9d297d",
+    address: "0x625D8DcfAE53C3fba7670b82bF1A7c2C689C416F",
     name: "B4REAL",
     symbol: "B4RE",
     url: "https://cryption-network-local.infura-ipfs.io/ipfs/QmYcftrjFV4qRGixg8FZekc4siPndaQyYX1oJoJ1U9ie2g",
@@ -56,15 +56,15 @@ export const allowedInputTokens = [
     tokenRate: "2.857142857142857",
     userBalance: "0",
   },
-  {
-    name: "USDT",
-    symbol: "USDT",
-    decimals: 6,
-    address: "0xd89a2e56b778aefe719fc86e122b7db752bb6b41",
-    // Get from contract dynamically
-    tokenRate: "2.857142857142857",
-    userBalance: "0",
-  },
+  // {
+  //   name: "USDT",
+  //   symbol: "USDT",
+  //   decimals: 6,
+  //   address: "0xd89a2e56b778aefe719fc86e122b7db752bb6b41",
+  //   // Get from contract dynamically
+  //   tokenRate: "2.857142857142857",
+  //   userBalance: "0",
+  // },
 ];
 
 // export const MAINNET_CHAINID = 137;
