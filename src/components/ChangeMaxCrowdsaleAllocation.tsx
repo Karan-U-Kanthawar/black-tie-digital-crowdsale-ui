@@ -74,7 +74,7 @@ const ChangeMaxCrowdsaleAllocation = ({
               </CardText>
             </Stack>
             <Stack direction={"row"} justifyContent={"center"}>
-              <CardSubHeading>New token rate: </CardSubHeading>
+              <CardSubHeading>New allocation: </CardSubHeading>
               <CardText style={{ margin: "0 8px" }}>
                 {newCrowdsaleAllocation} {crowdsaleData.token.symbol}
               </CardText>
