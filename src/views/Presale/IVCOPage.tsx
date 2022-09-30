@@ -493,7 +493,6 @@ function IVCOPage({ id, handleConnectWalletModalOpen }: IIVCOPage) {
                 crowdsaleData={crowdsaleData}
                 pendingTxn={pendingTxn}
                 setPendingTxn={setPendingTxn}
-                tokensRemaining={tokensRemainingForSale}
                 handleConnectWalletModalOpen={handleConnectWalletModalOpen}
               />
               <WithdrawFunds

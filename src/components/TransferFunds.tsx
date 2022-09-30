@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { CardSubHeading, CardText } from "../styles/CardStyles";
 import { Button, Stack, TextField } from "@mui/material";
 import {
@@ -12,23 +12,23 @@ import { Contract } from "@ethersproject/contracts";
 import erc20Abi from "../config/constants/abi/erc20.json";
 import BigNumber from "bignumber.js";
 import { Erc20 } from "../config/constants/abi/types";
+import { getERC20Contract } from "../utils/contractHelpers";
 
 const TransferFunds = ({
   account,
   crowdsaleData,
   pendingTxn,
   setPendingTxn,
-  tokensRemaining,
   handleConnectWalletModalOpen,
 }: {
   account: string;
   crowdsaleData: typeof crowdsale;
   pendingTxn: boolean;
   setPendingTxn: React.Dispatch<React.SetStateAction<boolean>>;
-  tokensRemaining: string;
   handleConnectWalletModalOpen: () => void;
 }) => {
   const [transferAmount, setTransferAmount] = useState("0");
+  const [transferTokenBalance, setTransferTokenBalance] = useState("0");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTransferAmount(event.target.value);
@@ -65,6 +65,21 @@ const TransferFunds = ({
     }
   };
 
+  const getTransferTokenBalance = useCallback(async () => {
+    const erc20Contract = getERC20Contract(crowdsale.token.address);
+    const balance = await erc20Contract.balanceOf(account);
+    const balanceInEth = new BigNumber(balance.toString())
+      .dividedBy(new BigNumber(10).pow(crowdsale.token.decimals))
+      .toFixed();
+    setTransferTokenBalance(() => balanceInEth);
+  }, [account]);
+
+  useEffect(() => {
+    getTransferTokenBalance().catch((e) =>
+      console.log("Error while fetching transfer token balance: ", e)
+    );
+  }, [getTransferTokenBalance]);
+
   return (
     <OwnerCard>
       <Stack rowGap={3}>
@@ -74,7 +89,7 @@ const TransferFunds = ({
             <Stack direction={"row"} justifyContent={"center"}>
               <CardSubHeading>Funds available: </CardSubHeading>
               <CardText style={{ margin: "0 8px" }}>
-                {Number(tokensRemaining).toFixed(ROUND_OFF_DECIMALS_TO)}{" "}
+                {Number(transferTokenBalance).toFixed(ROUND_OFF_DECIMALS_TO)}{" "}
                 {crowdsaleData.token.symbol}
               </CardText>
             </Stack>
