@@ -501,8 +501,6 @@ function IVCOPage({ id, handleConnectWalletModalOpen }: IIVCOPage) {
                 pendingTxn={pendingTxn}
                 setPendingTxn={setPendingTxn}
                 handleConnectWalletModalOpen={handleConnectWalletModalOpen}
-                crowdsaleData={crowdsaleData}
-                tokensRemaining={tokensRemainingForSale}
               />
               <ChangeMaxCrowdsaleAllocation
                 id={id}
