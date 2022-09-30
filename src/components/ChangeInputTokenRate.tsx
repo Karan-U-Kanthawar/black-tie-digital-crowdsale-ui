@@ -61,7 +61,7 @@ const ChangeInputTokenRate = ({
 
       const inputTokenAmountInWei = ethers.utils.parseUnits(
         newInputTokenRate.toString(),
-        selectedToken.decimals
+        18
       );
 
       await crowdSaleContract.updateInputTokenRate(
