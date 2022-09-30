@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import {
   allowedInputTokens,
+  BLACK_TIE_DIGITAL_PRESALE_ID,
   crowdsale,
   ROUND_OFF_DECIMALS_TO,
 } from "../config";
@@ -77,7 +78,9 @@ const WithdrawFunds = ({
     Promise.all(
       withdrawTokens.map(async (withdrawToken) => {
         const erc20Contract = getERC20Contract(withdrawToken.address);
-        const balance = await erc20Contract.balanceOf(account);
+        const balance = await erc20Contract.balanceOf(
+          BLACK_TIE_DIGITAL_PRESALE_ID
+        );
         return new BigNumber(balance.toString())
           .dividedBy(new BigNumber(10).pow(withdrawToken.decimals))
           .toFixed();
@@ -94,7 +97,7 @@ const WithdrawFunds = ({
       .catch((err) =>
         console.error("Error in Promise.all of getWithdrawTokenValues: ", err)
       );
-  }, [account, withdrawTokensWithBalances]);
+  }, [withdrawTokensWithBalances]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setWithdrawAmount(event.target.value);
